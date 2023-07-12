@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import WorkSpace from './components/WorkSpace';
-import ScheduleSpace from './components/ScheduleSpace';
+import WorkSpace from './components/workSpace/WorkSpace';
+import ScheduleSpace from './components/scheduleSpace/ScheduleSpace';
 
 // 문서의 제목/도입부
 function Header() {
