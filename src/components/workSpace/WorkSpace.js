@@ -9,14 +9,13 @@ import { changeMode  } from './workSpaceSlice';
 function WorkSpace() {
     const dispatch = useDispatch();
     // 작업 모드: toDoList, diary
-    const mode = useSelector((state)=>{
-        return state.workSpace.mode;
-    });
-    const buttonText = useSelector((state)=>{
-        return state.workSpace.buttonText;
-    })
+    const mode = useSelector(state=>state.workSpace.mode);
+    const buttonText = useSelector(state=>state.workSpace.buttonText);
+    const edit = useSelector(state=>state.workSpace.edit);
     
     let contents = null; // 작업 공간에 표시될 컨텐츠
+    let button = null;
+    let style = null;
 
     if(mode === "toDoList")
     {
@@ -27,12 +26,21 @@ function WorkSpace() {
         contents = <Diary></Diary>
     }
 
+    if(!edit)
+    {
+        button = <button onClick={()=>{
+            dispatch(changeMode());
+        }}>{buttonText}</button>
+    }
+    else
+    {
+        style = {height:"70vh"};
+    }
+
     return(
-        <div id="workWrapper">
+        <div id="workWrapper" style={style}>
             {contents}
-            <button onClick={()=>{
-                dispatch(changeMode());
-            }}>{buttonText}</button>
+            {button}
         </div>
     );
 }
