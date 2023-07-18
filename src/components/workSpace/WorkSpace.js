@@ -5,6 +5,7 @@ import ToDoList from './ToDoList'
 import Diary from './Diary';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeMode  } from './workSpaceSlice';
+import weatherLogo from '../../icons/구름 낀 날.png'
 
 function WorkSpace() {
     const dispatch = useDispatch();
@@ -17,7 +18,7 @@ function WorkSpace() {
     let button = null;
     let style = null;
 
-    if(mode === "toDoList")
+    if(mode === "ToDoList")
     {
         contents = <ToDoList></ToDoList>
     }
@@ -34,11 +35,13 @@ function WorkSpace() {
     }
     else
     {
+        // 편집 모드일 경우 작업 공간 높이 확장
         style = {height:"70vh"};
     }
 
     return(
         <div id="workWrapper" style={style}>
+            <img src={weatherLogo} alt='날씨 로고' width="30"/>
             {contents}
             {button}
         </div>

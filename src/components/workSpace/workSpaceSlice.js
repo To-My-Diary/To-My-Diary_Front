@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // 작업 공간 초기화 정보
 const initialState = {
-    mode: "toDoList",
+    mode: "ToDoList",
     buttonText: "Diary",
     edit: false
   }
@@ -15,10 +15,10 @@ const workSpaceSlice = createSlice({
         changeMode:(state, action)=>{
             if(state.mode === "diary")
             {
-                state.mode = "toDoList";
+                state.mode = "ToDoList";
                 state.buttonText = "Diary";
             }
-            else if(state.mode === "toDoList")
+            else if(state.mode === "ToDoList")
             {
                 state.mode = "diary";
                 state.buttonText = "ToDo";

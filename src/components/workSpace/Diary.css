@@ -8,5 +8,12 @@ textarea {
    resize: none;
 }
 #textAreaP {
-    height: 60%;
+    height: 80%;
+}
+.images {
+    display: flex;
+    justify-content: center;
+}
+#chooseFile {
+    visibility: hidden;
 }

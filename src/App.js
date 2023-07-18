@@ -4,15 +4,6 @@ import WorkSpace from './components/workSpace/WorkSpace';
 import ScheduleSpace from './components/scheduleSpace/ScheduleSpace';
 import { useSelector } from 'react-redux';
 
-// 문서의 제목/도입부
-function Header() {
-  return (
-    <header>
-      <h1>To-Do-Diary</h1>
-    </header>
-  )
-}
-
 // 문서의 본문
 function Article() {
   let contents = null;
@@ -43,7 +34,6 @@ function Article() {
 function App() {
   return (
     <div className="App">
-      <Header/>
       <Article/>
     </div>
   );
