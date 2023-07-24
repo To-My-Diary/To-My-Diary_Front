@@ -1,0 +1,79 @@
+#loginWrapper {
+    height: 100vh;
+    padding: 2%;
+    border-radius: 10px;
+    text-align: center;
+    font-size: larger;
+    justify-content: center;
+    /* 세로 가운데 정렬 (column과 동일 방향) */
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+.title {
+    font-family: "NotoSC";
+    font-weight: bold;
+    font-size: 40;
+}
+#id {
+    font-family: "ArchitectD";
+    font-weight: 500;
+    font-size: 25px;
+}
+#pwd {
+    font-family: "ArchitectD";
+    font-weight: 500;
+    font-size: 20px;
+}
+.id-input {
+    text-align: center;
+    border: none;
+    outline: none;
+    /* transparent : 투명 의미 */
+    background-color:transparent; 
+    border-radius: 0;
+    font-family: "ArchitectD";
+    font-weight: 400;
+    font-size: medium;
+    margin-bottom: 0;
+}
+.pwd-input {
+    text-align: center;
+    border: none;
+    outline: none;
+    background-color:transparent; 
+    border-radius: 0;
+    font-family: "ArchitectD";
+    font-weight: 400;
+    font-size: medium;
+    margin-bottom: 5px;
+}
+.loginButton {
+    border: none;
+    background-color: transparent;
+    color: black;
+    display: flex;
+    position: relative;
+    left: 95px;
+}
+.kakaoLogin {
+    border: none;
+    background-color: transparent;
+    size: 20;
+}
+.googleLogin {
+    border: none;
+    background-color: transparent;
+    size: 20;
+}
+.naverLogin {
+    border: none;
+    background-color: transparent;
+    size: 20;
+}
+.horizonLine {
+    border-color: black;
+    border-width: 0.8px;
+    margin-top: 0;
+    width: 230px;
+}

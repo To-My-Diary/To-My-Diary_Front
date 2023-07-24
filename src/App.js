@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import WorkSpace from './components/workSpace/WorkSpace';
 import ScheduleSpace from './components/scheduleSpace/ScheduleSpace';
+// import LoginPage from './components/loginSpace/login';
 import { useSelector } from 'react-redux';
 
 // 문서의 본문
