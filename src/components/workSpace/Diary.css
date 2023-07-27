@@ -4,11 +4,13 @@
 }
 textarea {
    width : 80%;
-   height: 100%; 
+   height: 60%; 
    resize: none;
+   background-color: transparent;
+   border: none;
 }
-#textAreaP {
-    height: 80%;
+textarea:focus{
+    outline: none;
 }
 .images {
     display: flex;
@@ -16,4 +18,21 @@ textarea {
 }
 #chooseFile {
     visibility: hidden;
+}
+#diaryImg {
+    width: 50px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -30%);
+}
+.diaryView{
+    height: 100%;
+    position: relative;
+}
+.diaryEdit{
+    height: calc(var(--vh, 1vh) * 100);
+    min-height: 35em;
+    overflow: scroll;
+    background-image: url(../../icons/BackGround4.png);
+    background-repeat: repeat;
 }
