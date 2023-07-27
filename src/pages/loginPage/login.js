@@ -36,13 +36,14 @@ function LoginPage()
     //     if (res.data) {
     //         console.log(res.data)
     //         setRes(res.data);
-    //          navigate("/"); // 로그인 완료 시, main페이지로 이동
+             navigate("/main"); // 로그인 완료 시, main페이지로 이동
     //     }
     //   })
     //   .catch((error) => {
     //     console.log(error, "error");
     //   });
-        alert("로그인 완료");
+        // alert("로그인 완료");
+
 
     }
     return (
@@ -73,7 +74,6 @@ function LoginPage()
             </form>
             <button className='loginButton' type='submit' onClick={onLogin}>
             <RiLoginCircleLine size={30} />
-            <Link to="/main"></Link>
             </button>
             {/* <p /> */}
             <br />

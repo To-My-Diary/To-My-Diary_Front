@@ -13,14 +13,14 @@ const workSpaceSlice = createSlice({
     reducers:{
         // 상태 전환
         changeMode:(state, action)=>{
-            if(state.mode === "diary")
+            if(state.mode === "Diary")
             {
                 state.mode = "ToDoList";
                 state.buttonText = "Diary";
             }
             else if(state.mode === "ToDoList")
             {
-                state.mode = "diary";
+                state.mode = "Diary";
                 state.buttonText = "ToDo";
             }
         },
