@@ -1,16 +1,15 @@
 import React from 'react';
 import './App.css';
-import mainPage from './pages/mainPage/main';
+import MainPage from './pages/mainPage/main';
 import LoginPage from './pages/loginPage/login';
-import { useSelector } from 'react-redux';
-import { Routes, Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path='/' element={<mainPage />}></Route>
-        <Route path='/login' element={<LoginPage />}></Route>
+        <Route exact path='/' element={<LoginPage />}></Route>
+        <Route path='/main' element={<MainPage />}></Route>
       </Routes>
     </div>
   );

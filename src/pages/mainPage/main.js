@@ -31,7 +31,7 @@ function Article() {
   )
 }
 
-function mainPage() {
+function MainPage() {
   return (
     <div className="mainPage">
       <Article/>
@@ -39,4 +39,4 @@ function mainPage() {
   );
 }
 
-export default mainPage;
+export default MainPage;

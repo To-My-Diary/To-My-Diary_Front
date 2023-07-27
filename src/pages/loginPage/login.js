@@ -1,7 +1,7 @@
 import './login.css';
 import { useState } from 'react';
 import { RiLoginCircleLine } from 'react-icons/ri';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 function LoginPage()
 {
@@ -42,7 +42,8 @@ function LoginPage()
     //   .catch((error) => {
     //     console.log(error, "error");
     //   });
-        alert("로그인 완료")
+        alert("로그인 완료");
+
     }
     return (
         <div id='loginWrapper' style={{backgroundImage: `url(${process.env.PUBLIC_URL + 'images/종이질감.png'})`,
@@ -72,6 +73,7 @@ function LoginPage()
             </form>
             <button className='loginButton' type='submit' onClick={onLogin}>
             <RiLoginCircleLine size={30} />
+            <Link to="/main"></Link>
             </button>
             {/* <p /> */}
             <br />
