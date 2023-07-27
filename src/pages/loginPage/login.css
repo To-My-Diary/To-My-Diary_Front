@@ -12,6 +12,7 @@
 }
 .title {
     font-family: "NotoSC";
+    /* font-family: "inter-R"; */
     font-weight: bold;
     font-size: 40;
 }
@@ -55,25 +56,24 @@
     display: flex;
     position: relative;
     left: 95px;
+    margin-top: 0;
 }
 .kakaoLogin {
     border: none;
     background-color: transparent;
-    size: 20;
 }
 .googleLogin {
     border: none;
     background-color: transparent;
-    size: 20;
 }
 .naverLogin {
     border: none;
     background-color: transparent;
-    size: 20;
 }
 .horizonLine {
     border-color: black;
     border-width: 0.8px;
     margin-top: 0;
-    width: 230px;
+    width: 225px;
+    margin-bottom: 0;
 }

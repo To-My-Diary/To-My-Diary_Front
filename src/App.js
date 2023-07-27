@@ -1,41 +1,17 @@
 import React from 'react';
 import './App.css';
-import WorkSpace from './components/workSpace/WorkSpace';
-import ScheduleSpace from './components/scheduleSpace/ScheduleSpace';
-// import LoginPage from './components/loginSpace/login';
+import mainPage from './pages/mainPage/main';
+import LoginPage from './pages/loginPage/login';
 import { useSelector } from 'react-redux';
-
-// 문서의 본문
-function Article() {
-  let contents = null;
-  const edit = useSelector(state=>state.workSpace.edit)
-
-  // 편집모드일 경우 ScheduleSpace 제거
-  if(edit)
-  {
-    contents = <article>
-      <WorkSpace/>
-    </article>
-  }
-  else
-  {
-    contents = <article>
-      <ScheduleSpace/>
-      <WorkSpace/>
-    </article>
-  }
-
-  return (
-    <>
-      {contents}
-    </>
-  )
-}
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-      <Article/>
+      <Routes>
+        <Route path='/' element={<mainPage />}></Route>
+        <Route path='/login' element={<LoginPage />}></Route>
+      </Routes>
     </div>
   );
 }

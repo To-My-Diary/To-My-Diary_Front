@@ -1,10 +1,15 @@
 import './login.css';
 import { useState } from 'react';
 import { RiLoginCircleLine } from 'react-icons/ri';
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 function LoginPage()
 {
+    // const [input, setInput] = useState({id: '', pwd: ''})
     const [Id, setId] = useState('')
     const [Pwd, setPwd] = useState('')
+    // const [res, setRes] = useState('')
+    const navigate = useNavigate();
     const onIdHandler = (event) => {
         setId(event.target.value)
     }
@@ -16,19 +21,28 @@ function LoginPage()
     }
     function onLogin()
     {
+    // axios
+    //   .post("/login", {
+    //     id: 'ispr2216',//Id,
+    //     pwd: 'abc1234'//Pwd,
+    //   })
+    // //   .then((res) => {
+    // //     if (res.data.token) {
+    // //       setRes(res.data.token);
+    // //       navigate("/");
+    // //     }
+    // //   })
+    //   .then((res) => {
+    //     if (res.data) {
+    //         console.log(res.data)
+    //         setRes(res.data);
+    //          navigate("/"); // 로그인 완료 시, main페이지로 이동
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error, "error");
+    //   });
         alert("로그인 완료")
-    }
-    function onKakaoLogin()
-    {
-        alert("카카오로그인 이동")
-    }
-    function onGoogleLogin()
-    {
-        alert("구글로그인 이동")
-    }
-    function onNaverLogin()
-    {
-        alert("네이버로그인 이동")
     }
     return (
         <div id='loginWrapper' style={{backgroundImage: `url(${process.env.PUBLIC_URL + 'images/종이질감.png'})`,
@@ -59,7 +73,8 @@ function LoginPage()
             <button className='loginButton' type='submit' onClick={onLogin}>
             <RiLoginCircleLine size={30} />
             </button>
-            <br/>
+            {/* <p /> */}
+            <br />
             <div className='loginType'>
             <button className='kakaoLogin' type='button' onClick={onKakaoLogin}>
             <img src= {process.env.PUBLIC_URL + 'images/kakaoLogin.png'} alt='kakao' width={45}/>
@@ -76,5 +91,17 @@ function LoginPage()
         </div>
     );
 }
-
 export default LoginPage;
+
+function onKakaoLogin()
+{
+    alert("카카오로그인 이동")
+}
+function onGoogleLogin()
+{
+    alert("구글로그인 이동")
+}
+function onNaverLogin()
+{
+    alert("네이버로그인 이동")
+}
