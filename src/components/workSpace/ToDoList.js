@@ -23,7 +23,7 @@ function ToDoList()
             <button onClick={()=>{
                     dispatch(changeEdit());
                 }}
-                >cancel</button>
+            >cancel</button>
         </form>
     }
 

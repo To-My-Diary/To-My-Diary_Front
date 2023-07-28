@@ -4,10 +4,12 @@
 }
 textarea {
    width : 80%;
-   height: 60%; 
+   height: 15em;
    resize: none;
    background-color: transparent;
    border: none;
+   font-size: x-large;
+   line-height: 2;
 }
 textarea:focus{
     outline: none;
@@ -30,9 +32,8 @@ textarea:focus{
     position: relative;
 }
 .diaryEdit{
-    height: calc(var(--vh, 1vh) * 100);
-    min-height: 35em;
-    overflow: scroll;
-    background-image: url(../../icons/BackGround4.png);
+    min-height: calc(var(--vh, 1vh) * 100);
+    overflow: auto;
+    background-image: url(/src/icons/종이질감2.png);
     background-repeat: repeat;
 }

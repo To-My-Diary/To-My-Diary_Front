@@ -16,7 +16,7 @@ function ScheduleSpace() {
 //     );
 // }
 return (
-    <div className='app'>
+    <div id="schedulewrapper">
       <h1 className='text-center'>Calendar</h1>
       <div className='calendar-container'>
         <Calendar
