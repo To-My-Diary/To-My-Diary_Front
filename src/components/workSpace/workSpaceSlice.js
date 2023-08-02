@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 // 작업 공간 초기화 정보
 const initialState = {
     mode: "ToDoList",
-    buttonText: "Diary",
     edit: false
   }
 

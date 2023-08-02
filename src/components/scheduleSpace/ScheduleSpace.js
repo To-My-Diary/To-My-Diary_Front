@@ -1,43 +1,47 @@
 /* 메인화면 위 부분의 날짜/일정 선택 공간 (달력, 일주일 일정 등) */
 import './ScheduleSpace.css';
 import { useState } from 'react';
+import moment from 'moment';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'
 
 
 function ScheduleSpace() {
     const [date, setDate] = useState(new Date());
-
-//     return (
-//         <div id="scheduleWrapper">
-//             <Calendar onChange={onChange} value={value} />
-//             {/* 스케줄 공간입니다 */}
-//         </div>
-//     );
-// }
+    const [mark, setMark] = useState([])
+    // mark : dot 표시할 날짜 배열 ( setMark : mark 날짜 배열 접근 메서드 )
 return (
     <div className='app'>
-      <h1 className='text-center'>Calendar</h1>
+      <br />
       <div className='calendar-container'>
-        <Calendar
-          onChange={setDate}
-          value={date}
-          selectRange={true}
-        />
+      <Calendar
+  onChange={setDate} // useState로 포커스 변경 시 현재 날짜 받아오기
+  formatDay={(locale, date) => moment(date).format('D')} // 날'일' 제외하고 숫자만 보이도록 설정
+  value={date}
+  locale="en-EN"
+  calendarType='gregory'
+  onClickDay={(value, event) => alert('Clicked day: ', value)}
+  navigationLabel={null}
+  showNeighboringMonth={false} //  이전, 이후 달의 날짜는 보이지 않도록 설정
+  className="mx-auto w-full text-sm border-b"
+  tileContent={({ date, view }) => {
+    // 날짜 타일에 컨텐츠 추가하기 (html 태그)
+    // 추가할 html 태그를 변수 초기화
+    let html = []
+    // 현재 날짜가 post 작성한 날짜 배열(mark)에 있다면, dot div 추가
+    if (mark.find(x => x === moment(date).format('YYYY-MM-DD'))) {
+      html.push(<div className="dot"></div>)
+    }
+    // 다른 조건을 주어서 html.push 에 추가적인 html 태그를 적용할 수 있음.
+    return (
+      <>
+        <div className="flex justify-center items-center absoluteDiv">{html}</div>
+      </>
+    )
+  }}
+/>
+      <br />
       </div>
-      {/* {date.length > 0 ? (
-        <p className='text-center'>
-          <span className='bold'>Start:</span>{' '}
-          {date[0].toDateString()}
-          &nbsp;|&nbsp;
-          <span className='bold'>End:</span> {date[1].toDateString()}
-        </p>
-      ) : (
-        <p className='text-center'>
-          <span className='bold'>Default selected date:</span>{' '}
-          {date.toDateString()}
-        </p>
-      )} */}
     </div>
   );
 }

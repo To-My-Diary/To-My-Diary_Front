@@ -1,5 +1,5 @@
 import React from 'react';
-import './main.css';
+import './MainPage.css';
 import WorkSpace from '../../components/workSpace/WorkSpace'
 import ScheduleSpace from '../../components/scheduleSpace/ScheduleSpace';
 import { useSelector } from 'react-redux';
