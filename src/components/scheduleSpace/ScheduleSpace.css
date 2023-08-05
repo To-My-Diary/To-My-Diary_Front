@@ -92,13 +92,13 @@
     font-size: 0.75em;
     font-weight: bold;
   }
-  
+
+  /* .react-calendar__month-view__days {
+    background-color: red;
+  } */
+ 
   .react-calendar__month-view__days__day--weekend {
     color: #4b4a4a;
-  }
-  
-  .react-calendar__month-view__days__day--neighboringMonth {
-    color: #757575;
   }
   
   .react-calendar__year-view .react-calendar__tile,
@@ -118,6 +118,11 @@
     font-weight: 400;
     font-size: 13px;
   }
+
+  .react-calendar__month-view__days__day--neighboringMonth { /* 이전/이후 달 날짜 색 희미하게 */
+    color: #d0cece;
+  }
+
   .react-calendar__tile:disabled {
     background-color: #f0f0f0;
   }
@@ -129,7 +134,7 @@
     justify-content: center;
     background-color: #e6e6e6;
     border-radius: 50%;
-    /* width:50%; */
+    width: 20px;
     height: 50%; /* 숫자텍스트랑 백그라운드(원)이랑 같이 묶여있음 */
   }
   
@@ -140,7 +145,7 @@
     color: white;
     background: #000000;
     border-radius: 50%;
-    /* width: 20%; width 값에 따라 모양이 바뀌지 않음 */
+    width: 20px; /* width 값에 따라 모양이 바뀌지 않음 */
     height: 50%;
     background-size: 50%;
   }

@@ -26,7 +26,7 @@ return (
   calendarType='gregory'
   onClickDay={(value, event) => alert('Clicked day: ', value)}
   navigationLabel={null}
-  showNeighboringMonth={false} //  이전, 이후 달의 날짜는 보이지 않도록 설정
+  showNeighboringMonth={true} //  이전, 이후 달의 날짜 보이도록 설정
   className="mx-auto w-full text-sm border-b"
   tileContent={({ date, view }) => {
     // 날짜 타일에 컨텐츠 추가하기 (html 태그)
