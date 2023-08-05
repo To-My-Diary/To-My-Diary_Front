@@ -3,7 +3,7 @@ import './ScheduleSpace.css';
 import { useState } from 'react';
 import moment from 'moment';
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css'
+// import 'react-calendar/dist/Calendar.css'
 
 
 function ScheduleSpace() {
@@ -17,6 +17,10 @@ return (
       <Calendar
   onChange={setDate} // useState로 포커스 변경 시 현재 날짜 받아오기
   formatDay={(locale, date) => moment(date).format('D')} // 날'일' 제외하고 숫자만 보이도록 설정
+  formatMonth={(locale, date) => moment(date).format('MMM')}
+  minDetail='year'
+  next2Label={null}
+  prev2Label={null}
   value={date}
   locale="en-EN"
   calendarType='gregory'
