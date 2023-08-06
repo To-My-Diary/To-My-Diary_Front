@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { ListItem } from "./ToDoList";
 
 // 작업 공간 초기화 정보
 const initialState = {
     mode: "ToDoList",
     edit: false,
-    date: 0
+    date: 0,
+    listItems: [{id:0, content:<ListItem key="0" id="0" onDelete={()=>{}}/>}]
   }
 
 const workSpaceSlice = createSlice({
@@ -26,10 +28,24 @@ const workSpaceSlice = createSlice({
         },
         changeEdit:(state, action)=>{
             state.edit = !state.edit;
+        },
+        addItem:(state, action)=>{
+            state.listItems.push({id:action.payload, content:<ListItem key={action.payload} id={action.payload}/>})
+        },
+        deleteItem:(state, action)=>{
+            let _list = [];
+            for(let item of state.listItems)
+            {
+                if(item.id !== action.payload)
+                {
+                    _list.push(item);
+                }
+                state.listItems = _list;
+            }
         }
         
     }
 })
 
 export default workSpaceSlice;
-export const { changeMode, changeEdit } = workSpaceSlice.actions;
+export const { changeMode, changeEdit, addItem, deleteItem } = workSpaceSlice.actions;
