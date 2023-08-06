@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { changeEdit  } from './workSpaceSlice';
 import Weather from "./Weather";
 import './Diary.css';
@@ -12,9 +12,9 @@ function DiaryView()
 {
     return (
         <>
-            <Weather/>
-            <h3 className="workSpaceTitle">TO MY DIARY</h3>
-            <img src={diaryLogo} id="diaryImg" alt="일기 작성"/>
+        <Weather/>
+        <h3 className="workSpaceTitle">TO MY DIARY</h3>
+        <img src={diaryLogo} id="diaryImg" alt="일기 작성"/>
         </>
     )
 }
@@ -53,7 +53,7 @@ function DiaryEdit(props)
                 <label htmlFor="write">
                     <img src={buttonImage} alt="" width="40px"/>
                 </label>
-                <input id="write" type="submit" name="write" value="write" hidden/>
+                <input id="write" type="submit" hidden/>
             </p>
         </form>
     )
