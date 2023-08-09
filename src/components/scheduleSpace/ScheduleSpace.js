@@ -3,20 +3,26 @@ import './ScheduleSpace.css';
 import { useState } from 'react';
 import moment from 'moment';
 import Calendar from 'react-calendar';
-// import 'react-calendar/dist/Calendar.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { changeDate } from '../workSpace/workSpaceSlice';
 
 
 function ScheduleSpace() {
-    const [date, setDate] = useState(new Date());
-    const [mark, setMark] = useState([])
+    const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
+    const [mark, setMark] = useState([]);
     // mark : dot 표시할 날짜 배열 ( setMark : mark 날짜 배열 접근 메서드 )
+    const dispatch = useDispatch();
+    const clickDate = ((value) => {
+      return `${value.getFullYear()}-${value.getMonth() + 1}-${value.getDate()}`;
+      // getMonth() : 0 ~ 11 숫자로 표현
+    });
 return (
     <div className='app'>
       <br />
       <div className='calendar-container'>
       <Calendar
   onChange={setDate} // useState로 포커스 변경 시 현재 날짜 받아오기
-  formatDay={(locale, date) => moment(date).format('D')} // 날'일' 제외하고 숫자만 보이도록 설정
+  formatDay={(locale, date) => moment(date).format('D')}
   formatMonth={(locale, date) => moment(date).format('MMM')}
   minDetail='year'
   next2Label={null}
@@ -24,7 +30,12 @@ return (
   value={date}
   locale="en-EN"
   calendarType='gregory'
-  onClickDay={(value, event) => alert('Clicked day: ', value)}
+  onClickDay={(value, event) => {
+    value = clickDate(value)
+    setDate(value)
+    dispatch(changeDate(value));
+    alert(`Clicked day : ${value}`)
+  }}
   navigationLabel={null}
   showNeighboringMonth={true} //  이전, 이후 달의 날짜 보이도록 설정
   className="mx-auto w-full text-sm border-b"
@@ -44,7 +55,7 @@ return (
     )
   }}
 />
-      <br />
+      <br /><br />
       </div>
     </div>
   );
