@@ -5,8 +5,8 @@ import diaryLogo from '../../icons/일기 작성.png'
 import Weather from "./Weather";
 import buttonImage from '../../icons/체크1 2.png';
 import plusImage from '../../icons/플러스2 1.png';
-import clockImage from '../../icons/시계 2.png'
-import trashImage from '../../icons/쓰레기통 1.png'
+import clockImage from '../../icons/시계 2.png'
+import trashImage from '../../icons/쓰레기통 1.png'
 import { useState } from "react";
 
 // TO-DO 보기 화면
