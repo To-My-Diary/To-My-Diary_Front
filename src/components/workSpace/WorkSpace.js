@@ -10,7 +10,6 @@ function WorkSpace() {
         <div id="workWrapper">
             <Routes>
                 <Route path="/" element={<ToDoList/>}/>
-                <Route path="/todolist" element={<ToDoList/>}/>
                 <Route path="/diary" element={<Diary/>}/>
             </Routes>
         </div>

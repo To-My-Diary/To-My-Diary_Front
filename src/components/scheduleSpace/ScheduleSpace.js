@@ -17,8 +17,13 @@ function ScheduleSpace() {
       // getMonth() : 0 ~ 11 숫자로 표현
     });
 return (
+<<<<<<< HEAD
     <div className='app'>
       <br />
+=======
+    <div id="schedulewrapper">
+      <h1 className='text-center'>Calendar</h1>
+>>>>>>> ddingjae
       <div className='calendar-container'>
       <Calendar
   onChange={setDate} // useState로 포커스 변경 시 현재 날짜 받아오기

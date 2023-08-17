@@ -1,6 +1,20 @@
+<<<<<<< HEAD
 .react-calendar {
     width: 350px;
     height: 300px;
+=======
+#scheduleWrapper {
+    height: 30vh;
+    margin: 5%;
+    margin-bottom: 15%;
+    padding: 2%;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    box-sizing: border-box; 
+}
+.react-calendar { 
+    width: 400px;
+>>>>>>> ddingjae
     max-width: 100%;
     background: white;
     border: none;

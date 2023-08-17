@@ -1,11 +1,14 @@
 import React from 'react';
 import './MainPage.css';
+<<<<<<< HEAD
 import WorkSpace from '../../components/workSpace/WorkSpace'
 import ScheduleSpace from '../../components/scheduleSpace/ScheduleSpace';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './main.css';
+=======
+>>>>>>> ddingjae
 import WorkSpace from '../../components/workSpace/WorkSpace'
 import ScheduleSpace from '../../components/scheduleSpace/ScheduleSpace';
 import { useSelector } from 'react-redux';

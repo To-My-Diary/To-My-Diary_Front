@@ -6,5 +6,9 @@ export const store = configureStore({
   reducer: {
     counter: counterReducer,
     workSpace: workSpaceSlice.reducer
-  }
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+    serializableCheck: false
+  }),
 });

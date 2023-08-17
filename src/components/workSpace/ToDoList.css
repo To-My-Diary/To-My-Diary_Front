@@ -1,0 +1,32 @@
+input {
+    border: none;
+    font-size: medium;
+}
+input:focus {
+    outline: none;
+}
+#diaryImg {
+    width: 50px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -30%);
+}
+#buttonImg{
+    width: 50px;
+    position: absolute;
+    bottom: 5%;
+    right: 10%;
+}
+.toDoView{
+    height: calc(var(--vh, 1vh) * 50);
+    position: relative;
+}
+.toDoEdit{
+    min-height: calc(var(--vh, 1vh) * 100);
+    position: relative;
+    overflow: auto;
+}
+.itemImage {
+    margin: 7px;
+    width: 30px;
+}
