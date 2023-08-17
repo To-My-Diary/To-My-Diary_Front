@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { RiLoginCircleLine } from 'react-icons/ri';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
+
 function LoginPage()
 {
     // const [input, setInput] = useState({id: '', pwd: ''})
@@ -47,7 +48,7 @@ function LoginPage()
 
     }
     return (
-        <div id='loginWrapper' style={{backgroundImage: `url(${process.env.PUBLIC_URL + 'images/종이질감.png'})`,
+        <div id='loginWrapper' style={{backgroundImage: `url(${process.env.PUBLIC_URL + 'images/paperBackground.png'})`,
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',}}>

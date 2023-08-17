@@ -59,4 +59,4 @@ const workSpaceSlice = createSlice({
 })
 
 export default workSpaceSlice;
-export const { changeMode, changeEdit, addItem, deleteItem } = workSpaceSlice.actions;
+export const { changeMode, changeEdit, addItem, deleteItem, changeDate } = workSpaceSlice.actions;

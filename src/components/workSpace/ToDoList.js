@@ -80,8 +80,7 @@ function ToDoList()
     const edit = useSelector((state)=>(state.workSpace.edit));
     const date = useSelector((state)=>(state.workSpace.date));
 
-<<<<<<< HEAD
-    let contents = <img src={plusLogo} alt="플러스 2 1" width="30" onClick={()=>{
+    let contents = <img src={diaryLogo} alt="플러스 2 1" width="30" onClick={()=>{
         if(!edit){
             dispatch(changeEdit());
         }
@@ -106,17 +105,6 @@ function ToDoList()
             <h3 className="workSpaceTitle">TO MY DAY</h3>
             <h3> {date} </h3>
             {contents}
-=======
-    return (
-        <div className={`${edit?"toDoEdit":"toDoView"}`}
-        onClick={()=>{
-            // 보기 모드일 때만 div 터치 시 편집 전환
-            if(!edit){
-                dispatch(changeEdit());
-            }
-        }}>
-            {edit?<ToDoEdit/>:<ToDoView/>}
->>>>>>> ddingjae
         </div>
     )
 }
