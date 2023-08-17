@@ -78,6 +78,7 @@ function ToDoList()
 {
     const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
+    const date = useSelector((state)=>(state.workSpace.date));
 
     return (
         <div className={`${edit?"toDoEdit":"toDoView"}`}

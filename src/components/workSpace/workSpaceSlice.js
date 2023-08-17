@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ListItem } from "./ToDoList";
+import moment from "moment";
 
 // 작업 공간 초기화 정보
 const initialState = {
     mode: "ToDoList",
     edit: false,
-    date: 0,
-    listItems: [{id:"1", content:<ListItem key="1" id="1"/>}]
+    listItems: [{id:"1", content:<ListItem key="1" id="1"/>}],
+    date: moment().format('YYYY-MM-DD')
   }
 
 const workSpaceSlice = createSlice({
@@ -48,10 +49,13 @@ const workSpaceSlice = createSlice({
                 }
                 state.listItems = _list;
             }
+        },
+        changeDate:(state, action)=>{
+            state.date = action.payload;
+            // dispatch 시 전달된 데이터 : action.payload 통해 가져올 수 있음 !
         }
-        
     }
 })
 
 export default workSpaceSlice;
-export const { changeMode, changeEdit, addItem, deleteItem } = workSpaceSlice.actions;
+export const { changeMode, changeEdit, addItem, deleteItem, changeDate } = workSpaceSlice.actions;

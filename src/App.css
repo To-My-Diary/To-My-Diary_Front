@@ -2,6 +2,10 @@
     font-family: "inter-R";
     src: url("fonts/Inter-Medium.ttf");
   }
+  @font-face {
+    font-family: "inter-B";
+    src: url("fonts/Inter-ExtraBold.ttf");
+  }
 @font-face {
     font-family: "ArchitectD";
     src: url("fonts/ArchitectsDaughter-Regular.ttf");
