@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import './App.css';
-import MainPage from './pages/mainPage/main';
-import LoginPage from './pages/loginPage/login';
+import MainPage from './pages/mainPage/MainPage';
+import LoginPage from './pages/loginPage/LoginPage';
 import { Route, Routes } from 'react-router-dom';
 
 //vh 조절 함수

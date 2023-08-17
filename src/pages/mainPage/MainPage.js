@@ -1,4 +1,10 @@
 import React from 'react';
+import './MainPage.css';
+import WorkSpace from '../../components/workSpace/WorkSpace'
+import ScheduleSpace from '../../components/scheduleSpace/ScheduleSpace';
+import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import './main.css';
 import WorkSpace from '../../components/workSpace/WorkSpace'
 import ScheduleSpace from '../../components/scheduleSpace/ScheduleSpace';
@@ -40,6 +46,18 @@ function Article() {
 }
 
 function MainPage() {
+  const [response, setResponse] = useState('')
+
+useEffect(() => {
+  axios.get('http://172.16.101.2:8080/calendar/goal/2023/8')
+    .then(res => {
+      console.log(res)
+      // console.log({response})
+      setResponse(res)
+      console.log('-------------')
+    })
+  .catch(error => console.log(error))
+}, []);
   return (
     <div className="mainPage">
       <Article/>

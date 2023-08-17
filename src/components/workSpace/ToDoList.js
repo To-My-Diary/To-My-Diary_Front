@@ -6,6 +6,7 @@ function ToDoList()
 {
     const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
+    const date = useSelector((state)=>(state.workSpace.date));
 
     let contents = <img src={plusLogo} alt="플러스 2 1" width="30" onClick={()=>{
         if(!edit){
@@ -30,6 +31,7 @@ function ToDoList()
     return(
         <div style={{height:"75%"}}>
             <h3 className="workSpaceTitle">TO MY DAY</h3>
+            <h3> {date} </h3>
             {contents}
         </div>
     )
