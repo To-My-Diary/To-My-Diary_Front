@@ -9,7 +9,7 @@ import { changeDate } from '../workSpace/workSpaceSlice';
 
 function ScheduleSpace() {
     const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
-    const [mark, setMark] = useState([]);
+    const [mark, setMark] = useState(['2023-08-29', '2023-09-13', '2023-10-14']);
     // mark : dot 표시할 날짜 배열 ( setMark : mark 날짜 배열 접근 메서드 )
     const dispatch = useDispatch();
     const clickDate = ((value) => {
@@ -39,18 +39,16 @@ return (
   navigationLabel={null}
   showNeighboringMonth={true} //  이전, 이후 달의 날짜 보이도록 설정
   className="mx-auto w-full text-sm border-b"
-  tileContent={({ date, view }) => {
-    // 날짜 타일에 컨텐츠 추가하기 (html 태그)
-    // 추가할 html 태그를 변수 초기화
-    let html = []
-    // 현재 날짜가 post 작성한 날짜 배열(mark)에 있다면, dot div 추가
+  // tileContent={({ date, view }) => {
+    tileContent={({date})=> {
+    let dot = []
     if (mark.find(x => x === moment(date).format('YYYY-MM-DD'))) {
-      html.push(<div className="dot"></div>)
+      dot.push(<div key={date.toString()} className="dot"></div>)
     }
-    // 다른 조건을 주어서 html.push 에 추가적인 html 태그를 적용할 수 있음.
+
     return (
       <>
-        <div className="flex justify-center items-center absoluteDiv">{html}</div>
+        <div className="flex justify-center items-center absoluteDiv">{dot}</div>
       </>
     )
   }}
