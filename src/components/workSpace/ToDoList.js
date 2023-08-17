@@ -7,7 +7,8 @@ import buttonImage from '../../icons/체크1 2.png';
 import plusImage from '../../icons/플러스2 1.png';
 import clockImage from '../../icons/시계 2.png'
 import trashImage from '../../icons/쓰레기통 1.png'
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from 'axios';
 
 // TO-DO 보기 화면
 function ToDoView()
@@ -32,7 +33,9 @@ function ListItem(props)
                 <input type="text" ></input>
                 <hr style={{marginTop:"3px"}}/>
             </div>
-            <img className="itemImage" src={trashImage} alt="쓰레기통" onClick={()=>dispatch(deleteItem(props.id))}/>
+            <img className="itemImage" src={trashImage} alt="쓰레기통" onClick={()=>{
+                dispatch(deleteItem(props.id));
+                }}/>
         </div>
     )
 }
@@ -40,9 +43,10 @@ function ListItem(props)
 // TO-DO 작성 화면
 function ToDoEdit()
 {
-    const [itemID, setItemID] = useState(1);
+    const [nextID, setNextID] = useState(2);
     const listItems = useSelector((state)=>(state.workSpace.listItems));
     const dispatch = useDispatch();
+
     let list = [];
     for(let item of listItems)
     {
@@ -58,8 +62,8 @@ function ToDoEdit()
             <h3 className="workSpaceTitle">TO MY DIARY</h3>
             {list}
             <img src={plusImage} alt="플러스" onClick={()=>{
-                dispatch(addItem(itemID));
-                setItemID(itemID+1);
+                dispatch(addItem(nextID));
+                setNextID(nextID+1);
             }}/>
             <label htmlFor="write">
                     <img id="buttonImg" src={buttonImage} alt="체크"/>

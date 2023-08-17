@@ -6,7 +6,7 @@ const initialState = {
     mode: "ToDoList",
     edit: false,
     date: 0,
-    listItems: [{id:0, content:<ListItem key="0" id="0" onDelete={()=>{}}/>}]
+    listItems: [{id:"1", content:<ListItem key="1" id="1"/>}]
   }
 
 const workSpaceSlice = createSlice({
@@ -34,6 +34,12 @@ const workSpaceSlice = createSlice({
         },
         deleteItem:(state, action)=>{
             let _list = [];
+            
+            if(state.listItems.length === 1)
+            {
+                return;
+            }
+
             for(let item of state.listItems)
             {
                 if(item.id !== action.payload)
