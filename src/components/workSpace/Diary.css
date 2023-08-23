@@ -15,8 +15,28 @@ textarea:focus{
     outline: none;
 }
 .images {
-    display: flex;
-    justify-content: center;
+    position: relative;
+    display: block;
+    width: 80vw;
+    min-height: 100px;
+    margin: 0 auto;
+    white-space: nowrap;
+    overflow-x: auto;
+    align-items: center;
+}
+.images::-webkit-scrollbar {
+    height: 1.5vw;
+}
+.images::-webkit-scrollbar-thumb {
+
+    background-color: hsla(0, 0%, 42%, 0.49);
+    border-radius: 100px;
+
+}
+.imageLogo {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 #chooseFile {
     visibility: hidden;

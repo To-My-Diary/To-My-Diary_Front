@@ -13,10 +13,13 @@ import axios from 'axios';
 // TO-DO 보기 화면
 function ToDoView()
 {
+    const date = useSelector((state)=>(state.workSpace.date));
+
     return(
         <>
         <Weather/>
         <h3 className="workSpaceTitle">TO MY DAY</h3>
+        {date}
         <img id="diaryImg" src={diaryLogo} alt="일기 작성"/>
         </>
     )
@@ -59,7 +62,7 @@ function ToDoEdit()
             dispatch(changeEdit());
         }}>
             <Weather/>
-            <h3 className="workSpaceTitle">TO MY DIARY</h3>
+            <h3 className="workSpaceTitle">TO MY DAY</h3>
             {list}
             <img src={plusImage} alt="플러스" onClick={()=>{
                 dispatch(addItem(nextID));
@@ -78,7 +81,6 @@ function ToDoList()
 {
     const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
-    const date = useSelector((state)=>(state.workSpace.date));
 
     return (
         <div className={`${edit?"toDoEdit":"toDoView"}`}
