@@ -17,21 +17,7 @@ input:focus {
     bottom: 5%;
     right: 5%;
 }
-#plusImage{
-    width: 40px;
-    position: relative;
-    margin-top: 10%;
-}
-.toDoView{
+.ToMyGoal{
     height: calc(var(--vh, 1vh) * 50);
     position: relative;
-}
-.toDoEdit{
-    min-height: calc(var(--vh, 1vh) * 100);
-    position: relative;
-    overflow: auto;
-}
-.itemImage {
-    margin: 7px;
-    width: 30px;
 }
