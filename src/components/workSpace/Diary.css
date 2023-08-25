@@ -15,8 +15,28 @@ textarea:focus{
     outline: none;
 }
 .images {
-    display: flex;
-    justify-content: center;
+    position: relative;
+    display: block;
+    width: 80vw;
+    min-height: 100px;
+    margin: 0 auto;
+    white-space: nowrap;
+    overflow-x: auto;
+    align-items: center;
+}
+.images::-webkit-scrollbar {
+    height: 1.5vw;
+}
+.images::-webkit-scrollbar-thumb {
+
+    background-color: hsla(0, 0%, 42%, 0.49);
+    border-radius: 100px;
+
+}
+.imageLogo {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 #chooseFile {
     visibility: hidden;
@@ -33,7 +53,13 @@ textarea:focus{
 }
 .diaryEdit{
     min-height: calc(var(--vh, 1vh) * 100);
+    width: 100vw;
     overflow: auto;
     background-image: url(/src/icons/종이질감2.png);
     background-repeat: repeat;
+}
+.diaryImages {
+    margin-left: 10px;
+    margin-right: 10px;
+    
 }
