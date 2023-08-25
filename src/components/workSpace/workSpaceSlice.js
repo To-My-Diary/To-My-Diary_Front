@@ -9,7 +9,7 @@ const initialState = {
     listItems: [{id:"1", content:<ListItem key="1" id="1"/>}],
     diaryImages: [],
     date: moment().format('YYYY-MM-DD')
-  }
+}
 
 const workSpaceSlice = createSlice({
     name: "workSpaceSlice",
