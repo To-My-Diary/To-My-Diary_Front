@@ -54,6 +54,7 @@ useEffect(() => {
     })
   .catch(error => console.log(error))
 }, []);
+
   return (
     <div className="mainPage">
       <Article/>

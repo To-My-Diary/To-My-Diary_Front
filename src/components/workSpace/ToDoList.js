@@ -13,10 +13,12 @@ import axios from 'axios';
 // TO-DO 보기 화면
 function ToDoView()
 {
+    const date = useSelector((state)=>(state.workSpace.date));
     return(
         <>
         <Weather/>
         <h3 className="workSpaceTitle">TO MY DAY</h3>
+        <h3>{date}</h3>
         <img id="diaryImg" src={diaryLogo} alt="일기 작성"/>
         </>
     )
@@ -61,7 +63,7 @@ function ToDoEdit()
             <Weather/>
             <h3 className="workSpaceTitle">TO MY DIARY</h3>
             {list}
-            <img src={plusImage} alt="플러스" onClick={()=>{
+            <img id="plusImage" src={plusImage} alt="플러스" onClick={()=>{
                 dispatch(addItem(nextID));
                 setNextID(nextID+1);
             }}/>
@@ -100,11 +102,15 @@ function ToDoList()
         </form>
     }
 
-    return(
-        <div style={{height:"75%"}}>
-            <h3 className="workSpaceTitle">TO MY DAY</h3>
-            <h3> {date} </h3>
-            {contents}
+    return (
+        <div className={`${edit?"toDoEdit":"toDoView"}`}
+        onClick={()=>{
+            // 보기 모드일 때만 div 터치 시 편집 전환
+            if(!edit){
+                dispatch(changeEdit());
+            }
+        }}>
+            {edit?<ToDoEdit/>:<ToDoView/>}
         </div>
     )
 }
