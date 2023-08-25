@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { changeEdit, addDiaryImage } from './workSpaceSlice';
 import Weather from "./Weather";
+import ImageCropper from "./ImageCropper";
 import './Diary.css';
 import diaryLogo from '../../icons/일기 작성.png'
 import imageLogo from '../../icons/사진4.png'
@@ -23,7 +24,10 @@ function DiaryView()
 function DiaryEdit(props)
 {
     const diaryImages = useSelector(state=>state.workSpace.diaryImages);
+    const [croppingImage, setCroppingImage] = useState(null);
+    const [imageId, setImageId] = useState(1);
     const dispatch = useDispatch();
+    let reader = new FileReader();
 
     return(
         <form encType="multipart/form-data" onSubmit={(event)=>{
@@ -32,28 +36,43 @@ function DiaryEdit(props)
         }}>
             <Weather/>
             <h3 className="workSpaceTitle">TO MY DIARY</h3>
-            <div className="images">
-                {diaryImages}
-                <label htmlFor="chooseFile" style={{display:"inline-block", width:"100px"}}>
-                    <img className="imageLogo" src={imageLogo} alt="사진4" width="50px"/>
-                </label>
-            </div>
-            <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onChange={(event)=>{
-                if(event.target.files.length !== 0)
-                {
-                    let file = event.target.files[0];	//선택된 파일 가져오기
-                    dispatch(addDiaryImage(<img src={URL.createObjectURL(file)} height="200" alt=""></img>));
-                }
-                //이미지 추가 시 배경화면 크기 조절
-                props.setStyle({minHeight: "100vh"});
-            }}></input>
-            <textarea name="body" placeholder="body"></textarea>
-            <p>
-                <label htmlFor="write">
-                    <img src={buttonImage} alt="" width="40px"/>
-                </label>
-                <input id="write" type="submit" hidden/>
-            </p>
+            {croppingImage ? <ImageCropper src={croppingImage} addCroppedImage={(image)=>{
+                dispatch(addDiaryImage(<img className="diaryImages" 
+                    src={image}  key={imageId} height="150" alt=""></img>));
+                setImageId(imageId+1);
+                setCroppingImage(null);
+                }}/> :
+                <>
+                <div className="images">
+                    { diaryImages }
+                    <label htmlFor="chooseFile" style={{display:"inline-block", width:"100px"}}>
+                        <img className="imageLogo" src={imageLogo} alt="사진4" width="45px"/>
+                    </label>
+                </div>
+                <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onChange={(event)=>{
+                    event.preventDefault();
+                    const file = event.target.files[0];
+
+                    if(file) 
+                    {
+                        reader.readAsDataURL(file);
+                        reader.onloadend = () => {
+                            setCroppingImage(reader.result);
+                            event.target.value='';
+                        }
+                    };
+                    //이미지 추가 시 배경화면 크기 조절
+                    props.setStyle({minHeight: "100vh"});
+                }}></input>
+                <textarea name="body" placeholder="Write your diary here..."></textarea>
+                <p>
+                    <label htmlFor="write">
+                        <img src={buttonImage} alt="" width="40px"/>
+                    </label>
+                    <input id="write" type="submit" hidden/>
+                </p>
+                </>
+            }
         </form>
     )
 }
