@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import { changeEdit, addItem, deleteItem  } from './workSpaceSlice';
 
+// const goalObj
 // (날짜 선택 시, 해당 날짜에) 설정한 목표 조회
 function ToDoView()
 {

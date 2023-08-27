@@ -38,14 +38,14 @@ function DiaryEdit(props)
             <h3 className="workSpaceTitle">TO MY DIARY</h3>
             {croppingImage ? <ImageCropper src={croppingImage} addCroppedImage={(image)=>{
                 dispatch(addDiaryImage(<img className="diaryImages" 
-                    src={image}  key={imageId} height="150" alt=""></img>));
+                    src={image}  key={imageId} height="100" alt=""></img>));
                 setImageId(imageId+1);
                 setCroppingImage(null);
                 }}/> :
                 <>
                 <div className="images">
                     { diaryImages }
-                    <label htmlFor="chooseFile" style={{display:"inline-block", width:"100px"}}>
+                    <label htmlFor="chooseFile" style={{display:"inline-block", padding:"50px"}}>
                         <img className="imageLogo" src={imageLogo} alt="사진4" width="45px"/>
                     </label>
                 </div>
