@@ -1,9 +1,12 @@
-input {
-    border: none;
-    font-size: medium;
-}
-input:focus {
-    outline: none;
+.ToMyGoal{
+    height: calc(var(--vh, 1vh) * number); /* 스크롤 사라짐 */
+    /* height: calc(var(--vh, 1vh) * 50); */
+    position: relative;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
 #diaryImg {
     width: 50px;
@@ -17,7 +20,56 @@ input:focus {
     bottom: 5%;
     right: 5%;
 }
-.ToMyGoal{
-    height: calc(var(--vh, 1vh) * 50);
-    position: relative;
+.itemImage {
+    margin: 7px;
+    width: 24px;
+}
+.colorCircle {
+    padding-left: 0px;
+    margin-left: auto;
+}
+.goalList {
+    font-family: "ArchitectD";
+    font-weight: 100;
+    font-size: 22px;
+    width: 100%;
+    /* background-color: blue; */
+}
+#mainGoal {
+    padding-inline-end: 5%;
+    /* background-color: red; */
+    
+}
+#detailGoal {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    padding-inline-start: 5%;
+    /* background-color: blue; */
+}
+.mainGoal-input{
+    background-color: transparent;
+    font-family: "ArchitectD";
+    font-weight: 100;
+    font-size: 20px;
+    text-align: center;
+    width: 65%;
+    /* background-color: white; */
+}
+.detailGoal-input {
+    background-color: transparent;
+    text-align: center;
+    font-family: "ArchitectD";
+    font-weight: 100;
+    font-size: 20px;
+    text-align: center;
+    width: 70%;
+}
+#horizonLine {
+    border-color: black;
+    border-width: 0.8px;
+    margin-top: 0;
+    width: 65%;
+    
 }
