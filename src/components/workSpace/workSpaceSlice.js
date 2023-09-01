@@ -59,12 +59,11 @@ const workSpaceSlice = createSlice({
         addDiaryImage:(state, action)=>{
             state.diaryImages.push(action.payload);
         },
-        changeDate:(state, action)=>{
-            state.date = action.payload;
-            // dispatch 시 전달된 데이터 : action.payload 통해 가져올 수 있음 !
+        resetDiaryImages: (state, action)=>{
+            state.diaryImages = action.payload;
         }
     }
 })
 
 export default workSpaceSlice;
-export const { changeMode, changeEdit, addItem, deleteItem, addDiaryImage, changeDate } = workSpaceSlice.actions;
+export const { changeMode, changeEdit, addItem, deleteItem, addDiaryImage, changeDate, resetDiaryImages } = workSpaceSlice.actions;

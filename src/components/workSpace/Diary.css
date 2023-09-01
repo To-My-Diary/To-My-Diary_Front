@@ -50,6 +50,7 @@ textarea:focus{
 .diaryView{
     height: 100%;
     position: relative;
+    overflow: scroll;
 }
 .diaryEdit{
     min-height: calc(var(--vh, 1vh) * 100);
