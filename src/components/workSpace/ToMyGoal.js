@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import './ToMyGoal.css'
 import diaryLogo from '../../icons/일기 작성.png'
 import trashImage from '../../icons/쓰레기통 1.png'
+import plusImage from '../../icons/플러스2 1.png';
+import buttonImage from '../../icons/체크1 2.png';
 import { BsSquare, BsFillCircleFill } from 'react-icons/bs';
 import Weather from "./Weather";
 import { useState, useEffect } from "react";
@@ -106,6 +108,11 @@ function ToDoEdit()
             <img className="trashImage" src={trashImage} alt="쓰레기통" onClick={()=>{}} />
             </div>
         </p>
+        <img id="plusImage" src={plusImage} alt="플러스" onClick={()=>{
+            }}/>
+            {/* <label htmlFor="write">
+                    <img id="buttonImg" src={buttonImage} alt="체크"/>
+            </label> */}
         </form>
         {/* for문 돌려서 id = 1 ~ 설정되어있는 목표까지 불러와서 출력 ! */}
         {/* for문 안 실행문 */}
