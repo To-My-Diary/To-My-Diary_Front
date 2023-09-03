@@ -61,6 +61,7 @@ function ToDoEdit()
         goal:"",
         detailGoal:[],
     });
+    const [id, setId] = useState(1)
     // const {goal, detailGoal} = inputs;
     const onmainGoalHandler = (event) => {
         console.log(`target value ${event.target.value}`)
@@ -87,16 +88,23 @@ function ToDoEdit()
         {/* 조회 페이지에서만 필요한 아이콘 */}
         <p className="mainGoal">
             <text id='mainGoal'>Goal</text>
+            <div>
             <input className='mainGoal-input' type='text' name='mainGoal-input' onChange={onmainGoalHandler} value={inputs.goal} />
+            <hr id="mainHorizonLine"></hr>
+            </div>
             <BsFillCircleFill className="colorCircle"/>
-            <hr id="horizonLine"></hr>
-        </p>
+        </p> 
         <p className="detailGoal">
             <text id='detailGoal'>detailed goal</text>
-            {/* <br/> */}
+            <div className="dgoalList">
+            {/* <div> */}
+            <text id='goalId'>{`${id}.`}</text>
+            <div>
             <input className='detailGoal-input' type='text' name='detailGoal-input' onChange={ondetailGoalHandler} value={inputs.dgoal} />
-            <img className="itemImage" src={trashImage} alt="쓰레기통" onClick={()=>{}} />
-            <hr id="horizonLine"></hr>
+            <hr id="detailHorizonLine"></hr>
+            </div>
+            <img className="trashImage" src={trashImage} alt="쓰레기통" onClick={()=>{}} />
+            </div>
         </p>
         </form>
         {/* for문 돌려서 id = 1 ~ 설정되어있는 목표까지 불러와서 출력 ! */}

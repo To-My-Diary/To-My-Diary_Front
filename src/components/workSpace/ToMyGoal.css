@@ -20,32 +20,43 @@
     bottom: 5%;
     right: 5%;
 }
-.itemImage {
+.trashImage {
     margin: 7px;
     width: 24px;
-}
-.colorCircle {
-    padding-left: 0px;
-    margin-left: auto;
+    padding-inline-start: 15%;
 }
 .goalList {
     font-family: "ArchitectD";
     font-weight: 100;
     font-size: 22px;
     width: 100%;
-    /* background-color: blue; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: red; */
 }
-#mainGoal {
+.detailGoal {
+    /* background-color: blue; */
+    /* width: 120%; */
+}
+.mainGoal,
+.dgoalList {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0;
+    /* background-color: blue; */
+    /* width: 100vw; */
+}
+#goalId {
     padding-inline-end: 5%;
     /* background-color: red; */
-    
 }
 #detailGoal {
     align-items: flex-start;
     display: flex;
-    flex-direction: column;
-    padding-top: 20px;
-    padding-inline-start: 5%;
+    flex-direction: row;
     /* background-color: blue; */
 }
 .mainGoal-input{
@@ -54,7 +65,9 @@
     font-weight: 100;
     font-size: 20px;
     text-align: center;
-    width: 65%;
+    width: 95%;
+    margin-bottom: 0;
+    padding-bottom: 0;
     /* background-color: white; */
 }
 .detailGoal-input {
@@ -63,13 +76,20 @@
     font-family: "ArchitectD";
     font-weight: 100;
     font-size: 20px;
-    text-align: center;
-    width: 70%;
+    width: 110%;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    /* background-color: white; */
 }
-#horizonLine {
+#mainHorizonLine {
     border-color: black;
     border-width: 0.8px;
     margin-top: 0;
-    width: 65%;
-    
+    width: 100%;
+}
+#detailHorizonLine {
+    border-color: black;
+    border-width: 0.8px;
+    margin-top: 0;
+    width: 120%;
 }
