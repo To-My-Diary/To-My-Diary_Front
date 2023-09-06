@@ -20,10 +20,21 @@ function DiaryView(props)
     }
     else // when ther is saved data
     {
-        content = <div>
-            {props.diaryData.img}
+        if(props.diaryData.img.length === 0) // when there is no image
+        {
+            content = <div>
             <textarea value={props.diaryData.content} readOnly/>
-        </div>
+            </div>
+        }
+        else
+        {
+            content = <div>
+                <div className="images">
+                    {props.diaryData.img}
+                </div>
+                <textarea value={props.diaryData.content} readOnly/>
+            </div>
+        }
     }
 
     return (
@@ -58,15 +69,18 @@ function DiaryEdit(props)
             event.preventDefault();
 
             // Diary create
-            const data = {
-                userId: "",
-                content: event.target.body.value,
-                emotion: "",
-                img: diaryImages
+            if(event.target.body.value.length > 0)
+            {
+                const data = {
+                    userId: "",
+                    content: event.target.body.value,
+                    emotion: "",
+                    img: diaryImages
+                }
+                dispatch(saveDiaryData(data));
             }
-            dispatch(saveDiaryData(data));
 
-            // reset diaryImages
+            // reset diaryImages to empty list
             dispatch(resetDiaryImages([]));
 
             // change to view mode
@@ -102,7 +116,11 @@ function DiaryEdit(props)
                     //이미지 추가 시 배경화면 크기 조절
                     props.setStyle({minHeight: "100vh"});
                 }}></input>
-                <textarea name="body" placeholder="Write your diary here..." defaultValue={content}></textarea>
+                <textarea name="body" 
+                placeholder="Write your diary here..." 
+                defaultValue={content}
+                style={{height:"15em"}}
+                ></textarea>
                 <p>
                     <label htmlFor="write">
                         <img src={buttonImage} alt="" width="40px"/>

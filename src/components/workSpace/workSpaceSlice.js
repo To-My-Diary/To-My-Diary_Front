@@ -6,7 +6,6 @@ import moment from "moment";
 const initialState = {
     mode: "ToDoList",
     edit: false,
-    listItems: [{id:"1", content:<ListItem key="1" id="1"/>}],
     diaryImages: [],
     date: moment().format('YYYY-MM-DD')
 }
@@ -35,26 +34,6 @@ const workSpaceSlice = createSlice({
             state.date = action.payload;
             // dispatch 시 전달된 데이터 : action.payload 통해 가져올 수 있음 !
         },
-        addItem:(state, action)=>{
-            state.listItems.push({id:action.payload, content:<ListItem key={action.payload} id={action.payload}/>})
-        },
-        deleteItem:(state, action)=>{
-            let _list = [];
-            
-            if(state.listItems.length === 1)
-            {
-                return;
-            }
-
-            for(let item of state.listItems)
-            {
-                if(item.id !== action.payload)
-                {
-                    _list.push(item);
-                }
-                state.listItems = _list;
-            }
-        },
         // 다이어리 이미지 추가
         addDiaryImage:(state, action)=>{
             state.diaryImages.push(action.payload);
@@ -66,4 +45,4 @@ const workSpaceSlice = createSlice({
 })
 
 export default workSpaceSlice;
-export const { changeMode, changeEdit, addItem, deleteItem, addDiaryImage, changeDate, resetDiaryImages } = workSpaceSlice.actions;
+export const { changeMode, changeEdit, addDiaryImage, changeDate, resetDiaryImages } = workSpaceSlice.actions;
