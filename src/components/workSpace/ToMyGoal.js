@@ -65,11 +65,11 @@ function ListGoal(props)
         // })
         console.log(`dgoal ${event.target.value}`);
         setDgoal(event.target.value)
-        console.log(`sdgoal ${dgoal}`)
+        // console.log(`sdgoal ${dgoal}`)
     }
     return(
         <div className="dgoalList">
-        <text id='goalId'>{`${props.id}.`}</text>
+        <h5 id='goalId'>{`${props.id}.`}</h5>
         <div>
         <input className='detailGoal-input' type='text' name='detailGoal-input' onChange={ondetailGoalHandler}/>
         <hr id="detailHorizonLine"></hr>
@@ -99,7 +99,6 @@ function ToDoEdit()
         )
     };
     let list = [];
-    // console.log(`lg ${listGoals.content}`);
     for (let goal of listGoals)
     {
         list.push(goal.content)

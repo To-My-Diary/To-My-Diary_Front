@@ -55,6 +55,7 @@
 }
 #goalId {
     padding-inline-end: 5%;
+    margin-bottom: 0;
     /* background-color: red; */
 }
 #mainGoal {
