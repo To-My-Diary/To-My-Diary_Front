@@ -54,32 +54,56 @@ function GoalExist()
     )
 }
 
+function ListGoal(props)
+{
+    const dispatch = useDispatch();
+
+    const [dgoal, setDgoal] = useState('')
+    const ondetailGoalHandler = (event) => {
+        // setInputs((prevState) => {
+        //     return {...prevState, detailGoal:[...prevState.detailGoal, dgoal]}
+        // })
+        console.log(`dgoal ${event.target.value}`);
+        setDgoal(event.target.value)
+        console.log(`sdgoal ${dgoal}`)
+    }
+    return(
+        <div className="dgoalList">
+        <text id='goalId'>{`${props.id}.`}</text>
+        <div>
+        <input className='detailGoal-input' type='text' name='detailGoal-input' onChange={ondetailGoalHandler}/>
+        <hr id="detailHorizonLine"></hr>
+        </div>
+        <img className="trashImage" src={trashImage} alt="쓰레기통" onClick={()=>{
+            dispatch(deleteItem(props.id));
+        }} />
+        </div>
+    )
+}
+
 // 목표 추가 (메인 및 상세 목표)
 function ToDoEdit()
 {
     const dispatch = useDispatch();
-    const [dgoal, setDgoal] = useState('')
     const [inputs, setInputs] = useState({
         goal:"",
         detailGoal:[],
     });
-    const [id, setId] = useState(1)
-    // const {goal, detailGoal} = inputs;
+    const [nextID, setNextID] = useState(2)
+    const listGoals = useSelector((state) => (state.workSpace.goals))
+
     const onmainGoalHandler = (event) => {
-        console.log(`target value ${event.target.value}`)
         setInputs((prevState) => {
             return { ...prevState, goal: event.target.value }
         }
         )
     };
-    const ondetailGoalHandler = (event) => {
-        console.log(`dgoal ${dgoal}`)
-        setInputs((prevState) => {
-            return {...prevState, detailGoal:[...prevState.detailGoal, dgoal]}
-        })
+    let list = [];
+    // console.log(`lg ${listGoals.content}`);
+    for (let goal of listGoals)
+    {
+        list.push(goal.content)
     }
-    
-
     return(
         <div className="goalList">
         <form onSubmit={(event)=>{
@@ -88,27 +112,31 @@ function ToDoEdit()
         }}>
         {/* <BsSquare/> */} 
         {/* 조회 페이지에서만 필요한 아이콘 */}
-        <p className="mainGoal">
-            <text id='mainGoal'>Goal</text>
+        <div className="mainGoal">
+            <h3 id='mainGoal'>Goal</h3>
             <div>
             <input className='mainGoal-input' type='text' name='mainGoal-input' onChange={onmainGoalHandler} value={inputs.goal} />
             <hr id="mainHorizonLine"></hr>
             </div>
             <BsFillCircleFill className="colorCircle"/>
-        </p> 
-        <p className="detailGoal">
-            <text id='detailGoal'>detailed goal</text>
-            <div className="dgoalList">
-            {/* <div> */}
+        </div> 
+        <div className="detailGoal">
+            <h3 id='detailGoal'>detailed goal</h3>
+            {list}
+            {/* <div className="dgoalList">
             <text id='goalId'>{`${id}.`}</text>
             <div>
             <input className='detailGoal-input' type='text' name='detailGoal-input' onChange={ondetailGoalHandler} value={inputs.dgoal} />
             <hr id="detailHorizonLine"></hr>
             </div>
             <img className="trashImage" src={trashImage} alt="쓰레기통" onClick={()=>{}} />
-            </div>
-        </p>
+            </div> */}
+        </div>
         <img id="plusImage" src={plusImage} alt="플러스" onClick={()=>{
+                console.log(`inputs goal ${inputs.goal}`)
+                console.log(`inputs dgoal ${inputs.detailGoal}`)
+                dispatch(addItem(nextID));
+                setNextID(nextID+1);
             }}/>
             {/* <label htmlFor="write">
                     <img id="buttonImg" src={buttonImage} alt="체크"/>
@@ -147,3 +175,4 @@ function ToMyGoal()
     )
 }
 export default ToMyGoal;
+export {ListGoal};

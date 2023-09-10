@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ListItem } from "./ToDoList";
+import { ListGoal } from "./ToMyGoal";
 import moment from "moment";
 
 // 작업 공간 초기화 정보
@@ -8,7 +9,8 @@ const initialState = {
     edit: false,
     listItems: [{id:"1", content:<ListItem key="1" id="1"/>}],
     diaryImages: [],
-    date: moment().format('YYYY-MM-DD')
+    date: moment().format('YYYY-MM-DD'),
+    goals: [{id:"1", content:<ListGoal key="1" id="1"/>}]
 }
 
 const workSpaceSlice = createSlice({
@@ -38,6 +40,9 @@ const workSpaceSlice = createSlice({
         addItem:(state, action)=>{
             state.listItems.push({id:action.payload, content:<ListItem key={action.payload} id={action.payload}/>})
         },
+        addGoal:(state, action)=>{
+            state.goals.push({id:action.payload, content:<ListGoal key={action.payload} id={action.payload}/>})
+        },
         deleteItem:(state, action)=>{
             let _list = [];
             
@@ -58,10 +63,6 @@ const workSpaceSlice = createSlice({
         // 다이어리 이미지 추가
         addDiaryImage:(state, action)=>{
             state.diaryImages.push(action.payload);
-        },
-        changeDate:(state, action)=>{
-            state.date = action.payload;
-            // dispatch 시 전달된 데이터 : action.payload 통해 가져올 수 있음 !
         }
     }
 })
