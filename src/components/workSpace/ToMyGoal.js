@@ -8,7 +8,7 @@ import { BsSquare, BsFillCircleFill } from 'react-icons/bs';
 import Weather from "./Weather";
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import { changeEdit, addItem, deleteItem  } from './workSpaceSlice';
+import { changeEdit, addGoal, deleteGoal } from './workSpaceSlice';
 
 // (날짜 선택 시, 해당 날짜에) 설정한 목표 조회
 function ToDoView()
@@ -75,7 +75,7 @@ function ListGoal(props)
         <hr id="detailHorizonLine"></hr>
         </div>
         <img className="trashImage" src={trashImage} alt="쓰레기통" onClick={()=>{
-            dispatch(deleteItem(props.id));
+            dispatch(deleteGoal(props.id));
         }} />
         </div>
     )
@@ -135,7 +135,7 @@ function ToDoEdit()
         <img id="plusImage" src={plusImage} alt="플러스" onClick={()=>{
                 console.log(`inputs goal ${inputs.goal}`)
                 console.log(`inputs dgoal ${inputs.detailGoal}`)
-                dispatch(addItem(nextID));
+                dispatch(addGoal(nextID));
                 setNextID(nextID+1);
             }}/>
             {/* <label htmlFor="write">

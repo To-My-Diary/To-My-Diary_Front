@@ -60,6 +60,23 @@ const workSpaceSlice = createSlice({
                 state.listItems = _list;
             }
         },
+        deleteGoal:(state, action)=>{
+            let _list = [];
+            
+            if(state.ListGoal.length === 1)
+            {
+                return;
+            }
+
+            for(let goal of state.listGoal)
+            {
+                if(goal.id !== action.payload)
+                {
+                    _list.push(goal);
+                }
+                state.ListItem = _list;
+            }
+        },
         // 다이어리 이미지 추가
         addDiaryImage:(state, action)=>{
             state.diaryImages.push(action.payload);
@@ -68,4 +85,4 @@ const workSpaceSlice = createSlice({
 })
 
 export default workSpaceSlice;
-export const { changeMode, changeEdit, addItem, deleteItem, addDiaryImage, changeDate } = workSpaceSlice.actions;
+export const { changeMode, changeEdit, addItem, addGoal, deleteItem, deleteGoal, addDiaryImage, changeDate } = workSpaceSlice.actions;
