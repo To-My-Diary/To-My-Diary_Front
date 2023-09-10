@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changeEdit, addItem, deleteItem, initializeItems  } from './workSpaceSlice';
+import { changeEdit } from './workSpaceSlice';
 import { saveToDoData } from '../../tempData/dataSlice';
 import './ToDoList.css';
 import diaryLogo from '../../icons/일기 작성.png'
@@ -90,11 +90,8 @@ function ToDoEdit(props)
             let _list = []
             let key = 1;
             props.toDoData.forEach(element => {
-                if(element.msg.length > 0)
-                {
-                    _list.push(<ListItem key={key} id={key} msg={element.msg}/>)
-                    key++;
-                }
+                _list.push(<ListItem key={key} id={key} msg={element.msg}/>)
+                key++;
             });
             setNextID(key);
             setList(_list);
