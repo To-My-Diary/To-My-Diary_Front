@@ -45,7 +45,7 @@ function MainPage() {
   const [response, setResponse] = useState('')
 
 useEffect(() => {
-  axios.get('http://172.16.101.2:8080/calendar/goal/2023/8')
+  axios.get('/calendar/goal/2023/8') //http://172.16.101.2:8080
     .then(res => {
       console.log(res)
       // console.log({response})
