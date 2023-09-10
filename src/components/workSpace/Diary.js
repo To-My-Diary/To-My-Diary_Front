@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-import { changeEdit, addDiaryImage } from './workSpaceSlice';
+import { useEffect, useState } from "react";
+import { changeEdit, addDiaryImage, resetDiaryImages } from './workSpaceSlice';
+import { saveDiaryData } from '../../tempData/dataSlice';
 import Weather from "./Weather";
 import ImageCropper from "./ImageCropper";
 import './Diary.css';
@@ -9,13 +10,38 @@ import imageLogo from '../../icons/사진4.png'
 import buttonImage from '../../icons/완료3 2.png'
 
 // 일기 보기 화면
-function DiaryView()
+function DiaryView(props)
 {
+    let content = null;
+
+    if(Object.keys(props.diaryData).length === 0) // when there is no data
+    {
+        content = <img src={diaryLogo} id="diaryImg" alt="일기 작성"/>;
+    }
+    else // when ther is saved data
+    {
+        if(props.diaryData.img.length === 0) // when there is no image
+        {
+            content = <div>
+            <textarea value={props.diaryData.content} readOnly/>
+            </div>
+        }
+        else
+        {
+            content = <div>
+                <div className="images">
+                    {props.diaryData.img}
+                </div>
+                <textarea value={props.diaryData.content} readOnly/>
+            </div>
+        }
+    }
+
     return (
         <>
         <Weather/>
         <h3 className="workSpaceTitle">TO MY DIARY</h3>
-        <img src={diaryLogo} id="diaryImg" alt="일기 작성"/>
+        {content}
         </>
     )
 }
@@ -26,12 +52,38 @@ function DiaryEdit(props)
     const diaryImages = useSelector(state=>state.workSpace.diaryImages);
     const [croppingImage, setCroppingImage] = useState(null);
     const [imageId, setImageId] = useState(1);
+    const [content, setContent] = useState("");
     const dispatch = useDispatch();
     let reader = new FileReader();
+
+    useEffect(()=>{
+        if(Object.keys(props.diaryData).length !== 0)
+        {
+            dispatch(resetDiaryImages(props.diaryData.img))
+            setContent(props.diaryData.content);
+        }
+    },[content, props.diaryData, dispatch]);
 
     return(
         <form encType="multipart/form-data" onSubmit={(event)=>{
             event.preventDefault();
+
+            // Diary create
+            if(event.target.body.value.length > 0)
+            {
+                const data = {
+                    userId: "",
+                    content: event.target.body.value,
+                    emotion: "",
+                    img: diaryImages
+                }
+                dispatch(saveDiaryData(data));
+            }
+
+            // reset diaryImages to empty list
+            dispatch(resetDiaryImages([]));
+
+            // change to view mode
             dispatch(changeEdit());
         }}>
             <Weather/>
@@ -64,7 +116,11 @@ function DiaryEdit(props)
                     //이미지 추가 시 배경화면 크기 조절
                     props.setStyle({minHeight: "100vh"});
                 }}></input>
-                <textarea name="body" placeholder="Write your diary here..."></textarea>
+                <textarea name="body" 
+                placeholder="Write your diary here..." 
+                defaultValue={content}
+                style={{height:"15em"}}
+                ></textarea>
                 <p>
                     <label htmlFor="write">
                         <img src={buttonImage} alt="" width="40px"/>
@@ -82,6 +138,7 @@ function Diary()
 {
     const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
+    const diaryData = useSelector(state=>state.tempData.diaryData);
     const [diaryStyle, setDiaryStyle] = useState(null);
 
     return (
@@ -93,7 +150,8 @@ function Diary()
                 dispatch(changeEdit());
             }
         }}>
-            {edit?<DiaryEdit setStyle={setDiaryStyle}/>:<DiaryView/>}
+            {edit?<DiaryEdit setStyle={setDiaryStyle} diaryData={diaryData}/>:
+            <DiaryView diaryData={diaryData}/>}
         </div>
     )
 }

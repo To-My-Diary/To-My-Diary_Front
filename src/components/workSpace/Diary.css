@@ -4,8 +4,8 @@
 }
 textarea {
    width : 80%;
-   height: 15em;
    resize: none;
+   min-height: 12em;
    background-color: transparent;
    border: none;
    font-size: x-large;
@@ -50,6 +50,16 @@ textarea:focus{
 .diaryView{
     height: 100%;
     position: relative;
+    overflow-y: auto;
+}
+.diaryView::-webkit-scrollbar {
+    width: 0;
+}
+.diaryView::-webkit-scrollbar-thumb {
+
+    background-color: hsla(0, 0%, 42%, 0.49);
+    border-radius: 100px;
+
 }
 .diaryEdit{
     min-height: calc(var(--vh, 1vh) * 100);
@@ -61,5 +71,4 @@ textarea:focus{
 .diaryImages {
     margin-left: 10px;
     margin-right: 10px;
-    
 }

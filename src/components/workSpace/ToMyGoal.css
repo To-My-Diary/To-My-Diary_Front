@@ -14,12 +14,12 @@
     top: 50%;
     transform: translate(-50%, -30%);
 }
-#buttonImg{
+/* #buttonImg{
     width: 40px;
     position: absolute;
     top: 10%;
     right: 5%;
-}
+} */
 #plusImage {
     margin-top: 5%;
     width: 40px;
