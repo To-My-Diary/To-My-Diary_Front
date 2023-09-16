@@ -17,7 +17,7 @@ function ScheduleSpace() {
       // getMonth() : 0 ~ 11 숫자로 표현
     });
 return (
-    <div className='app'>
+    <div className='scheduleWrapper'>
       <br />
       <div className='calendar-container'>
       <Calendar

@@ -1,11 +1,12 @@
 .ToMyGoal{
-    height: calc(var(--vh, 1vh) * number); /* 스크롤 사라짐 */
+    height: calc(var(--vh, 1vh) * 50); /* 스크롤 사라짐 */
+    overflow-y: auto;
     /* height: calc(var(--vh, 1vh) * 50); */
     position: relative;
     width: 100vw;
     justify-content: center;
     align-items: center;
-    display: flex;
+    display: block;
     flex-direction: column;
 }
 #diaryImg {
@@ -14,20 +15,24 @@
     top: 50%;
     transform: translate(-50%, -30%);
 }
-/* #buttonImg{
+#buttonGoalImg{
     width: 40px;
-    position: absolute;
-    top: 10%;
-    right: 5%;
-} */
+    position: relative;
+    /* bottom: 10%; */
+    left: 35%;
+}
 #plusImage {
     margin-top: 5%;
+    margin-bottom: 10%;
+    margin-left: 10%;
     width: 40px;
 }
 .trashImage {
-    margin: 7px;
+    margin: 5px;
+    margin-bottom: 0;
     width: 24px;
     padding-inline-start: 15%;
+    /* background-color: blue; */
 }
 .goalList {
     font-family: "ArchitectD";
@@ -38,10 +43,6 @@
     flex-direction: column;
     align-items: center;
     /* background-color: red; */
-}
-.detailGoal {
-    /* background-color: blue; */
-    /* width: 120%; */
 }
 .mainGoal,
 .dgoalList {
@@ -55,7 +56,7 @@
 }
 #goalId {
     padding-inline-end: 5%;
-    margin-bottom: 0;
+    /* margin-top: 0; */
     /* background-color: red; */
 }
 #mainGoal {
@@ -90,15 +91,14 @@
     font-weight: 100;
     font-size: 20px;
     width: 110%;
-    margin-bottom: 0;
-    padding-bottom: 0;
     /* background-color: white; */
 }
 #mainHorizonLine {
     border-color: black;
     border-width: 0.8px;
     margin-top: 0;
-    width: 100%;
+    /* margin-right: 0; */
+    width: 105%;
 }
 #detailHorizonLine {
     border-color: black;

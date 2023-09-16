@@ -3,8 +3,8 @@
 import './WorkSpace.css';
 import ToDoList from './ToDoList';
 import Diary from './Diary';
-import Goal from './ToMyGoal';
 import { Route, Routes } from 'react-router-dom';
+import ToMyGoal from './ToMyGoal';
 
 function WorkSpace() {
     return(
@@ -12,7 +12,7 @@ function WorkSpace() {
             <Routes>
                 <Route path="/" element={<ToDoList/>}/>
                 <Route path="/diary" element={<Diary/>}/>
-                <Route path="/goal" element={<Goal/>}/>
+                <Route path="/goal" element={<ToMyGoal/>}/>
             </Routes>
         </div>
     );

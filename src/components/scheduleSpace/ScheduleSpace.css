@@ -1,6 +1,13 @@
+.scheduleWrapper {
+  height: calc(var(--vh, 1vh) * 50);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .react-calendar {
-    width: 100vw;
-    height: 300px;
+    width: 90vw;
+    /* height: 50vh; */
     max-width: 100%;
     background: white;
     border: none;
@@ -109,7 +116,7 @@
   }
   
 .react-calendar__tile { /* 월-금 날짜 숫자 */
-    max-width: 100%;
+    max-width: 100;
     padding: 10px 6.6667px;
     background: none;
     text-align: center;
@@ -137,6 +144,7 @@
       align-items: center;
       justify-content: center;
       background-color: #e0dfdfcc;
+      
       /* 숫자텍스트랑 백그라운드(원)이랑 같이 묶여있음 */
   }
   
@@ -149,6 +157,7 @@
     justify-content: center;
     color: white;
     background: #000000;
+    /* background-color: red; */
   }
   
 .react-calendar__tile--now:enabled:hover, /* 오늘 날짜에 커서 갖다 댔을 때 / 클릭했을 때 */

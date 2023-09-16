@@ -6,9 +6,11 @@ import plusImage from '../../icons/플러스2 1.png';
 import buttonImage from '../../icons/체크1 2.png';
 import { BsSquare, BsFillCircleFill } from 'react-icons/bs';
 import Weather from "./Weather";
+import IconColorPicker from "./ColorButton";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import { changeEdit, addGoal, deleteGoal } from './workSpaceSlice';
+import { BlockPicker } from "react-color";
 
 // (날짜 선택 시, 해당 날짜에) 설정한 목표 조회
 function ToDoView()
@@ -48,8 +50,6 @@ function GoalExist()
         <h3>detailed goal</h3>
         <hr className="horizonLine"></hr>
         <br/>
-        {/* for문 돌려서 id = 1 ~ 설정되어있는 목표까지 불러와서 출력 ! */}
-        {/* for문 안 실행문 */}
         </div>
     )
 }
@@ -91,7 +91,6 @@ function ToDoEdit()
     });
     const [nextID, setNextID] = useState(2)
     const listGoals = useSelector((state) => (state.workSpace.goals))
-
     const onmainGoalHandler = (event) => {
         setInputs((prevState) => {
             return { ...prevState, goal: event.target.value }
@@ -117,7 +116,7 @@ function ToDoEdit()
             <input className='mainGoal-input' type='text' name='mainGoal-input' onChange={onmainGoalHandler} value={inputs.goal} />
             <hr id="mainHorizonLine"></hr>
             </div>
-            <BsFillCircleFill className="colorCircle"/>
+            <IconColorPicker/>
         </div> 
         <div className="detailGoal">
             <h3 id='detailGoal'>detailed goal</h3>
@@ -137,9 +136,10 @@ function ToDoEdit()
                 dispatch(addGoal(nextID));
                 setNextID(nextID+1);
             }}/>
-            {/* <label htmlFor="write">
-                    <img id="buttonImg" src={buttonImage} alt="체크"/>
-            </label> */}
+            <label htmlFor="write">
+                    <img id="buttonGoalImg" src={buttonImage} alt="체크"/>
+            </label>
+            <input id="write" type="submit" hidden/>
         </form>
         {/* for문 돌려서 id = 1 ~ 설정되어있는 목표까지 불러와서 출력 ! */}
         {/* for문 안 실행문 */}
