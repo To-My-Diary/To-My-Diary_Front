@@ -4,12 +4,14 @@ import { saveToDoData } from '../../tempData/dataSlice';
 import './ToDoList.css';
 import diaryLogo from '../../icons/일기 작성.png'
 import Weather from "./Weather";
+import Modal from "./Modal";
 import buttonImage from '../../icons/체크1 2.png';
 import plusImage from '../../icons/플러스2 1.png';
 import clockImage from '../../icons/시계 2.png'
 import trashImage from '../../icons/쓰레기통 1.png'
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import bootstrap from 'bootstrap';
 
 // TO-DO 보기 화면
 function ToDoView(props)
@@ -32,7 +34,7 @@ function ToDoView(props)
     else
     {
          props.toDoData.forEach(item=>{
-            list.push(<ListItem key={key++} msg={item.msg}/>)
+            list.push(<ListItem key={key++} msg={item.msg} achieve={item.achieve}/>)
          })
          content = <>
             <Weather/>
@@ -43,9 +45,9 @@ function ToDoView(props)
     }
 
     return(
-        <>
+        <form>
             {content}
-        </>
+        </form>
     )
 }
 
@@ -53,25 +55,63 @@ function ListItem(props)
 {
     const [msg, setMsg] = useState(props.msg||"");
     const [planDate, setPlanDate] = useState("");
-    const [achieve, setAchieve] = useState("");
+    const [achieve, setAchieve] = useState(props.achieve||"");
+    const edit = useSelector(state=>state.workSpace.edit);
+    let leftSide = null;
+
+    function checkboxClick(event)
+    {
+        event.stopPropagation();
+        setAchieve(achieve===""?"달성":"");
+
+        // need to post todo json
+    }
+
+    if(edit)
+    {
+        if(planDate!=="")
+        {
+            leftSide = planDate;
+        }
+        else
+        {
+            leftSide = <div style={{display:"inline-block"}}>
+                <button type="button" id ={`timeButton${props.id}`} class="btn btn-primary" 
+                    data-bs-toggle="modal" data-bs-target="#exampleModal" hidden/>
+                <label htmlFor={`timeButton${props.id}`}>
+                    <img className="itemImage" src={clockImage} alt="시계"/>
+                </label>
+            </div>
+        }
+    }
+    else
+    {
+        leftSide = achieve==="달성"?<input type="checkbox" checked onClick={(event)=>{checkboxClick(event);}}/>:
+            <input type="checkbox" onClick={(event)=>{checkboxClick(event);}}/>
+    }
 
     return(
-        <div id={"listItem"+props.id} className="listItem" style={{marginTop:"8px"}} data-msg={msg} data-time={planDate} data-achieve={achieve}>
-            <img className="itemImage" src={clockImage} alt="시계"/>
+        <div id={"listItem"+props.id} className="listItem" style={{marginTop:"8px", display:"flex", justifyContent:"center"}} 
+        data-msg={msg} data-time={planDate} data-achieve={achieve}>
+            {leftSide}
             <div style={{display:"inline-block"}}>
                 <input type="text" value={msg} onChange={(event)=>{
                     setMsg(event.target.value);
                 }}></input>
-                <hr style={{marginTop:"3px"}}/>
+                <hr style={{marginTop:"3px", marginBottom:"0"}}/>
             </div>
-            <img className="itemImage" src={trashImage} alt="쓰레기통" onClick={()=>{
+            {
+                edit?
+                <img className="itemImage" src={trashImage} alt="쓰레기통" onClick={()=>{
                     let count = document.querySelectorAll(".listItem").length;
                     if(count > 1)
                     {
                         let item = document.querySelector("#listItem"+props.id);
                         item.remove();
                     }
-                }}/>
+                }}/>:null
+            }
+            <Modal/>
         </div>
     )
 }
@@ -90,7 +130,7 @@ function ToDoEdit(props)
             let _list = []
             let key = 1;
             props.toDoData.forEach(element => {
-                _list.push(<ListItem key={key} id={key} msg={element.msg}/>)
+                _list.push(<ListItem key={key} id={key} msg={element.msg} achieve={element.achieve}/>)
                 key++;
             });
             setNextID(key);

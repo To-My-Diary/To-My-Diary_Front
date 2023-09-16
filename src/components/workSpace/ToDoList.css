@@ -1,9 +1,14 @@
-input {
+input[type="text"] {
     border: none;
     font-size: medium;
 }
-input:focus {
+input[type="text"]:focus {
     outline: none;
+}
+input[type="checkbox"] {
+    margin: 1%;
+    width: 1.5%;
+    
 }
 #diaryImg {
     width: 50px;
@@ -34,5 +39,7 @@ input:focus {
 }
 .itemImage {
     margin: 7px;
+    margin-top: 3px;
     width: 30px;
+    height: 30px;
 }
