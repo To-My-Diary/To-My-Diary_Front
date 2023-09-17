@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 // 작업 공간 초기화 정보
 const initialState = {
     diaryData: {},
-    toDoData: []
+    toDoData: [],
+    goalData: {}
 }
 
 const dataSlice = createSlice({
@@ -15,9 +16,12 @@ const dataSlice = createSlice({
         },
         saveToDoData: (state, action) => {
             state.toDoData = action.payload;
+        },
+        saveGoalData: (state, action) => {
+            state.goalData = action.payload;
         }
     }
 })
 
 export default dataSlice;
-export const { saveDiaryData, saveToDoData } = dataSlice.actions;
+export const { saveDiaryData, saveToDoData, saveGoalData } = dataSlice.actions;

@@ -10,7 +10,7 @@ import IconColorPicker from "./ColorButton";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import { changeEdit, addGoal, deleteGoal } from './workSpaceSlice';
-import { BlockPicker } from "react-color";
+import { goalData } from '../../tempData/dataSlice'
 
 // (날짜 선택 시, 해당 날짜에) 설정한 목표 조회
 function ToDoView()
@@ -58,24 +58,27 @@ function ListGoal(props)
 {
     const dispatch = useDispatch();
 
-    const [dgoal, setDgoal] = useState('')
+    const [content, setContent] = useState(props.content||"");
+    const [planDate, setPlanDate] = useState("");
+    // const [dgoal, setDgoal] = useState('')
     const ondetailGoalHandler = (event) => {
-        // setInputs((prevState) => {
-        //     return {...prevState, detailGoal:[...prevState.detailGoal, dgoal]}
-        // })
-        console.log(`dgoal ${event.target.value}`);
-        setDgoal(event.target.value)
+        setContent(event.target.value)
         // console.log(`sdgoal ${dgoal}`)
     }
     return(
-        <div className="dgoalList">
+        <div id={"dgoal"+props.id} className="dgoalList" data-content={content} data-time={planDate}>
         <h5 id='goalId'>{`${props.id}.`}</h5>
         <div>
-        <input className='detailGoal-input' type='text' name='detailGoal-input' onChange={ondetailGoalHandler}/>
+        <input className='detailGoal-input' type='text' name='detailGoal-input' value={content} onChange={ondetailGoalHandler}/>
         <hr id="detailHorizonLine"></hr>
         </div>
         <img className="trashImage" src={trashImage} alt="쓰레기통" onClick={()=>{
-            dispatch(deleteGoal(props.id));
+            let count = document.querySelectorAll(".dgoalList").length;
+            if(count > 1)
+            {
+                let item = document.querySelector("#dgoal"+props.id);
+                item.remove();
+            }
         }} />
         </div>
     )
@@ -85,23 +88,50 @@ function ListGoal(props)
 function ToDoEdit()
 {
     const dispatch = useDispatch();
-    const [inputs, setInputs] = useState({
-        goal:"",
-        detailGoal:[],
-    });
+    const date = useSelector((state)=>(state.workSpace.date));
+    // const listGoals = useSelector((state) => (state.workSpace.goals))
+    // const [inputs, setInputs] = useState({
+    //     goal:"",
+    //     detailGoal:[],
+    // });
+    // const onmainGoalHandler = (event) => {
+    //     setInputs((prevState) => {
+    //         return { ...prevState, goal: event.target.value }
+    //     }
+    //     )
+    // };
     const [nextID, setNextID] = useState(2)
-    const listGoals = useSelector((state) => (state.workSpace.goals))
-    const onmainGoalHandler = (event) => {
-        setInputs((prevState) => {
-            return { ...prevState, goal: event.target.value }
+    const [goal, setGoal] = useState("")
+    const [dgoal, setDgoal] = useState([])
+    ////
+    // let list = [];
+    // for (let goal of listGoals)
+    // {
+    //     list.push(goal.content)
+    // }
+    useEffect(() => {
+        if(Object.keys(props.goalData).length !== 0)
+        {
+            setInputs(props.goalData.goal)
+            let _list = []
+            let key = 1;
+            props.goalData.detailGoals.forEach(element => {
+                if(element.content.length > 0)
+                {
+                    _list.push(<ListGoal key={key} id={key} content={element.content}/>)
+                    key++;
+                }
+            });
+            setNextID(key);
+            setList(_list);
+
         }
-        )
-    };
-    let list = [];
-    for (let goal of listGoals)
-    {
-        list.push(goal.content)
-    }
+        else
+        {
+            setList([<ListGoal key="1" id="1"/>]);
+        }
+    },[])
+    ////
     return(
         <div className="goalList">
         <form onSubmit={(event)=>{
