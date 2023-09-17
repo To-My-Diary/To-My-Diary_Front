@@ -98,7 +98,7 @@ export default LoginPage;
 
 function onKakaoLogin()
 {
-    alert("카카오로그인 이동")
+    window.open("https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=148570826c7770f175f7b4c40a87580e&redirect_uri=http://localhost:8080/auth/kakao/callback")
 }
 function onGoogleLogin()
 {

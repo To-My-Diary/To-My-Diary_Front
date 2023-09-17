@@ -35,3 +35,9 @@ input:focus {
     margin: 7px;
     width: 30px;
 }
+#todohorizon {
+    border-color: black;
+    border-width: 0.8px;
+    margin-top: 0;
+    width: 100%;
+}
