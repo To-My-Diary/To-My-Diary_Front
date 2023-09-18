@@ -14,6 +14,14 @@
     font-family: "NotoSC";
     src: url("fonts/NotoSansSC-Medium.ttf");
   }
+@font-face {
+  font-family: "kkum";
+  src: url(fonts/cachildren\ kkum.ttf);
+}
+@font-face {
+  font-family: "modu";
+  src: url(fonts/cachildren\ modu.ttf);
+}
 .App {
     text-align: center;
 }

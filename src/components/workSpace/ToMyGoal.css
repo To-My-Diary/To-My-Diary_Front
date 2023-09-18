@@ -42,7 +42,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* background-color: red; */
+    text-align: center;
+    background-color: red;
 }
 .mainGoal,
 .dgoalList {
@@ -51,7 +52,8 @@
     display: flex;
     flex-direction: row;
     margin-bottom: 0;
-    /* background-color: blue; */
+    max-width: 80%;
+    background-color: blue;
     /* width: 100vw; */
 }
 #goalId {
@@ -75,22 +77,21 @@
 }
 .mainGoal-input{
     background-color: transparent;
-    font-family: "ArchitectD";
-    font-weight: 100;
-    font-size: 20px;
+    font-family: "modu";
+    font-weight: bold;
+    font-size: 24px;
     text-align: center;
-    width: 95%;
-    margin-bottom: 0;
+    width: 80%;
     padding-bottom: 0;
     /* background-color: white; */
 }
 .detailGoal-input {
     background-color: transparent;
     /* text-align: center; */
-    font-family: "ArchitectD";
-    font-weight: 100;
-    font-size: 20px;
-    width: 110%;
+    font-family: "modu";
+    font-weight: bold;
+    font-size: 24px;
+    width: 120%;
     /* background-color: white; */
 }
 #mainHorizonLine {
@@ -98,7 +99,7 @@
     border-width: 0.8px;
     margin-top: 0;
     /* margin-right: 0; */
-    width: 105%;
+    width: 90%;
 }
 #detailHorizonLine {
     border-color: black;

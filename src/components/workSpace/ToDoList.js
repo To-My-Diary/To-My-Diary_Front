@@ -62,7 +62,7 @@ function ListItem(props)
                 <input type="text" value={msg} onChange={(event)=>{
                     setMsg(event.target.value);
                 }}></input>
-                <hr style={{marginTop:"3px"}}/>
+                <hr id = "todohorizon"/>
             </div>
             <img className="itemImage" src={trashImage} alt="쓰레기통" onClick={()=>{
                     let count = document.querySelectorAll(".listItem").length;
