@@ -68,7 +68,7 @@ function ListGoal(props)
         // console.log(`sdgoal ${dgoal}`)
     }
     return(
-        <div className="dgoalList">
+        <div className="dgoalList" style={{marginBottom:'-20px'}}>
         <h5 id='goalId'>{`${props.id}.`}</h5>
         <div>
         <input className='detailGoal-input' type='text' name='detailGoal-input' onChange={ondetailGoalHandler}/>
