@@ -91,7 +91,7 @@ function ListItem(props)
         data-msg={msg} data-time={planDate} data-achieve={achieve}>
             {leftSide}
             <div style={{display:"inline-block"}}>
-                <input type="text" value={msg} onChange={(event)=>{
+                <input type="text" className="msgText" value={msg} onChange={(event)=>{
                     setMsg(event.target.value);
                 }}></input>
                 <hr id="todohorizon"/>
@@ -113,6 +113,9 @@ function ListItem(props)
                 contentLabel="시간 설정" // 모달에 대한 레이블
                 ariaHideApp={false} // 스타일이 적용되어야 합니다.
                 style={{
+                    overlay: {
+                        backgroundColor: "rgba( 0, 0, 0, 0.5 )"
+                    },
                     content: {
                     width: '240px', // 350
                     height: '260px',
@@ -120,10 +123,21 @@ function ListItem(props)
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     borderRadius: '5%',
+                    textAlign: "center"
                     },
                 }}
             >
-                안녕
+                <form onSubmit={(event)=>{
+                    event.preventDefault();
+
+                    setIsTimeModalOpen(false);
+                    //setPlanDate(event.target.hour.value +":"+event.target.minute.value);
+                }}>
+                    <h4>시간 설정</h4>
+                    <input type="number" name="hour" className="timeNum"/>:
+                    <input type="number" name="minute" className="timeNum"/>
+                    <p><input type="submit" value="확인"></input></p>
+                </form>
             </Modal>
         </div>
     )
