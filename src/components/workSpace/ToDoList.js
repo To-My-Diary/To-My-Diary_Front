@@ -4,14 +4,13 @@ import { saveToDoData } from '../../tempData/dataSlice';
 import './ToDoList.css';
 import diaryLogo from '../../icons/일기 작성.png'
 import Weather from "./Weather";
-import Modal from "./Modal";
 import buttonImage from '../../icons/체크1 2.png';
 import plusImage from '../../icons/플러스2 1.png';
 import clockImage from '../../icons/시계 2.png'
 import trashImage from '../../icons/쓰레기통 1.png'
 import { useState, useEffect } from "react";
+import Modal from "react-modal";
 import axios from 'axios';
-import bootstrap from 'bootstrap';
 
 // TO-DO 보기 화면
 function ToDoView(props)
@@ -56,6 +55,7 @@ function ListItem(props)
     const [msg, setMsg] = useState(props.msg||"");
     const [planDate, setPlanDate] = useState("");
     const [achieve, setAchieve] = useState(props.achieve||"");
+    const [isTimeModalOpen, setIsTimeModalOpen] = useState(false);
     const edit = useSelector(state=>state.workSpace.edit);
     let leftSide = null;
 
@@ -76,11 +76,7 @@ function ListItem(props)
         else
         {
             leftSide = <div style={{display:"inline-block"}}>
-                <button type="button" id ={`timeButton${props.id}`} class="btn btn-primary" 
-                    data-bs-toggle="modal" data-bs-target="#exampleModal" hidden/>
-                <label htmlFor={`timeButton${props.id}`}>
-                    <img className="itemImage" src={clockImage} alt="시계"/>
-                </label>
+                <img className="itemImage" src={clockImage} alt="시계" onClick={()=>setIsTimeModalOpen(true)}/>
             </div>
         }
     }
@@ -98,7 +94,7 @@ function ListItem(props)
                 <input type="text" value={msg} onChange={(event)=>{
                     setMsg(event.target.value);
                 }}></input>
-                <hr style={{marginTop:"3px", marginBottom:"0"}}/>
+                <hr id="todohorizon"/>
             </div>
             {
                 edit?
@@ -111,7 +107,24 @@ function ListItem(props)
                     }
                 }}/>:null
             }
-            <Modal/>
+            <Modal
+                isOpen={isTimeModalOpen}
+                onRequestClose={() => setIsTimeModalOpen(false)} // 모달을 닫을 때 모달 상태를 변경합니다.
+                contentLabel="시간 설정" // 모달에 대한 레이블
+                ariaHideApp={false} // 스타일이 적용되어야 합니다.
+                style={{
+                    content: {
+                    width: '240px', // 350
+                    height: '260px',
+                    top: '30%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    borderRadius: '5%',
+                    },
+                }}
+            >
+                안녕
+            </Modal>
         </div>
     )
 }
