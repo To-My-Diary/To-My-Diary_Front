@@ -5,6 +5,8 @@ import ToDoList from './ToDoList';
 import Diary from './Diary';
 import Goal from './ToMyGoal';
 import { Route, Routes } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 function WorkSpace() {
     return(

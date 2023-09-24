@@ -33,7 +33,7 @@ function ToDoView(props)
     else
     {
          props.toDoData.forEach(item=>{
-            list.push(<ListItem key={key++} msg={item.msg} achieve={item.achieve}/>)
+            list.push(<ListItem key={key++} msg={item.msg} achieve={item.achieve} planDate={item.planDate}/>)
          })
          content = <>
             <Weather/>
@@ -53,7 +53,7 @@ function ToDoView(props)
 function ListItem(props)
 {
     const [msg, setMsg] = useState(props.msg||"");
-    const [planDate, setPlanDate] = useState("");
+    const [planDate, setPlanDate] = useState(props.planDate||"");
     const [achieve, setAchieve] = useState(props.achieve||"");
     const [isTimeModalOpen, setIsTimeModalOpen] = useState(false);
     const edit = useSelector(state=>state.workSpace.edit);
@@ -71,7 +71,8 @@ function ListItem(props)
     {
         if(planDate!=="")
         {
-            leftSide = planDate;
+            leftSide = <p style={{margin:"10px"}} onClick={()=>setIsTimeModalOpen(true)}>
+                {planDate}</p>;
         }
         else
         {
@@ -88,7 +89,7 @@ function ListItem(props)
 
     return(
         <div id={"listItem"+props.id} className="listItem" style={{marginTop:"8px", display:"flex", justifyContent:"center"}} 
-        data-msg={msg} data-time={planDate} data-achieve={achieve}>
+        data-msg={msg} data-planDate={planDate} data-achieve={achieve}>
             {leftSide}
             <div style={{display:"inline-block"}}>
                 <input type="text" className="msgText" value={msg} onChange={(event)=>{
@@ -129,9 +130,13 @@ function ListItem(props)
             >
                 <form onSubmit={(event)=>{
                     event.preventDefault();
-
+                    event.stopPropagation();
+                    
+                    if(event.target.hour.value!==""&&event.target.minute.value!=="")
+                    {
+                        setPlanDate(event.target.hour.value +":"+event.target.minute.value);
+                    }
                     setIsTimeModalOpen(false);
-                    //setPlanDate(event.target.hour.value +":"+event.target.minute.value);
                 }}>
                     <h4>시간 설정</h4>
                     <input type="number" name="hour" className="timeNum"/>:
@@ -157,7 +162,8 @@ function ToDoEdit(props)
             let _list = []
             let key = 1;
             props.toDoData.forEach(element => {
-                _list.push(<ListItem key={key} id={key} msg={element.msg} achieve={element.achieve}/>)
+                _list.push(<ListItem key={key} id={key} msg={element.msg} 
+                    achieve={element.achieve} planDate={element.planDate}/>)
                 key++;
             });
             setNextID(key);
