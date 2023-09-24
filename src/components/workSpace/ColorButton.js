@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import { CirclePicker, CompactPicker, TwitterPicker} from 'react-color';
 import { BsFillCircleFill } from 'react-icons/bs';
 import Modal from 'react-modal';
+import { useDispatch } from 'react-redux';
+import { changeColor } from './workSpaceSlice';
 
 function IconColorPicker() {
+    const dispatch = useDispatch();
   const [iconColor, setIconColor] = useState('#000'); // 초기 아이콘 색상
   const [isColorPickerOpen, setColorPickerOpen] = useState(false); // 모달 열림 상태
 
   const handleColorChange = (color) => {
     setIconColor(color.hex); // 선택한 색상으로 아이콘 색상 업데이트
+    dispatch(changeColor(color.hex));
     setColorPickerOpen(false); // 모달을 닫음
   };
 

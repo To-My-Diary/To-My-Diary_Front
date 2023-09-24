@@ -9,7 +9,8 @@ const initialState = {
     edit: false,
     diaryImages: [],
     date: moment().format('YYYY-MM-DD'),
-    goals: [{id:"1", content:<ListGoal key="1" id="1"/>}]
+    goals: [{id:"1", content:<ListGoal key="1" id="1"/>}],
+    color: '#000'
 }
 
 const workSpaceSlice = createSlice({
@@ -46,29 +47,14 @@ const workSpaceSlice = createSlice({
         addGoal:(state, action)=>{
             state.goals.push({id:action.payload, content:<ListGoal key={action.payload} id={action.payload}/>})
         },
-        deleteGoal:(state, action)=>{
-            let _list = [];
-            
-            if(state.ListGoal.length === 1)
-            {
-                return;
-            }
-
-            for(let goal of state.listGoal)
-            {
-                if(goal.id !== action.payload)
-                {
-                    _list.push(goal);
-                }
-                state.ListItem = _list;
-            }
-        },
-        // 다이어리 이미지 추가
         addDiaryImage:(state, action)=>{
             state.diaryImages.push(action.payload);
+        },
+        changeColor: (state, action)=>{
+            state.color = action.payload;
         }
     }
 })
 
 export default workSpaceSlice;
-export const { changeMode, changeEdit, addItem, addGoal, deleteItem, deleteGoal, addDiaryImage, changeDate, resetDiaryImages } = workSpaceSlice.actions;
+export const { changeMode, changeEdit, addGoal, addDiaryImage, changeDate, resetDiaryImages, changeColor } = workSpaceSlice.actions;

@@ -29,8 +29,7 @@
 }
 .trashImage {
     margin: 5px;
-    margin-bottom: 0;
-    width: 24px;
+    width: 22px;
     padding-inline-start: 15%;
     /* background-color: blue; */
 }
@@ -42,8 +41,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    background-color: red;
+    /* background-color: red; */
 }
 .mainGoal,
 .dgoalList {
@@ -51,10 +49,10 @@
     align-items: center;
     display: flex;
     flex-direction: row;
-    margin-bottom: 0;
     max-width: 80%;
-    background-color: blue;
-    /* width: 100vw; */
+    margin: 0 auto;
+    
+    /* background-color: blue; */
 }
 #goalId {
     padding-inline-end: 5%;
@@ -66,11 +64,12 @@
     font-size: x-large;
 }
 #detailGoal {
-    align-items: flex-start;
+    justify-content: flex-start;
     display: flex;
     flex-direction: row;
     margin-top: 0;
     margin-bottom: 0;
+    margin-left: 10%;
     font-weight: normal;
     font-size: x-large;
     /* background-color: blue; */
@@ -79,7 +78,7 @@
     background-color: transparent;
     font-family: "modu";
     font-weight: bold;
-    font-size: 24px;
+    font-size: 22px;
     text-align: center;
     width: 80%;
     padding-bottom: 0;
@@ -90,7 +89,8 @@
     /* text-align: center; */
     font-family: "modu";
     font-weight: bold;
-    font-size: 24px;
+    font-size: 22px;
+    padding-bottom: 0;
     width: 120%;
     /* background-color: white; */
 }

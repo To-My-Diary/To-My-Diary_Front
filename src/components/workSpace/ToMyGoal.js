@@ -9,8 +9,8 @@ import Weather from "./Weather";
 import IconColorPicker from "./ColorButton";
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import { changeEdit, addGoal, deleteGoal } from './workSpaceSlice';
-import { BlockPicker } from "react-color";
+import { changeEdit, addGoal } from './workSpaceSlice';
+import { saveGoalData } from "../../tempData/dataSlice";
 
 // (날짜 선택 시, 해당 날짜에) 설정한 목표 조회
 function ToDoView()
@@ -57,63 +57,131 @@ function GoalExist()
 function ListGoal(props)
 {
     const dispatch = useDispatch();
+    const [msg, setMsg] = useState(props.msg||"");
+    const [planDate, setPlanDate] = useState("");
 
-    const [dgoal, setDgoal] = useState('')
-    const ondetailGoalHandler = (event) => {
-        // setInputs((prevState) => {
-        //     return {...prevState, detailGoal:[...prevState.detailGoal, dgoal]}
-        // })
-        console.log(`dgoal ${event.target.value}`);
-        setDgoal(event.target.value)
-        // console.log(`sdgoal ${dgoal}`)
-    }
+    // const [dgoal, setDgoal] = useState('')
+    // const ondetailGoalHandler = (event) => {
+    //     // setInputs((prevState) => {
+    //     //     return {...prevState, detailGoal:[...prevState.detailGoal, dgoal]}
+    //     // })
+    //     console.log(`dgoal ${event.target.value}`);
+    //     setDgoal(event.target.value)
+    //     // console.log(`sdgoal ${dgoal}`)
+    // }
     return(
-        <div className="dgoalList" style={{marginBottom:'-20px'}}>
+        <div id={"dgoalList"+props.id} className="dgoalList" style={{marginBottom:'-20px'}} data-msg={msg} data-time={planDate}>
         <h5 id='goalId'>{`${props.id}.`}</h5>
         <div>
-        <input className='detailGoal-input' type='text' name='detailGoal-input' onChange={ondetailGoalHandler}/>
+        <input className='detailGoal-input' type='text' name='detailGoal-input' value={msg} onChange={(event)=>{
+                    setMsg(event.target.value);}}/>
         <hr id="detailHorizonLine"></hr>
         </div>
         <img className="trashImage" src={trashImage} alt="쓰레기통" onClick={()=>{
-            dispatch(deleteGoal(props.id));
-        }} />
+                    let count = document.querySelectorAll(".dgoalList").length;
+                    if(count > 1)
+                    {
+                        let item = document.querySelector("#dgoalList"+props.id);
+                        item.remove();
+                    }
+                }} />
         </div>
     )
 }
 
 // 목표 추가 (메인 및 상세 목표)
-function ToDoEdit()
+function ToDoEdit(props)
 {
+    // const [inputs, setInputs] = useState({
+    //     goal:"",
+    //     detailGoal:[],
+    // });
+    // const listGoals = useSelector((state) => (state.workSpace.goals))
+
+    // const onmainGoalHandler = (event) => {
+    //     setInputs((prevState) => {
+    //         return { ...prevState, goal: event.target.value }
+    //     }
+    //     )
+    // };
+    // let list = [];
+    // for (let goal of listGoals)
+    // {
+    //     list.push(goal.content)
+    // }
     const dispatch = useDispatch();
-    const [inputs, setInputs] = useState({
-        goal:"",
-        detailGoal:[],
-    });
     const [nextID, setNextID] = useState(2)
-    const listGoals = useSelector((state) => (state.workSpace.goals))
-    const onmainGoalHandler = (event) => {
-        setInputs((prevState) => {
-            return { ...prevState, goal: event.target.value }
+    const [list, setList] = useState([]);
+    const [goal, setGoal] = useState("")
+    const date = useSelector((state)=>(state.workSpace.date));
+    const color = useSelector((state)=>(state.workSpace.color));
+    useEffect(()=>{
+        if(Object.keys(props.goalData).length !== null)
+        {
+            setGoal(props.goalData.goal);
+            let _list = []
+            let key = 1;
+            props.goalData.dgoalList.forEach(element => {
+                if(element.msg.length > 0)
+                {
+                    _list.push(<ListGoal key={key} id={key} msg={element.msg}/>)
+                    key++;
+                }
+            });
+            setNextID(key);
+            setList(_list);
         }
-        )
-    };
-    let list = [];
-    for (let goal of listGoals)
-    {
-        list.push(goal.content)
-    }
+        else
+        {
+            setList([<ListGoal key="1" id="1"/>]);
+        }
+    },[])
     return(
         <div className="goalList">
         <form onSubmit={(event)=>{
             event.preventDefault();
-            dispatch(changeEdit());
+            const detailData = [];
+            const listGoals = document.querySelectorAll(".dgoalList");
+            let id = 1;
+
+            if(event.target.body.value.length > 0)
+            {
+                listGoals.forEach(item => {
+                    const _msg = item.getAttribute("data-msg");
+                    const _planDate = item.getAttribute("data-planDate");
+    
+                    if(_msg.length > 0)
+                    {
+                        // const data = {
+                        //     content: goal,
+                        //     planDate: date,
+                        //     color: color,
+                        //     userId: "topjoy22@naver.com",
+                        //     detailGoal: [{
+
+                        //     }]
+                        const detailGoals = {
+                            content: _msg,
+                            planDate: _planDate
+                        }
+                        detailData.push(detailGoals);
+                    }
+                })
+                const data = {
+                    content: goal,
+                    planDate: date,
+                    color: color,
+                    userId: "topjoy22@naver.com",
+                    detailGoal: [{detailData}]
+                }
+                dispatch(saveGoalData(data));
+                dispatch(changeEdit());
+            }
         }}>
-        {/* <BsSquare/> */} 
-        {/* 조회 페이지에서만 필요한 아이콘 */}
         <div className="mainGoal">
             <h3 id='mainGoal'>Goal</h3>
             <div>
-            <input className='mainGoal-input' type='text' name='mainGoal-input' onChange={onmainGoalHandler} value={inputs.goal} />
+            <input className='mainGoal-input' type='text' name='mainGoal-input' />
             <hr id="mainHorizonLine"></hr>
             </div>
             <IconColorPicker/>
@@ -131,11 +199,15 @@ function ToDoEdit()
             </div> */}
         </div>
         <img id="plusImage" src={plusImage} alt="플러스" onClick={()=>{
-                console.log(`inputs goal ${inputs.goal}`)
-                console.log(`inputs dgoal ${inputs.detailGoal}`)
-                dispatch(addGoal(nextID));
-                setNextID(nextID+1);
-            }}/>
+                     let _list = [];
+                     list.forEach(item=>{
+                         _list.push(item);
+                     })
+                     _list.push(<ListGoal key={nextID} id={nextID}/>)
+                     setList(_list);
+     
+                     setNextID(nextID+1);
+                 }}/>
             <label htmlFor="write">
                     <img id="buttonGoalImg" src={buttonImage} alt="체크"/>
             </label>
