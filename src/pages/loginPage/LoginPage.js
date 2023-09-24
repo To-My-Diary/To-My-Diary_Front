@@ -1,15 +1,14 @@
 import './LoginPage.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RiLoginCircleLine } from 'react-icons/ri';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 function LoginPage()
 {
-    // const [input, setInput] = useState({id: '', pwd: ''})
+    const kakaoURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=148570826c7770f175f7b4c40a87580e&redirect_uri=http://43.201.112.92:8080/auth/kakao/callback"
     const [Id, setId] = useState('')
     const [Pwd, setPwd] = useState('')
-    // const [res, setRes] = useState('')
     const navigate = useNavigate();
     const onIdHandler = (event) => {
         setId(event.target.value)
@@ -20,6 +19,10 @@ function LoginPage()
     const onSubmitHandler = (event) => {
         event.preventDefault();
     }
+    function onKakaoLogin()
+{
+    window.open("https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=148570826c7770f175f7b4c40a87580e&redirect_uri=http://localhost:3000/auth/kakao/callback")
+}
     function onLogin()
     {
     // axios
@@ -44,9 +47,16 @@ function LoginPage()
     //     console.log(error, "error");
     //   });
         // alert("로그인 완료");
-
-
     }
+    //
+const PARAMS = new URL(document.location).searchParams;
+const KAKAO_CODE = PARAMS.get('code');
+const code = new URL(window.location.href).searchParams.get("code");
+
+    //
+    const [jwtToken, setJwtToken] = useState('');
+    const [userData, setUserData] = useState(null);
+
     return (
         <div id='loginWrapper' style={{backgroundImage: `url(${process.env.PUBLIC_URL + 'images/paperBackground.png'})`,
         backgroundPosition: 'center',
@@ -96,10 +106,6 @@ function LoginPage()
 }
 export default LoginPage;
 
-function onKakaoLogin()
-{
-    window.open("https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=148570826c7770f175f7b4c40a87580e&redirect_uri=http://172.17.0.4:8080/auth/kakao/callback")
-}
 function onGoogleLogin()
 {
     alert("구글로그인 이동")
