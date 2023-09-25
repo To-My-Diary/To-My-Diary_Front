@@ -22,6 +22,7 @@ function LoginPage()
     function onKakaoLogin()
 {
     window.open("https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=148570826c7770f175f7b4c40a87580e&redirect_uri=http://localhost:3000/auth/kakao/callback")
+
 }
     function onLogin()
     {
