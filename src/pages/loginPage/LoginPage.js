@@ -1,7 +1,7 @@
 import './LoginPage.css';
 import { useEffect, useState } from 'react';
 import { RiLoginCircleLine } from 'react-icons/ri';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Route, Routes } from 'react-router-dom';
 import axios from "axios";
 
 function LoginPage()
@@ -19,44 +19,14 @@ function LoginPage()
     const onSubmitHandler = (event) => {
         event.preventDefault();
     }
-    function onKakaoLogin()
-{
-    window.open("https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=148570826c7770f175f7b4c40a87580e&redirect_uri=http://localhost:3000/auth/kakao/callback")
-
-}
     function onLogin()
     {
-    // axios
-    //   .post("/login", {
-    //     id: 'ispr2216',//Id,
-    //     pwd: 'abc1234'//Pwd,
-    //   })
-    // //   .then((res) => {
-    // //     if (res.data.token) {
-    // //       setRes(res.data.token);
-    // //       navigate("/");
-    // //     }
-    // //   })
-    //   .then((res) => {
-    //     if (res.data) {
-    //         console.log(res.data)
-    //         setRes(res.data);
-             navigate("/main"); // 로그인 완료 시, main페이지로 이동
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error, "error");
-    //   });
-        // alert("로그인 완료");
+        navigate("/main"); // 로그인 완료 시, main페이지로 이동
     }
     //
-const PARAMS = new URL(document.location).searchParams;
-const KAKAO_CODE = PARAMS.get('code');
-const code = new URL(window.location.href).searchParams.get("code");
+
 
     //
-    const [jwtToken, setJwtToken] = useState('');
-    const [userData, setUserData] = useState(null);
 
     return (
         <div id='loginWrapper' style={{backgroundImage: `url(${process.env.PUBLIC_URL + 'images/paperBackground.png'})`,
@@ -73,16 +43,18 @@ const code = new URL(window.location.href).searchParams.get("code");
             <img src= {process.env.PUBLIC_URL + 'images/checkLogo.png'} alt='checkLogo' />
             </h1>
             <form className='login-input' onSubmit={onSubmitHandler}>
-                <p>
+                <div>
                     <text id='id'>id</text>
                     <input className='id-input' type='text' name='id-input' onChange={onIdHandler} value={Id} />
                     <hr className="horizonLine"></hr>
-                </p>
-                <p>
+                </div>
+                <br/>
+                <div>
                     <text id='pwd'>pw</text>
                     <input className='pwd-input' type='password' name='pwd-input' onChange={onPwdHandler} value={Pwd} />
                     <hr className="horizonLine"></hr>
-                </p>
+                </div>
+                <br/>
             </form>
             <button className='loginButton' type='submit' onClick={onLogin}>
             <RiLoginCircleLine size={30} />
@@ -106,6 +78,15 @@ const code = new URL(window.location.href).searchParams.get("code");
     );
 }
 export default LoginPage;
+
+function onKakaoLogin()
+{
+    const REST_API_KEY = "148570826c7770f175f7b4c40a87580e";
+    const REDIRECT_URI = "http://localhost:3000/auth/kakao/callback";
+    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+    
+    window.location.href = KAKAO_AUTH_URL;
+}
 
 function onGoogleLogin()
 {
