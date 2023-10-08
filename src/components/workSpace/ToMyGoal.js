@@ -116,7 +116,8 @@ function ToDoEdit(props)
     const date = useSelector((state)=>(state.workSpace.date));
     const color = useSelector((state)=>(state.workSpace.color));
     useEffect(()=>{
-        if(Object.keys(props.goalData).length !== null)
+        // if(Object.keys(props.goalData).length !== null)
+        if (props.goalData && Object.keys(props.goalData).length !== 0) 
         {
             setGoal(props.goalData.goal);
             let _list = []
@@ -135,7 +136,8 @@ function ToDoEdit(props)
         {
             setList([<ListGoal key="1" id="1"/>]);
         }
-    },[])
+    },[props.goalData]);
+
     return(
         <div className="goalList">
         <form onSubmit={(event)=>{
