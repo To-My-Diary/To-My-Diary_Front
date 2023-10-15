@@ -41,7 +41,7 @@ textarea:focus{
 #chooseFile {
     visibility: hidden;
 }
-#diaryImg {
+#diaryDiaryImg {
     width: 50px;
     position: absolute;
     top: 50%;

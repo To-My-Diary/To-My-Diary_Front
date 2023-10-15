@@ -56,7 +56,7 @@ function ListItem(props)
     const [achieve, setAchieve] = useState("");
 
     return(
-        <div id={"listItem"+props.id} className="listItem" style={{marginTop:"8px"}} data-msg={msg} data-time={planDate} data-achieve={achieve}>
+        <div id={"listItem"+props.id} className="listItem" style={{marginTop:"12px"}} data-msg={msg} data-time={planDate} data-achieve={achieve}>
             <img className="itemImage" src={clockImage} alt="시계"/>
             <div style={{display:"inline-block"}}>
                 <input type="text" value={msg} onChange={(event)=>{
@@ -135,7 +135,7 @@ function ToDoEdit(props)
             <Weather/>
             <h3 className="workSpaceTitle">TO MY DAY</h3>
             {list}
-            <img id="plusImage" src={plusImage} alt="플러스" onClick={()=>{
+            <img id="toDoPlusImage" src={plusImage} alt="플러스" onClick={()=>{
                 let _list = [];
                 list.forEach(item=>{
                     _list.push(item);

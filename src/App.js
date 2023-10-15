@@ -3,6 +3,8 @@ import './App.css';
 import MainPage from './pages/mainPage/MainPage';
 import LoginPage from './pages/loginPage/LoginPage';
 import { Route, Routes } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 //vh 조절 함수
 function setScreenSize() {

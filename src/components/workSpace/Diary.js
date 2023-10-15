@@ -16,7 +16,7 @@ function DiaryView(props)
 
     if(Object.keys(props.diaryData).length === 0) // when there is no data
     {
-        content = <img src={diaryLogo} id="diaryImg" alt="일기 작성"/>;
+        content = <img src={diaryLogo} id="diaryDiaryImg" alt="일기 작성"/>;
     }
     else // when ther is saved data
     {

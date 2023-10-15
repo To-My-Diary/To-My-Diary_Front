@@ -17,10 +17,10 @@ input:focus {
     bottom: 5%;
     right: 5%;
 }
-#plusImage{
+#toDoPlusImage{
     width: 40px;
     position: relative;
-    margin-top: 10%;
+    margin-top: 5%;
 }
 .toDoView{
     height: calc(var(--vh, 1vh) * 50);
