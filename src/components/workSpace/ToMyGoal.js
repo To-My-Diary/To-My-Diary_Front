@@ -5,6 +5,7 @@ import trashImage from '../../icons/쓰레기통 1.png'
 import plusImage from '../../icons/플러스2 1.png';
 import buttonImage from '../../icons/체크1 2.png';
 import { BsSquare, BsFillCircleFill } from 'react-icons/bs';
+import { VscChromeMaximize, VscCircleLarge } from 'react-icons/vsc';
 import Weather from "./Weather";
 import IconColorPicker from "./ColorButton";
 import { useState, useEffect } from "react";
@@ -13,24 +14,47 @@ import { changeEdit, addGoal } from './workSpaceSlice';
 import { saveGoalData } from "../../tempData/dataSlice";
 
 // (날짜 선택 시, 해당 날짜에) 설정한 목표 조회
-function ToDoView()
+// 로컬(?)에 저장한 목표 리스트 조회 ( 체크아이콘 클릭시 이 페이지로 전환, 작성했던 목표 적혀있어야 함, 여기서는 수정 불가 _ 수정하려면 수정페이지로 모드 전환)
+// 월별 메인골 보여주는 화면
+function ToDoView({dataSlice})
 {
-    return(
-        // <div id='goalWrapper' style={{backgroundImage: `url(${process.env.PUBLIC_URL + 'images/paperBackground.png'})`,
-        // backgroundPosition: 'center',
-        // backgroundRepeat: 'no-repeat',
-        // backgroundSize: 'cover',}}>
-        // <Weather/>
-        // <h3 className="workSpaceTitle">TO MY GOAL</h3>
-        // <h3>{date}</h3>
-        <div>
-        {/* 여기서 설정 목표가 1. 없으면 다이어리 로고 2. 있으면 DB에서 꺼내와서 메인 목표 리스트 보여주기 */}
-        {/* -? <GoalNull/> : <GoalExist/> */}
-        {/* <GoalExist/> */}
-        <GoalNull/>
-        </div>
-    )
+    // const date = useSelector((state)=>(state.workSpace.date));
+    // let list = [];
+    // let content = null;
+    // let key = 1;
+
+
+    // if(props.goalData && Object.keys(props.goalData).length === 0)
+    // {
+    //     content = <>
+    //         <GoalNull/>
+    //         {/* <img id="diaryImg" src={diaryLogo} alt="목표 작성"/> */}
+    //     </>
+    // }
+    // else
+    // {
+    //     props.goalData.dgoalList.forEach(item=>{
+    //         list.push(<ListGoal key={key++} msg={item.msg}/>)
+    //      })
+    //      content = <>
+    //         {list}
+    //      </>
+    // }
+
+    // return(
+    //     <>
+    //         {content}
+    //     </>
+    // )
+    // const mainGoals = useSelector((state) => state.tempData.goalData.content);
+
+    return (
+      <div>
+        <ListMainGoal />
+      </div>
+    );
 }
+
 // 로고 클릭하면 첫 목표 추가 화면 _ 피그마 2번째 페이지
 function GoalNull()
 {
@@ -54,23 +78,39 @@ function GoalExist()
     )
 }
 
+function ListMainGoal()
+{
+    const mainGoal = useSelector((state) => state.tempData.goalData.content);
+
+    // goalData에서 메인 목표들을 가져와 처리합니다.
+    // const mainGoals = goalData.content || []; // mainGoals 배열이 있다고 가정합니다.
+
+    return (
+        <div>
+            {/* {mainGoals.map((goal, index) => (
+                <div key={index}> */}
+                <div id="mainGoalRead">
+                    {/* <div id="checkbox-goal"> */}
+                    <VscChromeMaximize id="checkbox"/>
+                    <div id="goalText">{mainGoal}</div>
+                    {/* </div> */}
+                    <VscCircleLarge id="colorbox"/>
+                </div>
+                    <hr id="mainGoalListHorizonLine"></hr>
+            {/* ))} */}
+        </div>
+    );
+}
+
 function ListGoal(props)
 {
     const dispatch = useDispatch();
     const [msg, setMsg] = useState(props.msg||"");
-    const [planDate, setPlanDate] = useState("");
-
-    // const [dgoal, setDgoal] = useState('')
-    // const ondetailGoalHandler = (event) => {
-    //     // setInputs((prevState) => {
-    //     //     return {...prevState, detailGoal:[...prevState.detailGoal, dgoal]}
-    //     // })
-    //     console.log(`dgoal ${event.target.value}`);
-    //     setDgoal(event.target.value)
-    //     // console.log(`sdgoal ${dgoal}`)
-    // }
+    const [planDate, setPlanDate] = useState(""); // TODO: 캘린더 선택 날짜 (각 상세목표 마감기한) 적용하기
+    const date = useSelector((state)=>(state.workSpace.date));
+    
     return(
-        <div id={"dgoalList"+props.id} className="dgoalList" style={{marginBottom:'-20px'}} data-msg={msg} data-time={planDate}>
+        <div id={"dgoalList"+props.id} className="dgoalList" style={{marginBottom:'-20px'}} data-msg={msg} data-time={date}>
         <h5 id='goalId'>{`${props.id}.`}</h5>
         <div>
         <input className='detailGoal-input' type='text' name='detailGoal-input' value={msg} onChange={(event)=>{
@@ -92,32 +132,16 @@ function ListGoal(props)
 // 목표 추가 (메인 및 상세 목표)
 function ToDoEdit(props)
 {
-    // const [inputs, setInputs] = useState({
-    //     goal:"",
-    //     detailGoal:[],
-    // });
-    // const listGoals = useSelector((state) => (state.workSpace.goals))
-
-    // const onmainGoalHandler = (event) => {
-    //     setInputs((prevState) => {
-    //         return { ...prevState, goal: event.target.value }
-    //     }
-    //     )
-    // };
-    // let list = [];
-    // for (let goal of listGoals)
-    // {
-    //     list.push(goal.content)
-    // }
     const dispatch = useDispatch();
     const [nextID, setNextID] = useState(2)
     const [list, setList] = useState([]);
-    const [goal, setGoal] = useState("")
+    const [goal, setGoal] = useState(props.goal||"");
     const date = useSelector((state)=>(state.workSpace.date));
     const color = useSelector((state)=>(state.workSpace.color));
     useEffect(()=>{
         // if(Object.keys(props.goalData).length !== null)
-        if (props.goalData && Object.keys(props.goalData).length !== 0) 
+        // if (props.goalData && Object.keys(props.goalData).length !== 0) 
+        if (props.goalData && props.goalData.dgoalList)
         {
             setGoal(props.goalData.goal);
             let _list = []
@@ -145,23 +169,14 @@ function ToDoEdit(props)
             const detailData = [];
             const listGoals = document.querySelectorAll(".dgoalList");
             let id = 1;
-
-            if(event.target.body.value.length > 0)
-            {
+            const mainGoalInput = event.target.elements['mainGoal-input'];
+            if (mainGoalInput && mainGoalInput.value.length > 0) {
                 listGoals.forEach(item => {
                     const _msg = item.getAttribute("data-msg");
-                    const _planDate = item.getAttribute("data-planDate");
+                    const _planDate = item.getAttribute("data-time");
     
                     if(_msg.length > 0)
                     {
-                        // const data = {
-                        //     content: goal,
-                        //     planDate: date,
-                        //     color: color,
-                        //     userId: "topjoy22@naver.com",
-                        //     detailGoal: [{
-
-                        //     }]
                         const detailGoals = {
                             content: _msg,
                             planDate: _planDate
@@ -183,7 +198,8 @@ function ToDoEdit(props)
         <div className="mainGoal">
             <h3 id='mainGoal'>Goal</h3>
             <div>
-            <input className='mainGoal-input' type='text' name='mainGoal-input' />
+            <input className='mainGoal-input' type='text' name='mainGoal-input' value={goal} onChange={(event)=>{
+                    setGoal(event.target.value);}}/>
             <hr id="mainHorizonLine"></hr>
             </div>
             <IconColorPicker/>
@@ -191,14 +207,6 @@ function ToDoEdit(props)
         <div className="detailGoal">
             <h3 id='detailGoal'>detailed goal</h3>
             {list}
-            {/* <div className="dgoalList">
-            <text id='goalId'>{`${id}.`}</text>
-            <div>
-            <input className='detailGoal-input' type='text' name='detailGoal-input' onChange={ondetailGoalHandler} value={inputs.dgoal} />
-            <hr id="detailHorizonLine"></hr>
-            </div>
-            <img className="trashImage" src={trashImage} alt="쓰레기통" onClick={()=>{}} />
-            </div> */}
         </div>
         <img id="plusImage" src={plusImage} alt="플러스" onClick={()=>{
                      let _list = [];
@@ -226,7 +234,8 @@ function ToMyGoal()
     const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
     const date = useSelector((state)=>(state.workSpace.date));
-
+    const goalData = useSelector((state)=>(state.tempData.goalData));
+    console.log('goalData:', goalData);
     return (
         <div className = "ToMyGoal"
         style={{backgroundImage: `url(${process.env.PUBLIC_URL + '/images/paperBackground.png'})`,
@@ -234,15 +243,16 @@ function ToMyGoal()
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',}}
         onClick={()=>{
-            // 보기 모드일 때만 div 터치 시 편집 전환
-            // if(!edit){
-            //     dispatch(changeEdit());
-            // }
+            //보기 모드일 때만 div 터치 시 편집 전환
+            if(!edit){
+                dispatch(changeEdit());
+            }
         }}>
         <Weather/>
         <h3 className="workSpaceTitle">TO MY GOAL</h3>
         <h3>{date}</h3>
-        <ToDoEdit/>
+        {edit?<ToDoEdit goalData={goalData}/>:<ToDoView goalData={goalData}/>}
+        {/* <ToDoEdit goalData={goalData}/> */}
             {/* <ToDoView/> */}
         </div>
     )

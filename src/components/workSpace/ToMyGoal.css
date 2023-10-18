@@ -107,3 +107,34 @@
     margin-top: 0;
     width: 120%;
 }
+#mainGoalListHorizonLine {
+    border-color: black;
+    border-width: 0.8px;
+    margin-top: 0;
+    width: 70%;
+}
+#checkbox {
+    font-size: 38px;
+}
+#colorbox {
+    font-size: 30px;
+    margin-right: 2%;
+    background-color: aqua;
+    border-radius: 50%;
+}
+#mainGoalRead {
+    margin-top: 10%;
+    font-family: "modu";
+    font-weight: bold;
+    font-size: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-left: 2%; padding-right: 2%;
+}
+#goalText {
+    text-align: left;
+    width: 68%;
+    /* background-color: aqua; */
+}
