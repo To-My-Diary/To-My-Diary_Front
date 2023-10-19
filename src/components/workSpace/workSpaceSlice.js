@@ -44,9 +44,6 @@ const workSpaceSlice = createSlice({
         resetDiaryImages: (state, action)=>{
             state.diaryImages = action.payload;
         },
-        addGoal:(state, action)=>{
-            state.goals.push({id:action.payload, content:<ListGoal key={action.payload} id={action.payload}/>})
-        },
         addDiaryImage:(state, action)=>{
             state.diaryImages.push(action.payload);
         },
@@ -57,4 +54,4 @@ const workSpaceSlice = createSlice({
 })
 
 export default workSpaceSlice;
-export const { changeMode, changeEdit, addGoal, addDiaryImage, changeDate, resetDiaryImages, changeColor } = workSpaceSlice.actions;
+export const { changeMode, changeEdit, addDiaryImage, changeDate, resetDiaryImages, changeColor } = workSpaceSlice.actions;

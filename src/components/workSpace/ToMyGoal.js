@@ -10,7 +10,7 @@ import Weather from "./Weather";
 import IconColorPicker from "./ColorButton";
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import { changeEdit, addGoal } from './workSpaceSlice';
+import { changeEdit } from './workSpaceSlice';
 import { saveGoalData } from "../../tempData/dataSlice";
 
 // (날짜 선택 시, 해당 날짜에) 설정한 목표 조회
@@ -18,39 +18,19 @@ import { saveGoalData } from "../../tempData/dataSlice";
 // 월별 메인골 보여주는 화면
 function ToDoView({dataSlice})
 {
-    // const date = useSelector((state)=>(state.workSpace.date));
-    // let list = [];
-    // let content = null;
-    // let key = 1;
-
-
-    // if(props.goalData && Object.keys(props.goalData).length === 0)
-    // {
-    //     content = <>
-    //         <GoalNull/>
-    //         {/* <img id="diaryImg" src={diaryLogo} alt="목표 작성"/> */}
-    //     </>
-    // }
-    // else
-    // {
-    //     props.goalData.dgoalList.forEach(item=>{
-    //         list.push(<ListGoal key={key++} msg={item.msg}/>)
-    //      })
-    //      content = <>
-    //         {list}
-    //      </>
-    // }
-
-    // return(
-    //     <>
-    //         {content}
-    //     </>
-    // )
+    const dispatch = useDispatch();
+    const edit = useSelector((state)=>(state.workSpace.edit));
     // const mainGoals = useSelector((state) => state.tempData.goalData.content);
 
     return (
       <div>
         <ListMainGoal />
+        <img id="plusImage" src={plusImage} alt="플러스" onClick={()=>{
+            //보기 모드일 때만 div 터치 시 편집 전환
+            if(!edit){
+                dispatch(changeEdit());
+            }
+        }}/>
       </div>
     );
 }
@@ -81,6 +61,7 @@ function GoalExist()
 function ListMainGoal()
 {
     const mainGoal = useSelector((state) => state.tempData.goalData.content);
+    const color = useSelector((state) => state.tempData.goalData.color);
 
     // goalData에서 메인 목표들을 가져와 처리합니다.
     // const mainGoals = goalData.content || []; // mainGoals 배열이 있다고 가정합니다.
@@ -94,7 +75,7 @@ function ListMainGoal()
                     <VscChromeMaximize id="checkbox"/>
                     <div id="goalText">{mainGoal}</div>
                     {/* </div> */}
-                    <VscCircleLarge id="colorbox"/>
+                    <VscCircleLarge id="colorbox" style={{backgroundColor: color}}/>
                 </div>
                     <hr id="mainGoalListHorizonLine"></hr>
             {/* ))} */}
@@ -241,19 +222,11 @@ function ToMyGoal()
         style={{backgroundImage: `url(${process.env.PUBLIC_URL + '/images/paperBackground.png'})`,
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',}}
-        onClick={()=>{
-            //보기 모드일 때만 div 터치 시 편집 전환
-            if(!edit){
-                dispatch(changeEdit());
-            }
-        }}>
+        backgroundSize: 'cover'}}>
         <Weather/>
         <h3 className="workSpaceTitle">TO MY GOAL</h3>
         <h3>{date}</h3>
         {edit?<ToDoEdit goalData={goalData}/>:<ToDoView goalData={goalData}/>}
-        {/* <ToDoEdit goalData={goalData}/> */}
-            {/* <ToDoView/> */}
         </div>
     )
 }
