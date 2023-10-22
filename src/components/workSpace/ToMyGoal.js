@@ -18,27 +18,39 @@ import { saveGoalData } from "../../tempData/dataSlice";
 // 월별 메인골 보여주는 화면
 function ToDoView({dataSlice})
 {
-    const dispatch = useDispatch();
-    const edit = useSelector((state)=>(state.workSpace.edit));
-    // const mainGoals = useSelector((state) => state.tempData.goalData.content);
+    let content = null;
+    const mainGoals = useSelector((state) => state.tempData.goalData.content);
 
-    return (
-      <div>
-        <ListMainGoal />
-        <img id="plusImage" src={plusImage} alt="플러스" onClick={()=>{
-            //보기 모드일 때만 div 터치 시 편집 전환
-            if(!edit){
-                dispatch(changeEdit());
-            }
-        }}/>
-      </div>
+    console.log(`mainGoals: ${mainGoals}`)
+    if(mainGoals)
+    {
+        content = <ListMainGoal />
+    }
+    else
+    {
+         content = <GoalNull />
+    }
+
+    return(
+        <>
+            {content}
+      </>
+        
     );
 }
 
 // 로고 클릭하면 첫 목표 추가 화면 _ 피그마 2번째 페이지
 function GoalNull()
 {
-    return <img id="diaryImg" src={diaryLogo} alt="목표 작성"/>;
+    const dispatch = useDispatch();
+    const edit = useSelector((state)=>(state.workSpace.edit));
+
+    return <img id="diaryImg" src={diaryLogo} alt="목표 작성" onClick={()=>{
+        //보기 모드일 때만 div 터치 시 편집 전환
+        if(!edit){
+            dispatch(changeEdit());
+        }
+    }}/>;
 }
 
 function GoalExist()
@@ -60,8 +72,10 @@ function GoalExist()
 
 function ListMainGoal()
 {
+    const dispatch = useDispatch();
     const mainGoal = useSelector((state) => state.tempData.goalData.content);
     const color = useSelector((state) => state.tempData.goalData.color);
+    const edit = useSelector((state)=>(state.workSpace.edit));
 
     // goalData에서 메인 목표들을 가져와 처리합니다.
     // const mainGoals = goalData.content || []; // mainGoals 배열이 있다고 가정합니다.
@@ -78,6 +92,12 @@ function ListMainGoal()
                     <VscCircleLarge id="colorbox" style={{backgroundColor: color}}/>
                 </div>
                     <hr id="mainGoalListHorizonLine"></hr>
+                <img id="plusImage" src={plusImage} alt="플러스" onClick={()=>{
+            //보기 모드일 때만 div 터치 시 편집 전환
+            if(!edit){
+                dispatch(changeEdit());
+            }
+        }}/>
             {/* ))} */}
         </div>
     );
