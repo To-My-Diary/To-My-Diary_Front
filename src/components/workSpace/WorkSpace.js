@@ -5,27 +5,27 @@ import ToDoList from './ToDoList';
 import Diary from './Diary';
 import { Route, Routes } from 'react-router-dom';
 import ToMyGoal from './ToMyGoal';
+import { useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
 function WorkSpace() {
+    const edit = useSelector((state)=>(state.workSpace.edit));
+
     return(
         <div id="workWrapper">
             <Swiper
-                style={{border:"solid 2px", width:"100vw"}}
+                style={{width:"100vw"}}
                 slidesPerView={1}
                 onSlideChange={() => console.log('slide change')}
                 onSwiper={(swiper) => console.log(swiper)}
+                touchRatio={edit?0:1}
+                loop={true}
             >
                 <SwiperSlide><ToDoList/></SwiperSlide>
                 <SwiperSlide><Diary/></SwiperSlide>
                 <SwiperSlide><ToMyGoal/></SwiperSlide>
             </Swiper>
-            {/* <Routes>
-                <Route path="/" element={<ToDoList/>}/>
-                <Route path="/diary" element={<Diary/>}/>
-                <Route path="/goal" element={<ToMyGoal/>}/>
-            </Routes> */}
         </div>
     );
 }
