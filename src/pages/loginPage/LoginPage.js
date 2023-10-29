@@ -2,6 +2,7 @@ import './LoginPage.css';
 import { useState } from 'react';
 import { RiLoginCircleLine } from 'react-icons/ri';
 import { Link, useNavigate } from 'react-router-dom';
+import { request } from '../../components/api_type';
 import axios from "axios";
 
 function LoginPage()
@@ -20,32 +21,25 @@ function LoginPage()
     const onSubmitHandler = (event) => {
         event.preventDefault();
     }
-    function onLogin()
+    const options = {
+        method: 'POST',
+        // headers: {
+        //   'Content-Type': 'application/json',
+        //   // 다른 헤더도 추가 가능
+        // },
+        body: JSON.stringify({ email: Id, pw: Pwd}), // JSON 데이터를 문자열로 변환(GET 요청 시에는 필요 X)
+        
+      };
+    async function onLogin()
     {
-    // axios
-    //   .post("/login", {
-    //     id: 'ispr2216',//Id,
-    //     pwd: 'abc1234'//Pwd,
-    //   })
-    // //   .then((res) => {
-    // //     if (res.data.token) {
-    // //       setRes(res.data.token);
-    // //       navigate("/");
-    // //     }
-    // //   })
-    //   .then((res) => {
-    //     if (res.data) {
-    //         console.log(res.data)
-    //         setRes(res.data);
-             navigate("/main"); // 로그인 완료 시, main페이지로 이동
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error, "error");
-    //   });
-        // alert("로그인 완료");
+        try {
+            const data = await request("/user/login", options); // 원하는 API 엔드포인트 경로를 전달
+            console.log(data); // API 응답 데이터 출력 또는 다른 작업 수행
 
-
+            navigate("/main"); // 로그인 완료 시, main페이지로 이동
+          } catch (error) {
+            console.error(error);
+          }
     }
     return (
         <div id='loginWrapper' style={{backgroundImage: `url(${process.env.PUBLIC_URL + 'images/paperBackground.png'})`,
@@ -62,16 +56,20 @@ function LoginPage()
             <img src= {process.env.PUBLIC_URL + 'images/checkLogo.png'} alt='checkLogo' />
             </h1>
             <form className='login-input' onSubmit={onSubmitHandler}>
-                <p>
-                    <text id='id'>id</text>
+                <div id='id-input'>
+                    <h4 id='id'>id</h4>
+                    <div>
                     <input className='id-input' type='text' name='id-input' onChange={onIdHandler} value={Id} />
                     <hr className="horizonLine"></hr>
-                </p>
-                <p>
-                    <text id='pwd'>pw</text>
+                    </div>
+                </div>
+                <div id = 'pwd-input'>
+                    <h4 id='pwd'>pw</h4>
+                    <div>
                     <input className='pwd-input' type='password' name='pwd-input' onChange={onPwdHandler} value={Pwd} />
                     <hr className="horizonLine"></hr>
-                </p>
+                    </div>
+                </div>
             </form>
             <button className='loginButton' type='submit' onClick={onLogin}>
             <RiLoginCircleLine size={30} />

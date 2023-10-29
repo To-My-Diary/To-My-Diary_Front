@@ -10,13 +10,14 @@ import Weather from "./Weather";
 import IconColorPicker from "./ColorButton";
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import { changeEdit } from './workSpaceSlice';
+import { changeEdit, changeMode } from './workSpaceSlice';
 import { saveGoalData } from "../../tempData/dataSlice";
+import { mode } from "../../constant_value"
 
 // (날짜 선택 시, 해당 날짜에) 설정한 목표 조회
 // 로컬(?)에 저장한 목표 리스트 조회 ( 체크아이콘 클릭시 이 페이지로 전환, 작성했던 목표 적혀있어야 함, 여기서는 수정 불가 _ 수정하려면 수정페이지로 모드 전환)
 // 월별 메인골 보여주는 화면
-function ToDoView({dataSlice})
+function ToDoView()
 {
     let content = null;
     const mainGoals = useSelector((state) => state.tempData.goalData.content);
@@ -51,23 +52,6 @@ function GoalNull()
             dispatch(changeEdit());
         }
     }}/>;
-}
-
-function GoalExist()
-{
-    return(
-        <div className="goalList">
-        <>
-        <BsSquare/>
-        <h3>Goal</h3>
-        <hr className="horizonLine"></hr>
-        <br/>
-        </>
-        <h3>detailed goal</h3>
-        <hr className="horizonLine"></hr>
-        <br/>
-        </div>
-    )
 }
 
 function ListMainGoal()
@@ -194,6 +178,7 @@ function ToDoEdit(props)
                 }
                 dispatch(saveGoalData(data));
                 dispatch(changeEdit());
+                // console.log(props.goalData);
             }
         }}>
         <div className="mainGoal">
@@ -237,6 +222,9 @@ function ToMyGoal()
     const date = useSelector((state)=>(state.workSpace.date));
     const goalData = useSelector((state)=>(state.tempData.goalData));
     console.log('goalData:', goalData);
+    useEffect(()=>{
+        changeMode(mode.GOAL);
+    }, []);
     return (
         <div className = "ToMyGoal"
         style={{backgroundImage: `url(${process.env.PUBLIC_URL + '/images/paperBackground.png'})`,

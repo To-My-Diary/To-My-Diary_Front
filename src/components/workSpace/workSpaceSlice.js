@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { mode } from '../../constant_value'
 import { ListItem } from "./ToDoList";
 import { ListGoal } from "./ToMyGoal";
 import moment from "moment";
 
 // 작업 공간 초기화 정보
 const initialState = {
-    mode: "ToDoList",
+    // TODO 0  Diary 1  Goal 2
+    mode: mode.TODO,
     edit: false,
     diaryImages: [],
     date: moment().format('YYYY-MM-DD'),
@@ -19,16 +21,19 @@ const workSpaceSlice = createSlice({
     reducers:{
         // 상태 전환
         changeMode:(state, action)=>{
-            if(state.mode === "Diary")
+            if(action.payload === mode.TODO)
             {
-                state.mode = "ToDoList";
-                state.buttonText = "Diary";
+                state.mode = mode.TODO
             }
-            else if(state.mode === "ToDoList")
+            else if(action.payload === mode.DIARY)
             {
-                state.mode = "Diary";
-                state.buttonText = "ToDo";
+                state.mode = mode.DIARY;
             }
+            else
+            {
+                state.mode = mode.GOAL;
+            }
+
         },
         changeEdit:(state, action)=>{
             state.edit = !state.edit;
