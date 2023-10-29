@@ -33,8 +33,9 @@ function ToDoView(props)
     else
     {
          props.toDoData.forEach(item=>{
-            list.push(<ListItem key={key++} msg={item.msg} achieve={item.achieve} planDate={item.planDate}/>)
-         })
+            list.push(<ListItem key={key} id={key} msg={item.msg} achieve={item.achieve} planDate={item.planDate}/>)
+            key++;
+        })
          content = <>
             <Weather/>
             <h3 className="workSpaceTitle">TO MY DAY</h3>
@@ -58,12 +59,23 @@ function ListItem(props)
     const [isTimeModalOpen, setIsTimeModalOpen] = useState(false);
     const edit = useSelector(state=>state.workSpace.edit);
     let leftSide = null;
+    const checkbox = <input type="checkbox" id={"checkbox"+props.id} onClick={(event)=>{checkboxClick(event);}}/>
+    const checkboxDocObject = document.querySelector("#checkbox"+props.id);
+    const clock = <div style={{display:"inline-block"}}>
+        <img className="itemImage" src={clockImage} alt="시계" onClick={()=>setIsTimeModalOpen(true)}/>
+    </div>
+
+    useEffect(() => {
+        // decide checked
+        if(achieve === "달성") checkboxDocObject.checked = true;
+    },[]);
 
     function checkboxClick(event)
     {
         event.stopPropagation();
         setAchieve(achieve===""?"달성":"");
 
+        console.log("클릭");
         // need to post todo json
     }
 
@@ -76,20 +88,17 @@ function ListItem(props)
         }
         else
         {
-            leftSide = <div style={{display:"inline-block"}}>
-                <img className="itemImage" src={clockImage} alt="시계" onClick={()=>setIsTimeModalOpen(true)}/>
-            </div>
+            leftSide = clock;
         }
     }
     else
     {
-        leftSide = achieve==="달성"?<input type="checkbox" checked onClick={(event)=>{checkboxClick(event);}}/>:
-            <input type="checkbox" onClick={(event)=>{checkboxClick(event);}}/>
+        leftSide = checkbox;
     }
 
     return(
         <div id={"listItem"+props.id} className="listItem" style={{marginTop:"8px", display:"flex", justifyContent:"center"}} 
-        data-msg={msg} data-planDate={planDate} data-achieve={achieve}>
+        data-msg={msg} data-plandate={planDate} data-achieve={achieve}>
             {leftSide}
             <div style={{display:"inline-block"}}>
                 <input type="text" className="msgText" value={msg} onChange={(event)=>{
@@ -115,16 +124,28 @@ function ListItem(props)
                 ariaHideApp={false} // 스타일이 적용되어야 합니다.
                 style={{
                     overlay: {
-                        backgroundColor: "rgba( 0, 0, 0, 0.5 )"
+                        backgroundColor: " rgba(0, 0, 0, 0.4)",
+                        width: "100%",
+                        height: "100vh",
+                        zIndex: "10",
+                        position: "fixed",
+                        top: "0",
+                        left: "0",
                     },
                     content: {
-                    width: '240px', // 350
-                    height: '260px',
-                    top: '30%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    borderRadius: '5%',
-                    textAlign: "center"
+                        width: "360px",
+                        height: "180px",
+                        zIndex: "150",
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        borderRadius: "10px",
+                        boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
+                        backgroundColor: "white",
+                        justifyContent: "center",
+                        overflow: "auto",
+                        textAlign: "center"
                     },
                 }}
             >
@@ -184,7 +205,7 @@ function ToDoEdit(props)
 
             listItems.forEach(item => {
                 const _msg = item.getAttribute("data-msg");
-                const _planDate = item.getAttribute("data-planDate");
+                const _planDate = item.getAttribute("data-plandate");
                 const _achieve = item.getAttribute("data-achieve");
 
                 if(_msg.length > 0)

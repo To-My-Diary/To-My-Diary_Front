@@ -17,7 +17,6 @@ input[type="checkbox"] {
 #toDoPlusImage{
     width: 40px;
     position: relative;
-    margin-top: 5%;
 }
 .msgText[type="text"] {
     margin-top: 8px;
@@ -45,9 +44,9 @@ input[type="checkbox"] {
     margin: 7px;
     margin-top: 3px;
     width: 30px;
+    height: 30px;
 }
 #todohorizon {
-    height: 30px;
     border-color: black;
     border-width: 0.8px;
     margin-top: 0;
