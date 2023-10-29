@@ -1,9 +1,6 @@
-input {
-    border: none;
-    font-size: medium;
-}
-input:focus {
-    outline: none;
+input[type="checkbox"] {
+    width: 15px;
+    margin: 10px;
 }
 #diaryImg {
     width: 50px;
@@ -22,9 +19,22 @@ input:focus {
     position: relative;
     margin-top: 5%;
 }
+.msgText[type="text"] {
+    margin-top: 8px;
+    border: none;
+    font-size: medium;
+}
+.msgText:focus {
+    outline: none;
+}
+.timeNum {
+    width: 50px;
+    text-align: center;
+}
 .toDoView{
     height: calc(var(--vh, 1vh) * 50);
     position: relative;
+    overflow-y: auto;
 }
 .toDoEdit{
     min-height: calc(var(--vh, 1vh) * 100);
@@ -33,9 +43,11 @@ input:focus {
 }
 .itemImage {
     margin: 7px;
+    margin-top: 3px;
     width: 30px;
 }
 #todohorizon {
+    height: 30px;
     border-color: black;
     border-width: 0.8px;
     margin-top: 0;

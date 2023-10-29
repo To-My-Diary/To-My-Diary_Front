@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changeEdit, addItem, deleteItem, initializeItems  } from './workSpaceSlice';
+import { changeEdit } from './workSpaceSlice';
 import { saveToDoData } from '../../tempData/dataSlice';
 import './ToDoList.css';
 import diaryLogo from '../../icons/일기 작성.png'
@@ -9,6 +9,7 @@ import plusImage from '../../icons/플러스2 1.png';
 import clockImage from '../../icons/시계 2.png'
 import trashImage from '../../icons/쓰레기통 1.png'
 import { useState, useEffect } from "react";
+import Modal from "react-modal";
 import axios from 'axios';
 
 // TO-DO 보기 화면
@@ -32,7 +33,7 @@ function ToDoView(props)
     else
     {
          props.toDoData.forEach(item=>{
-            list.push(<ListItem key={key++} msg={item.msg}/>)
+            list.push(<ListItem key={key++} msg={item.msg} achieve={item.achieve} planDate={item.planDate}/>)
          })
          content = <>
             <Weather/>
@@ -43,35 +44,106 @@ function ToDoView(props)
     }
 
     return(
-        <>
+        <form>
             {content}
-        </>
+        </form>
     )
 }
 
 function ListItem(props)
 {
     const [msg, setMsg] = useState(props.msg||"");
-    const [planDate, setPlanDate] = useState("");
-    const [achieve, setAchieve] = useState("");
+    const [planDate, setPlanDate] = useState(props.planDate||"");
+    const [achieve, setAchieve] = useState(props.achieve||"");
+    const [isTimeModalOpen, setIsTimeModalOpen] = useState(false);
+    const edit = useSelector(state=>state.workSpace.edit);
+    let leftSide = null;
+
+    function checkboxClick(event)
+    {
+        event.stopPropagation();
+        setAchieve(achieve===""?"달성":"");
+
+        // need to post todo json
+    }
+
+    if(edit)
+    {
+        if(planDate!=="")
+        {
+            leftSide = <p style={{margin:"10px"}} onClick={()=>setIsTimeModalOpen(true)}>
+                {planDate}</p>;
+        }
+        else
+        {
+            leftSide = <div style={{display:"inline-block"}}>
+                <img className="itemImage" src={clockImage} alt="시계" onClick={()=>setIsTimeModalOpen(true)}/>
+            </div>
+        }
+    }
+    else
+    {
+        leftSide = achieve==="달성"?<input type="checkbox" checked onClick={(event)=>{checkboxClick(event);}}/>:
+            <input type="checkbox" onClick={(event)=>{checkboxClick(event);}}/>
+    }
 
     return(
-        <div id={"listItem"+props.id} className="listItem" style={{marginTop:"12px"}} data-msg={msg} data-time={planDate} data-achieve={achieve}>
-            <img className="itemImage" src={clockImage} alt="시계"/>
+        <div id={"listItem"+props.id} className="listItem" style={{marginTop:"8px", display:"flex", justifyContent:"center"}} 
+        data-msg={msg} data-planDate={planDate} data-achieve={achieve}>
+            {leftSide}
             <div style={{display:"inline-block"}}>
-                <input type="text" value={msg} onChange={(event)=>{
+                <input type="text" className="msgText" value={msg} onChange={(event)=>{
                     setMsg(event.target.value);
                 }}></input>
-                <hr id = "todohorizon"/>
+                <hr id="todohorizon"/>
             </div>
-            <img className="itemImage" src={trashImage} alt="쓰레기통" onClick={()=>{
+            {
+                edit?
+                <img className="itemImage" src={trashImage} alt="쓰레기통" onClick={()=>{
                     let count = document.querySelectorAll(".listItem").length;
                     if(count > 1)
                     {
                         let item = document.querySelector("#listItem"+props.id);
                         item.remove();
                     }
-                }}/>
+                }}/>:null
+            }
+            <Modal
+                isOpen={isTimeModalOpen}
+                onRequestClose={() => setIsTimeModalOpen(false)} // 모달을 닫을 때 모달 상태를 변경합니다.
+                contentLabel="시간 설정" // 모달에 대한 레이블
+                ariaHideApp={false} // 스타일이 적용되어야 합니다.
+                style={{
+                    overlay: {
+                        backgroundColor: "rgba( 0, 0, 0, 0.5 )"
+                    },
+                    content: {
+                    width: '240px', // 350
+                    height: '260px',
+                    top: '30%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    borderRadius: '5%',
+                    textAlign: "center"
+                    },
+                }}
+            >
+                <form onSubmit={(event)=>{
+                    event.preventDefault();
+                    event.stopPropagation();
+                    
+                    if(event.target.hour.value!==""&&event.target.minute.value!=="")
+                    {
+                        setPlanDate(event.target.hour.value +":"+event.target.minute.value);
+                    }
+                    setIsTimeModalOpen(false);
+                }}>
+                    <h4>시간 설정</h4>
+                    <input type="number" name="hour" className="timeNum"/>:
+                    <input type="number" name="minute" className="timeNum"/>
+                    <p><input type="submit" value="확인"></input></p>
+                </form>
+            </Modal>
         </div>
     )
 }
@@ -90,11 +162,9 @@ function ToDoEdit(props)
             let _list = []
             let key = 1;
             props.toDoData.forEach(element => {
-                if(element.msg.length > 0)
-                {
-                    _list.push(<ListItem key={key} id={key} msg={element.msg}/>)
-                    key++;
-                }
+                _list.push(<ListItem key={key} id={key} msg={element.msg} 
+                    achieve={element.achieve} planDate={element.planDate}/>)
+                key++;
             });
             setNextID(key);
             setList(_list);
