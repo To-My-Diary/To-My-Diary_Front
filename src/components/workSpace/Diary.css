@@ -41,14 +41,14 @@ textarea:focus{
 #chooseFile {
     visibility: hidden;
 }
-#diaryImg {
+#diaryDiaryImg {
     width: 50px;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -30%);
 }
 .diaryView{
-    height: 100%;
+    height: calc(var(--vh, 1vh) * 50);
     position: relative;
     overflow-y: auto;
 }

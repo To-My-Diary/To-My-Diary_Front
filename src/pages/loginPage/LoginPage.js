@@ -1,7 +1,8 @@
 import './LoginPage.css';
 import { useEffect, useState } from 'react';
 import { RiLoginCircleLine } from 'react-icons/ri';
-import { Link, useNavigate, Route, Routes } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { request } from '../../components/api_type';
 import axios from "axios";
 
 function LoginPage()
@@ -19,15 +20,26 @@ function LoginPage()
     const onSubmitHandler = (event) => {
         event.preventDefault();
     }
-    function onLogin()
+    const options = {
+        method: 'POST',
+        // headers: {
+        //   'Content-Type': 'application/json',
+        //   // 다른 헤더도 추가 가능
+        // },
+        body: JSON.stringify({ email: Id, pw: Pwd}), // JSON 데이터를 문자열로 변환(GET 요청 시에는 필요 X)
+        
+      };
+    async function onLogin()
     {
-        navigate("/main"); // 로그인 완료 시, main페이지로 이동
+        try {
+            const data = await request("/user/login", options); // 원하는 API 엔드포인트 경로를 전달
+            console.log(data); // API 응답 데이터 출력 또는 다른 작업 수행
+
+            navigate("/main"); // 로그인 완료 시, main페이지로 이동
+          } catch (error) {
+            console.error(error);
+          }
     }
-    //
-
-
-    //
-
     return (
         <div id='loginWrapper' style={{backgroundImage: `url(${process.env.PUBLIC_URL + 'images/paperBackground.png'})`,
         backgroundPosition: 'center',
@@ -43,18 +55,20 @@ function LoginPage()
             <img src= {process.env.PUBLIC_URL + 'images/checkLogo.png'} alt='checkLogo' />
             </h1>
             <form className='login-input' onSubmit={onSubmitHandler}>
-                <div>
-                    <text id='id'>id</text>
+                <div id='id-input'>
+                    <h4 id='id'>id</h4>
+                    <div>
                     <input className='id-input' type='text' name='id-input' onChange={onIdHandler} value={Id} />
                     <hr className="horizonLine"></hr>
+                    </div>
                 </div>
-                <br/>
-                <div>
-                    <text id='pwd'>pw</text>
+                <div id = 'pwd-input'>
+                    <h4 id='pwd'>pw</h4>
+                    <div>
                     <input className='pwd-input' type='password' name='pwd-input' onChange={onPwdHandler} value={Pwd} />
                     <hr className="horizonLine"></hr>
+                    </div>
                 </div>
-                <br/>
             </form>
             <button className='loginButton' type='submit' onClick={onLogin}>
             <RiLoginCircleLine size={30} />
@@ -81,13 +95,8 @@ export default LoginPage;
 
 function onKakaoLogin()
 {
-    const REST_API_KEY = "148570826c7770f175f7b4c40a87580e";
-    const REDIRECT_URI = "http://localhost:3000/auth/kakao/callback";
-    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-    
-    window.location.href = KAKAO_AUTH_URL;
+    window.open("https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=148570826c7770f175f7b4c40a87580e&redirect_uri=http://localhost:3000/auth/kakao/callback")
 }
-
 function onGoogleLogin()
 {
     alert("구글로그인 이동")
