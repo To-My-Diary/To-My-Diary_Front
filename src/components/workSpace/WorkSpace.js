@@ -3,14 +3,16 @@
 import './WorkSpace.css';
 import ToDoList from './ToDoList';
 import Diary from './Diary';
-import { Route, Routes } from 'react-router-dom';
 import ToMyGoal from './ToMyGoal';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { changeMode } from './workSpaceSlice';
+import { mode } from "../../constant_value"
 
 import 'swiper/css';
 
 function WorkSpace() {
+    const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
     const currentMode = useSelector((state)=>(state.workSpace.currentMode));
 
@@ -19,7 +21,24 @@ function WorkSpace() {
             <Swiper
                 style={{width:"100vw"}}
                 slidesPerView={1}
-                onSlideChange={() => console.log(currentMode)}
+                onSlideChange={console.log()}
+                onRealIndexChange={(swiper)=>
+                    {
+                        console.log(swiper.realIndex)
+                    switch(swiper.realIndex)
+                    {
+                        case 0: 
+                        dispatch(changeMode(mode.TODO));
+                        break;
+                        case 1: 
+                        dispatch(changeMode(mode.Diary));
+                        break;
+                        case 2: 
+                        dispatch(changeMode(mode.GOAL));
+                        break;
+                    }
+                }
+            }
                 onSwiper={(swiper) => console.log(swiper)}
                 touchRatio={edit?0:1}
                 loop={true}

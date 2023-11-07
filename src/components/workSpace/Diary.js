@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { changeEdit, addDiaryImage, resetDiaryImages, changeMode } from './workSpaceSlice';
+import { changeEdit, addDiaryImage, resetDiaryImages } from './workSpaceSlice';
 import { saveDiaryData } from '../../tempData/dataSlice';
 import Weather from "./Weather";
 import ImageCropper from "./ImageCropper";
@@ -139,13 +139,9 @@ function Diary()
 {
     const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
-    const currentMode = useSelector((state)=>(state.workSpace.mode));
+    const currentMode = useSelector((state)=>(state.workSpace.currentMode));
     const diaryData = useSelector(state=>state.tempData.diaryData);
     const [diaryStyle, setDiaryStyle] = useState(null);
-
-    useEffect(()=>{
-        changeMode(mode.DIARY);
-    }, []);
     return (
         <div className={`${edit?"diaryEdit":"diaryView"}`}
         style={diaryStyle}
@@ -155,7 +151,7 @@ function Diary()
                 dispatch(changeEdit());
             }
         }}>
-            {edit && currentMode == mode.DIARY?<DiaryEdit setStyle={setDiaryStyle} diaryData={diaryData}/>:
+            {edit && currentMode === mode.DIARY ? <DiaryEdit setStyle={setDiaryStyle} diaryData={diaryData}/>:
             <DiaryView diaryData={diaryData}/>}
         </div>
     )

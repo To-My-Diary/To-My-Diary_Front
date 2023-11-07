@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changeEdit, changeMode } from './workSpaceSlice';
+import { changeEdit } from './workSpaceSlice';
 import { saveToDoData } from '../../tempData/dataSlice';
 import './ToDoList.css';
 import diaryLogo from '../../icons/일기 작성.png'
@@ -250,12 +250,8 @@ function ToDoList()
 {
     const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
-    const currentMode = useSelector((state)=>(state.workSpace.mode));
+    const currentMode = useSelector((state)=>(state.workSpace.currentMode));
     const toDoData = useSelector((state)=>(state.tempData.toDoData));
-
-    useEffect(()=>{
-        changeMode(mode.TODO);
-    }, []);
     return (
         <div className={`${edit?"toDoEdit":"toDoView"}`}
         onClick={()=>{
@@ -264,7 +260,7 @@ function ToDoList()
                 dispatch(changeEdit());
             }
         }}>
-            {edit && currentMode == mode.TODO?<ToDoEdit toDoData={toDoData}/>:<ToDoView toDoData={toDoData}/>}
+            {edit && currentMode === mode.TODO ? <ToDoEdit toDoData={toDoData}/>:<ToDoView toDoData={toDoData}/>}
         </div>
     )
 }

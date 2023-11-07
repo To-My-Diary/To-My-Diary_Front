@@ -10,7 +10,7 @@ import Weather from "./Weather";
 import IconColorPicker from "./ColorButton";
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import { changeEdit, changeMode } from './workSpaceSlice';
+import { changeEdit } from './workSpaceSlice';
 import { saveGoalData } from "../../tempData/dataSlice";
 import { mode } from "../../constant_value"
 
@@ -23,7 +23,7 @@ function ToDoView(props)
     let component = null;
     let key = 1;
 
-    console.log(`goalData: ${props.goalData}`)
+    // console.log(`goalData: ${props.goalData}`)
     if(props.goalData != null && props.goalData.length > 0)
     {
         props.goalData.forEach(item=>{
@@ -218,13 +218,9 @@ function ToMyGoal()
 {
     const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
-    const currentMode = useSelector((state)=>(state.workSpace.mode));
+    const currentMode = useSelector((state)=>(state.workSpace.currentMode));
     const date = useSelector((state)=>(state.workSpace.date));
     const goalData = useSelector((state)=>(state.tempData.goalData));
-    useEffect(()=>{
-        changeMode(mode.GOAL);
-        console.log(currentMode);
-    }, []);
     return (
         <div className = "ToMyGoal"
         style={{backgroundImage: `url(${process.env.PUBLIC_URL + '/images/paperBackground.png'})`,
@@ -234,7 +230,7 @@ function ToMyGoal()
         <Weather/>
         <h3 className="workSpaceTitle">TO MY GOAL</h3>
         <h3>{date}</h3>
-        {edit && currentMode == mode.GOAL?<ToDoEdit goalData={goalData}/>:<ToDoView goalData={goalData}/>}
+        {edit && currentMode === mode.GOAL ? <ToDoEdit goalData={goalData}/>:<ToDoView goalData={goalData}/>}
         </div>
     )
 }
