@@ -7,17 +7,19 @@ import { Route, Routes } from 'react-router-dom';
 import ToMyGoal from './ToMyGoal';
 import { useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from 'swiper/react';
+
 import 'swiper/css';
 
 function WorkSpace() {
     const edit = useSelector((state)=>(state.workSpace.edit));
+    const currentMode = useSelector((state)=>(state.workSpace.currentMode));
 
     return(
         <div id="workWrapper">
             <Swiper
                 style={{width:"100vw"}}
                 slidesPerView={1}
-                onSlideChange={() => console.log('slide change')}
+                onSlideChange={() => console.log(currentMode)}
                 onSwiper={(swiper) => console.log(swiper)}
                 touchRatio={edit?0:1}
                 loop={true}

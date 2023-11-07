@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { changeEdit, addDiaryImage, resetDiaryImages } from './workSpaceSlice';
+import { changeEdit, addDiaryImage, resetDiaryImages, changeMode } from './workSpaceSlice';
 import { saveDiaryData } from '../../tempData/dataSlice';
 import Weather from "./Weather";
 import ImageCropper from "./ImageCropper";
@@ -8,6 +8,7 @@ import './Diary.css';
 import diaryLogo from '../../icons/일기 작성.png'
 import imageLogo from '../../icons/사진4.png'
 import buttonImage from '../../icons/완료3 2.png'
+import { mode } from "../../constant_value"
 
 // 일기 보기 화면
 function DiaryView(props)
@@ -138,9 +139,13 @@ function Diary()
 {
     const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
+    const currentMode = useSelector((state)=>(state.workSpace.mode));
     const diaryData = useSelector(state=>state.tempData.diaryData);
     const [diaryStyle, setDiaryStyle] = useState(null);
 
+    useEffect(()=>{
+        changeMode(mode.DIARY);
+    }, []);
     return (
         <div className={`${edit?"diaryEdit":"diaryView"}`}
         style={diaryStyle}
@@ -150,7 +155,7 @@ function Diary()
                 dispatch(changeEdit());
             }
         }}>
-            {edit?<DiaryEdit setStyle={setDiaryStyle} diaryData={diaryData}/>:
+            {edit && currentMode == mode.DIARY?<DiaryEdit setStyle={setDiaryStyle} diaryData={diaryData}/>:
             <DiaryView diaryData={diaryData}/>}
         </div>
     )

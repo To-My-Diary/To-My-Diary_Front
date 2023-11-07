@@ -40,45 +40,6 @@ function LoginPage()
             console.error(error);
           }
     }
-    }
-    function onKakaoLogin()
-{
-    window.open("https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=148570826c7770f175f7b4c40a87580e&redirect_uri=http://localhost:3000/auth/kakao/callback")
-}
-    function onLogin()
-    {
-    // axios
-    //   .post("/login", {
-    //     id: 'ispr2216',//Id,
-    //     pwd: 'abc1234'//Pwd,
-    //   })
-    // //   .then((res) => {
-    // //     if (res.data.token) {
-    // //       setRes(res.data.token);
-    // //       navigate("/");
-    // //     }
-    // //   })
-    //   .then((res) => {
-    //     if (res.data) {
-    //         console.log(res.data)
-    //         setRes(res.data);
-             navigate("/main"); // 로그인 완료 시, main페이지로 이동
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error, "error");
-    //   });
-        // alert("로그인 완료");
-    }
-    //
-const PARAMS = new URL(document.location).searchParams;
-const KAKAO_CODE = PARAMS.get('code');
-const code = new URL(window.location.href).searchParams.get("code");
-
-    //
-    const [jwtToken, setJwtToken] = useState('');
-    const [userData, setUserData] = useState(null);
-
     return (
         <div id='loginWrapper' style={{backgroundImage: `url(${process.env.PUBLIC_URL + 'images/paperBackground.png'})`,
         backgroundPosition: 'center',
@@ -132,6 +93,10 @@ const code = new URL(window.location.href).searchParams.get("code");
 }
 export default LoginPage;
 
+function onKakaoLogin()
+{
+    window.open("https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=148570826c7770f175f7b4c40a87580e&redirect_uri=http://localhost:3000/auth/kakao/callback")
+}
 function onGoogleLogin()
 {
     alert("구글로그인 이동")

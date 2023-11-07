@@ -99,11 +99,7 @@ function ListGoal(props)
     const date = useSelector((state)=>(state.workSpace.date));
     
     return(
-<<<<<<< HEAD
-        <div className="dgoalList" style={{marginBottom:'-20px'}}>
-=======
         <div id={"dgoalList"+props.id} className="dgoalList" style={{marginBottom:'-20px'}} data-msg={msg} data-time={date}>
->>>>>>> ck
         <h5 id='goalId'>{`${props.id}.`}</h5>
         <div>
         <input className='detailGoal-input' type='text' name='detailGoal-input' value={msg} onChange={(event)=>{
@@ -222,10 +218,12 @@ function ToMyGoal()
 {
     const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
+    const currentMode = useSelector((state)=>(state.workSpace.mode));
     const date = useSelector((state)=>(state.workSpace.date));
     const goalData = useSelector((state)=>(state.tempData.goalData));
     useEffect(()=>{
         changeMode(mode.GOAL);
+        console.log(currentMode);
     }, []);
     return (
         <div className = "ToMyGoal"
@@ -236,7 +234,7 @@ function ToMyGoal()
         <Weather/>
         <h3 className="workSpaceTitle">TO MY GOAL</h3>
         <h3>{date}</h3>
-        {edit?<ToDoEdit goalData={goalData}/>:<ToDoView goalData={goalData}/>}
+        {edit && currentMode == mode.GOAL?<ToDoEdit goalData={goalData}/>:<ToDoView goalData={goalData}/>}
         </div>
     )
 }

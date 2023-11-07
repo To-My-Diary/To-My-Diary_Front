@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changeEdit } from './workSpaceSlice';
+import { changeEdit, changeMode } from './workSpaceSlice';
 import { saveToDoData } from '../../tempData/dataSlice';
 import './ToDoList.css';
 import diaryLogo from '../../icons/일기 작성.png'
@@ -11,6 +11,7 @@ import trashImage from '../../icons/쓰레기통 1.png'
 import { useState, useEffect } from "react";
 import Modal from "react-modal";
 import axios from 'axios';
+import { mode } from "../../constant_value"
 
 // TO-DO 보기 화면
 function ToDoView(props)
@@ -249,8 +250,12 @@ function ToDoList()
 {
     const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
+    const currentMode = useSelector((state)=>(state.workSpace.mode));
     const toDoData = useSelector((state)=>(state.tempData.toDoData));
 
+    useEffect(()=>{
+        changeMode(mode.TODO);
+    }, []);
     return (
         <div className={`${edit?"toDoEdit":"toDoView"}`}
         onClick={()=>{
@@ -259,7 +264,7 @@ function ToDoList()
                 dispatch(changeEdit());
             }
         }}>
-            {edit?<ToDoEdit toDoData={toDoData}/>:<ToDoView toDoData={toDoData}/>}
+            {edit && currentMode == mode.TODO?<ToDoEdit toDoData={toDoData}/>:<ToDoView toDoData={toDoData}/>}
         </div>
     )
 }

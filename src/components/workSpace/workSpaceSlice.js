@@ -7,7 +7,7 @@ import moment from "moment";
 // 작업 공간 초기화 정보
 const initialState = {
     // TODO 0  Diary 1  Goal 2
-    mode: mode.TODO,
+    currentMode: mode.TODO,
     edit: false,
     diaryImages: [],
     date: moment().format('YYYY-MM-DD'),
@@ -23,16 +23,17 @@ const workSpaceSlice = createSlice({
         changeMode:(state, action)=>{
             if(action.payload === mode.TODO)
             {
-                state.mode = mode.TODO
+                state.currentMode = mode.TODO
             }
             else if(action.payload === mode.DIARY)
             {
-                state.mode = mode.DIARY;
+                state.currentMode = mode.DIARY;
             }
             else
             {
-                state.mode = mode.GOAL;
+                state.currentMode = mode.GOAL;
             }
+
 
         },
         changeEdit:(state, action)=>{
