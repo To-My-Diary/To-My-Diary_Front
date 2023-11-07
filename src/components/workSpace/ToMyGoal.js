@@ -22,8 +22,6 @@ function ToDoView(props)
     let list = [];
     let component = null;
     let key = 1;
-
-    console.log(`goalData: ${props.goalData}`)
     if(props.goalData != null && props.goalData.length > 0)
     {
         props.goalData.forEach(item=>{
@@ -218,13 +216,9 @@ function ToMyGoal()
 {
     const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
-    const currentMode = useSelector((state)=>(state.workSpace.mode));
+    const currentMode = useSelector((state)=>(state.workSpace.currentMode));
     const date = useSelector((state)=>(state.workSpace.date));
     const goalData = useSelector((state)=>(state.tempData.goalData));
-    useEffect(()=>{
-        changeMode(mode.GOAL);
-        console.log(currentMode);
-    }, []);
     return (
         <div className = "ToMyGoal"
         style={{backgroundImage: `url(${process.env.PUBLIC_URL + '/images/paperBackground.png'})`,

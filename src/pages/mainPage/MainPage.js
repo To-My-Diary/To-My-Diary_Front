@@ -20,7 +20,7 @@ function setScreenSize() {
 function Article() {
   let contents = null;
   const edit = useSelector(state=>state.workSpace.edit)
-  const current_mode = useSelector((state)=>(state.workSpace.mode))
+  const current_mode = useSelector((state)=>(state.workSpace.currentMode))
   const location = useLocation();
   const currentRoute = location.pathname; // 현재 페이지 라우트 경로 정보 (ToMyGoal 경우, 편집모드일때도 ScheduleSpace가 사라지면 안되기 때문에 조건문에 사용!)
 

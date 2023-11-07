@@ -250,12 +250,8 @@ function ToDoList()
 {
     const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
-    const currentMode = useSelector((state)=>(state.workSpace.mode));
+    const currentMode = useSelector((state)=>(state.workSpace.currentMode));
     const toDoData = useSelector((state)=>(state.tempData.toDoData));
-
-    useEffect(()=>{
-        changeMode(mode.TODO);
-    }, []);
     return (
         <div className={`${edit?"toDoEdit":"toDoView"}`}
         onClick={()=>{
@@ -264,7 +260,7 @@ function ToDoList()
                 dispatch(changeEdit());
             }
         }}>
-            {edit && currentMode == mode.TODO?<ToDoEdit toDoData={toDoData}/>:<ToDoView toDoData={toDoData}/>}
+            {(edit && (currentMode === mode.TODO))?<ToDoEdit toDoData={toDoData}/>:<ToDoView toDoData={toDoData}/>}
         </div>
     )
 }
