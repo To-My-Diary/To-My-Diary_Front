@@ -17,24 +17,30 @@ import { mode } from "../../constant_value"
 // (날짜 선택 시, 해당 날짜에) 설정한 목표 조회
 // 로컬(?)에 저장한 목표 리스트 조회 ( 체크아이콘 클릭시 이 페이지로 전환, 작성했던 목표 적혀있어야 함, 여기서는 수정 불가 _ 수정하려면 수정페이지로 모드 전환)
 // 월별 메인골 보여주는 화면
-function ToDoView()
+function ToDoView(props)
 {
-    let content = null;
-    const mainGoals = useSelector((state) => state.tempData.goalData.content);
+    let list = [];
+    let component = null;
+    let key = 1;
 
-    console.log(`mainGoals: ${mainGoals}`)
-    if(mainGoals)
+    console.log(`goalData: ${props.goalData}`)
+    if(props.goalData != null && props.goalData.length > 0)
     {
-        content = <ListMainGoal />
+        props.goalData.forEach(item=>{
+            list.push(<ListMainGoal key={key++} content={item.content} color={item.color}/>)
+         })
+         component = <>
+            {list}
+         </>
     }
     else
     {
-         content = <GoalNull />
+         component = <GoalNull />
     }
 
     return(
         <>
-            {content}
+            {component}
       </>
         
     );
@@ -54,37 +60,35 @@ function GoalNull()
     }}/>;
 }
 
-function ListMainGoal()
+function ListMainGoal(props)
 {
     const dispatch = useDispatch();
-    const mainGoal = useSelector((state) => state.tempData.goalData.content);
-    const color = useSelector((state) => state.tempData.goalData.color);
     const edit = useSelector((state)=>(state.workSpace.edit));
+    const [content, setContent] = useState(props.content||"");
+    const [color, setColor] = useState(props.color||"");
 
     // goalData에서 메인 목표들을 가져와 처리합니다.
-    // const mainGoals = goalData.content || []; // mainGoals 배열이 있다고 가정합니다.
+    // const mainGoals = goalData.map(item => item.content);
 
-    return (
-        <div>
-            {/* {mainGoals.map((goal, index) => (
-                <div key={index}> */}
+    // const goalList = goalData.map((goal, index) => {
+    //     console.log(`Goal Content at index ${index}:`, goal.content);
+        return (
+            <div data-content={content} data->
                 <div id="mainGoalRead">
-                    {/* <div id="checkbox-goal"> */}
                     <VscChromeMaximize id="checkbox"/>
-                    <div id="goalText">{mainGoal}</div>
-                    {/* </div> */}
+                    <div id="goalText">{content}</div>
                     <VscCircleLarge id="colorbox" style={{backgroundColor: color}}/>
                 </div>
-                    <hr id="mainGoalListHorizonLine"></hr>
-                <img id="plusImage" src={plusImage} alt="플러스" onClick={()=>{
-            //보기 모드일 때만 div 터치 시 편집 전환
-            if(!edit){
-                dispatch(changeEdit());
-            }
-        }}/>
-            {/* ))} */}
-        </div>
-    );
+                <hr id="mainGoalListHorizonLine"></hr>
+                <img id="plusImage" src={plusImage} alt="플러스" onClick={() => {
+                    // 보기 모드일 때만 div 터치 시 편집 전환
+                    if (!edit) {
+                        dispatch(changeEdit());
+                    }
+                }}/>
+            </div>
+        );
+    // });
 }
 
 function ListGoal(props)
@@ -124,8 +128,6 @@ function ToDoEdit(props)
     const date = useSelector((state)=>(state.workSpace.date));
     const color = useSelector((state)=>(state.workSpace.color));
     useEffect(()=>{
-        // if(Object.keys(props.goalData).length !== null)
-        // if (props.goalData && Object.keys(props.goalData).length !== 0) 
         if (props.goalData && props.goalData.dgoalList)
         {
             setGoal(props.goalData.goal);
@@ -178,7 +180,6 @@ function ToDoEdit(props)
                 }
                 dispatch(saveGoalData(data));
                 dispatch(changeEdit());
-                // console.log(props.goalData);
             }
         }}>
         <div className="mainGoal">
@@ -209,8 +210,6 @@ function ToDoEdit(props)
             </label>
             <input id="write" type="submit" hidden/>
         </form>
-        {/* for문 돌려서 id = 1 ~ 설정되어있는 목표까지 불러와서 출력 ! */}
-        {/* for문 안 실행문 */}
         </div>
     )
 }
@@ -221,7 +220,6 @@ function ToMyGoal()
     const edit = useSelector((state)=>(state.workSpace.edit));
     const date = useSelector((state)=>(state.workSpace.date));
     const goalData = useSelector((state)=>(state.tempData.goalData));
-    console.log('goalData:', goalData);
     useEffect(()=>{
         changeMode(mode.GOAL);
     }, []);
