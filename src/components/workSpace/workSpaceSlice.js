@@ -24,16 +24,17 @@ const workSpaceSlice = createSlice({
             if(action.payload === mode.TODO)
             {
                 state.currentMode = mode.TODO
+                console.log(state.currentMode);
             }
             else if(action.payload === mode.DIARY)
             {
                 state.currentMode = mode.DIARY;
+                console.log(state.currentMode);
             }
             else
             {
                 state.currentMode = mode.GOAL;
             }
-            console.log(state.currentMode);
         },
         changeEdit:(state, action)=>{
             state.edit = !state.edit;

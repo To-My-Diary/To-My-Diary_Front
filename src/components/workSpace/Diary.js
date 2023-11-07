@@ -145,8 +145,7 @@ function Diary()
     return (
         <div className={`${edit?"diaryEdit":"diaryView"}`}
         style={diaryStyle}
-        onClick={(event)=>{
-            event.preventDefault()
+        onClick={()=>{
             // 보기 모드일 때만 div 터치 시 편집 전환
             if(!edit){
                 dispatch(changeEdit());

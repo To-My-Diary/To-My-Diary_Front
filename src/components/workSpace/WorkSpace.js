@@ -22,6 +22,7 @@ function WorkSpace() {
             <Swiper
                 style={{width:"100vw"}}
                 slidesPerView={1}
+                initialSlide={currentMode}
                 onRealIndexChange={(swiper)=>{
                     switch(swiper.realIndex)
                     {
