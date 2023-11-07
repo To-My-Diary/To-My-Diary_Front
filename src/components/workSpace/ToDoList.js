@@ -260,7 +260,7 @@ function ToDoList()
                 dispatch(changeEdit());
             }
         }}>
-            {edit && currentMode === mode.TODO ? <ToDoEdit toDoData={toDoData}/>:<ToDoView toDoData={toDoData}/>}
+            {(edit && (currentMode === mode.TODO))?<ToDoEdit toDoData={toDoData}/>:<ToDoView toDoData={toDoData}/>}
         </div>
     )
 }

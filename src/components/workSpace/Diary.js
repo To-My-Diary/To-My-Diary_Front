@@ -14,10 +14,17 @@ import { mode } from "../../constant_value"
 function DiaryView(props)
 {
     let content = null;
+    const dispatch = useDispatch();
+    const edit = useSelector((state)=>(state.workSpace.edit));
 
     if(Object.keys(props.diaryData).length === 0) // when there is no data
     {
-        content = <img src={diaryLogo} id="diaryDiaryImg" alt="일기 작성"/>;
+        content = <img src={diaryLogo} id="diaryDiaryImg" alt="일기 작성" onClick={()=>{
+            //보기 모드일 때만 div 터치 시 편집 전환
+            if(!edit){
+                dispatch(changeEdit());
+            }
+        }}/>;
     }
     else // when ther is saved data
     {
@@ -137,21 +144,14 @@ function DiaryEdit(props)
 
 function Diary()
 {
-    const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
     const currentMode = useSelector((state)=>(state.workSpace.currentMode));
     const diaryData = useSelector(state=>state.tempData.diaryData);
     const [diaryStyle, setDiaryStyle] = useState(null);
     return (
         <div className={`${edit?"diaryEdit":"diaryView"}`}
-        style={diaryStyle}
-        onClick={()=>{
-            // 보기 모드일 때만 div 터치 시 편집 전환
-            if(!edit){
-                dispatch(changeEdit());
-            }
-        }}>
-            {edit && currentMode === mode.DIARY ? <DiaryEdit setStyle={setDiaryStyle} diaryData={diaryData}/>:
+        style={diaryStyle}>
+            {(edit && (currentMode === mode.DIARY))?<DiaryEdit setStyle={setDiaryStyle} diaryData={diaryData}/>:
             <DiaryView diaryData={diaryData}/>}
         </div>
     )

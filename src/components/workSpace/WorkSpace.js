@@ -21,24 +21,21 @@ function WorkSpace() {
             <Swiper
                 style={{width:"100vw"}}
                 slidesPerView={1}
-                onSlideChange={console.log()}
-                onRealIndexChange={(swiper)=>
-                    {
-                        console.log(swiper.realIndex)
+                initialSlide={currentMode}
+                onRealIndexChange={(swiper)=>{
                     switch(swiper.realIndex)
                     {
-                        case 0: 
-                        dispatch(changeMode(mode.TODO));
-                        break;
-                        case 1: 
-                        dispatch(changeMode(mode.Diary));
-                        break;
-                        case 2: 
-                        dispatch(changeMode(mode.GOAL));
-                        break;
+                        case 0:
+                            dispatch(changeMode(mode.TODO));
+                            break;
+                        case 1:
+                            dispatch(changeMode(mode.DIARY));
+                            break;
+                        case 2:
+                            dispatch(changeMode(mode.GOAL));
+                            break;
                     }
-                }
-            }
+                }}
                 onSwiper={(swiper) => console.log(swiper)}
                 touchRatio={edit?0:1}
                 loop={true}

@@ -33,9 +33,6 @@ const workSpaceSlice = createSlice({
             {
                 state.currentMode = mode.GOAL;
             }
-            console.log(state.currentMode)
-
-
         },
         changeEdit:(state, action)=>{
             state.edit = !state.edit;

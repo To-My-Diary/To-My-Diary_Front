@@ -22,8 +22,6 @@ function ToDoView(props)
     let list = [];
     let component = null;
     let key = 1;
-
-    // console.log(`goalData: ${props.goalData}`)
     if(props.goalData != null && props.goalData.length > 0)
     {
         props.goalData.forEach(item=>{
