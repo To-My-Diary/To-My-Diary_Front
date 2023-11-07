@@ -4,6 +4,8 @@ import WorkSpace from '../../components/workSpace/WorkSpace'
 import ScheduleSpace from '../../components/scheduleSpace/ScheduleSpace';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { mode } from "../../constant_value";
 import axios from 'axios';
 
 //vh 조절 함수
@@ -18,9 +20,12 @@ function setScreenSize() {
 function Article() {
   let contents = null;
   const edit = useSelector(state=>state.workSpace.edit)
+  const current_mode = useSelector((state)=>(state.workSpace.mode))
+  const location = useLocation();
+  const currentRoute = location.pathname; // 현재 페이지 라우트 경로 정보 (ToMyGoal 경우, 편집모드일때도 ScheduleSpace가 사라지면 안되기 때문에 조건문에 사용!)
 
-  // 편집모드일 경우 ScheduleSpace 제거
-  if(edit)
+  // 편집모드일 경우 ScheduleSpace 제거 (목표페이지일 경우 제외)
+  if(edit && current_mode !== mode.GOAL)
   {
     contents = <article>
       <WorkSpace/>
@@ -44,16 +49,16 @@ function Article() {
 function MainPage() {
   const [response, setResponse] = useState('')
 
-useEffect(() => {
-  axios.get('/calendar/goal/2023/8') //http://172.16.101.2:8080
-    .then(res => {
-      console.log(res)
-      // console.log({response})
-      setResponse(res)
-      console.log('-------------')
-    })
-  .catch(error => console.log(error))
-}, []);
+// useEffect(() => {
+//   axios.get('/calendar/goal/2023/8') //http://172.16.101.2:8080
+//     .then(res => {
+//       console.log(res)
+//       // console.log({response})
+//       setResponse(res)
+//       console.log('-------------')
+//     })
+//   .catch(error => console.log(error))
+// }, []);
 
   return (
     <div className="mainPage">
