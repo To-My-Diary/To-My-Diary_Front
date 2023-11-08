@@ -3,7 +3,6 @@
 import './WorkSpace.css';
 import ToDoList from './ToDoList';
 import Diary from './Diary';
-import { Route, Routes } from 'react-router-dom';
 import ToMyGoal from './ToMyGoal';
 import { useDispatch, useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from 'swiper/react';

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changeEdit, changeMode } from './workSpaceSlice';
+import { changeEdit } from './workSpaceSlice';
 import { saveToDoData } from '../../tempData/dataSlice';
 import './ToDoList.css';
 import diaryLogo from '../../icons/일기 작성.png'

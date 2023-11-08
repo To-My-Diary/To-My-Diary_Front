@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import './App.css';
 import MainPage from './pages/mainPage/MainPage';
 import LoginPage from './pages/loginPage/LoginPage';
+import KakaoCallback from './pages/loginPage/KakaoCallback';
 import { Route, Routes } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -25,6 +26,7 @@ function App() {
       <Routes>
         <Route exact path='/' element={<LoginPage />}></Route>
         <Route path='/main/*' element={<MainPage />}></Route>
+        <Route path="/auth/kakao/callback" element={<KakaoCallback />} />
       </Routes>
     </div>
   );

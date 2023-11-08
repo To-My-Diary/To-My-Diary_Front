@@ -10,7 +10,7 @@ import Weather from "./Weather";
 import IconColorPicker from "./ColorButton";
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import { changeEdit, changeMode } from './workSpaceSlice';
+import { changeEdit } from './workSpaceSlice';
 import { saveGoalData } from "../../tempData/dataSlice";
 import { mode } from "../../constant_value"
 
@@ -228,7 +228,7 @@ function ToMyGoal()
         <Weather/>
         <h3 className="workSpaceTitle">TO MY GOAL</h3>
         <h3>{date}</h3>
-        {edit && currentMode == mode.GOAL?<ToDoEdit goalData={goalData}/>:<ToDoView goalData={goalData}/>}
+        {edit && currentMode === mode.GOAL ? <ToDoEdit goalData={goalData}/>:<ToDoView goalData={goalData}/>}
         </div>
     )
 }
