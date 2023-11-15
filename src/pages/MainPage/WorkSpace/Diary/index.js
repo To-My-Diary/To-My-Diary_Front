@@ -1,14 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { changeEdit, addDiaryImage, resetDiaryImages } from './workSpaceSlice';
-import { saveDiaryData } from '../../tempData/dataSlice';
-import Weather from "./Weather";
-import ImageCropper from "./ImageCropper";
+import { changeEdit, addDiaryImage, resetDiaryImages } from '../../../../store/slices/workSpaceSlice';
+import { saveDiaryData } from '../../../../store/slices/dataSlice';
+import Weather from "../../../../components/common/Weather";
+import ImageCropper from "../../../../components/diary/ImageCropper";
 import './Diary.css';
 import diaryLogo from '../../icons/일기 작성.png'
 import imageLogo from '../../icons/사진4.png'
 import buttonImage from '../../icons/완료3 2.png'
-import { mode } from "../../constant_value"
+import { mode } from "lib/constants/constant_value"
 
 // 일기 보기 화면
 function DiaryView(props)

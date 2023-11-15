@@ -4,7 +4,7 @@ import { useState } from 'react';
 import moment from 'moment';
 import Calendar from 'react-calendar';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeDate } from '../workSpace/workSpaceSlice';
+import { changeDate } from '../../../store/slices/workSpaceSlice';
 
 
 function ScheduleSpace() {

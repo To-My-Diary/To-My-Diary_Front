@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { mode } from '../../constant_value'
-import { ListItem } from "./ToDoList";
-import { ListGoal } from "./ToMyGoal";
+import { mode } from '../../lib/constants/constant_value'
+import { ListItem } from "../../pages/MainPage/WorkSpace/ToDo";
+import { ListGoal } from "../../pages/MainPage/WorkSpace/Goal";
 import moment from "moment";
 
 // 작업 공간 초기화 정보

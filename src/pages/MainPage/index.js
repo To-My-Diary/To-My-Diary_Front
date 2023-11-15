@@ -1,10 +1,10 @@
 import React from 'react';
 import './MainPage.css';
-import WorkSpace from '../../components/workSpace/WorkSpace'
-import ScheduleSpace from '../../components/scheduleSpace/ScheduleSpace';
+import WorkSpace from './WorkSpace'
+import ScheduleSpace from './Calender';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { mode } from "../../constant_value";
+import { mode } from "../../lib/constants/constant_value";
 import axios from 'axios';
 
 //vh 조절 함수

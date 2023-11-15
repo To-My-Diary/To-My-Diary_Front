@@ -1,13 +1,13 @@
 /* 메인화면 아래 부분의 작업 공간 (일기, To-do 작성 등) */
 
 import './WorkSpace.css';
-import ToDoList from './ToDoList';
+import ToDoList from './ToDo';
 import Diary from './Diary';
-import ToMyGoal from './ToMyGoal';
+import ToMyGoal from './Goal';
 import { useDispatch, useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { changeMode } from './workSpaceSlice';
-import { mode } from "../../constant_value"
+import { changeMode } from '../../../store/slices/workSpaceSlice';
+import { mode } from "../../../lib/constants/constant_value"
 
 import 'swiper/css';
 

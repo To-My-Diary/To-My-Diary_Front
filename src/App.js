@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import MainPage from './pages/mainPage/MainPage';
-import LoginPage from './pages/loginPage/LoginPage';
-import KakaoCallback from './pages/loginPage/KakaoCallback';
+import MainPage from './pages/MainPage';
+import LoginPage from './pages/LoginPage';
+import KakaoCallback from './pages/LoginPage/KakaoCallback';
 import { Route, Routes } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
