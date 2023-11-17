@@ -4,10 +4,10 @@ import { changeEdit, addDiaryImage, resetDiaryImages } from '../../../../store/s
 import { saveDiaryData } from '../../../../store/slices/dataSlice';
 import Weather from "../../../../components/common/Weather";
 import ImageCropper from "../../../../components/diary/ImageCropper";
-import './Diary.css';
-import diaryLogo from '../../icons/일기 작성.png'
-import imageLogo from '../../icons/사진4.png'
-import buttonImage from '../../icons/완료3 2.png'
+import './index.css';
+import diaryLogo from 'assets/icons/일기 작성.png'
+import imageLogo from 'assets/icons/사진4.png'
+import buttonImage from 'assets/icons/완료3 2.png'
 import { mode } from "lib/constants/constant_value"
 
 // 일기 보기 화면

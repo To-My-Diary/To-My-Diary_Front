@@ -1,18 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
-import './ToMyGoal.css'
-import diaryLogo from '../../icons/일기 작성.png'
-import trashImage from '../../icons/쓰레기통 1.png'
-import plusImage from '../../icons/플러스2 1.png';
-import buttonImage from '../../icons/체크1 2.png';
+import './index.css'
+import diaryLogo from 'assets/icons/일기 작성.png'
+import trashImage from 'assets/icons/쓰레기통 1.png'
+import plusImage from 'assets/icons/플러스2 1.png';
+import buttonImage from 'assets/icons/체크1 2.png';
 import { BsSquare, BsFillCircleFill } from 'react-icons/bs';
 import { VscChromeMaximize, VscCircleLarge } from 'react-icons/vsc';
-import Weather from "../../../../components/common/Weather";
-import IconColorPicker from "../../../../components/goal/ColorButton";
+import Weather from "components/common/Weather";
+import IconColorPicker from "components/goal/ColorButton";
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import { changeEdit } from '../../../../store/slices/workSpaceSlice';
-import { saveGoalData } from "../../../../store/slices/dataSlice";
-import { mode } from "../../../../lib/constants/constant_value"
+import { changeEdit } from 'store/slices/workSpaceSlice';
+import { saveGoalData } from "store/slices/dataSlice";
+import { mode } from "lib/constants/constant_value"
 
 // (날짜 선택 시, 해당 날짜에) 설정한 목표 조회
 // 로컬(?)에 저장한 목표 리스트 조회 ( 체크아이콘 클릭시 이 페이지로 전환, 작성했던 목표 적혀있어야 함, 여기서는 수정 불가 _ 수정하려면 수정페이지로 모드 전환)

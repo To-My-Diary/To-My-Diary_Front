@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import Cropper from 'react-cropper';
 import 'cropperjs/dist/cropper.css';
-import buttonImage from '../../icons/완료3 2.png'
+import buttonImage from 'assets/icons/완료3 2.png'
 
 function ImageCropper(props) {
   const cropperRef = useRef(null);

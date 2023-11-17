@@ -1,10 +1,10 @@
 /* 메인화면 위 부분의 날짜/일정 선택 공간 (달력, 일주일 일정 등) */
-import './ScheduleSpace.css';
+import './index.css';
 import { useState } from 'react';
 import moment from 'moment';
 import Calendar from 'react-calendar';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeDate } from '../../../store/slices/workSpaceSlice';
+import { changeDate } from 'store/slices/workSpaceSlice';
 
 
 function ScheduleSpace() {
