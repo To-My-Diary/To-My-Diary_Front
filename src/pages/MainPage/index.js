@@ -1,10 +1,10 @@
 import React from 'react';
-import './MainPage.css';
+import './index.css';
 import WorkSpace from './WorkSpace'
-import ScheduleSpace from './Calender';
+import Calender from './Calender';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { mode } from "../../lib/constants/constant_value";
+import { mode } from "lib/constants/constant_value";
 import axios from 'axios';
 
 //vh 조절 함수
@@ -32,7 +32,7 @@ function Article() {
   else
   {
     contents = <article>
-      <ScheduleSpace/>
+      <Calender/>
       <WorkSpace/>
     </article>
   }

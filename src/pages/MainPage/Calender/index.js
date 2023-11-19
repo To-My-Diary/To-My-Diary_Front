@@ -1,4 +1,5 @@
-import 'pages/MainPage/Calender/index.css';
+/* 메인화면 위 부분의 날짜/일정 선택 공간 (달력, 일주일 일정 등) */
+import './index.css';
 import { useState } from 'react';
 import moment from 'moment';
 import Calendar from 'react-calendar';

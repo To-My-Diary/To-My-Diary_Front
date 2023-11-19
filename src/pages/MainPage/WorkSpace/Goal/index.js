@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import 'pages/MainPage/WorkSpace/Goal/index.css'
+import './index.css'
 import diaryLogo from 'assets/icons/일기 작성.png'
 import trashImage from 'assets/icons/쓰레기통 1.png'
 import plusImage from 'assets/icons/플러스2 1.png';

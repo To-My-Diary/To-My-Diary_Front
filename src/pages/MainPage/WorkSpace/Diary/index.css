@@ -65,7 +65,7 @@ textarea:focus{
     min-height: calc(var(--vh, 1vh) * 100);
     width: 100vw;
     overflow: auto;
-    background-image: url(/src/icons/종이질감2.png);
+    background-image: url(assets/icons/종이질감2.png);
     background-repeat: repeat;
 }
 .diaryImages {

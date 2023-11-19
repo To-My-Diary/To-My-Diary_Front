@@ -1,4 +1,4 @@
-import weatherLogo from 'assets/icons/구름 낀 날.png';
+import weatherLogo from 'assets/icons/구름 낀 날.png'
 
 function Weather() 
 {

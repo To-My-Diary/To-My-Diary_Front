@@ -1,17 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
 import { changeEdit } from '../../../../store/slices/workSpaceSlice';
 import { saveToDoData } from '../../../../store/slices/dataSlice';
-import './ToDoList.css';
-import diaryLogo from '../../icons/일기 작성.png'
-import Weather from "../../../../components/common/Weather";
-import buttonImage from '../../icons/체크1 2.png';
-import plusImage from '../../icons/플러스2 1.png';
-import clockImage from '../../icons/시계 2.png'
-import trashImage from '../../icons/쓰레기통 1.png'
+import './index.css';
+import diaryLogo from 'assets/icons/일기 작성.png'
+import Weather from "components/common/Weather";
+import buttonImage from 'assets/icons/체크1 2.png';
+import plusImage from 'assets/icons/플러스2 1.png';
+import clockImage from 'assets/icons/시계 2.png'
+import trashImage from 'assets/icons/쓰레기통 1.png'
 import { useState, useEffect } from "react";
 import Modal from "react-modal";
 import axios from 'axios';
-import { mode } from "../../../../lib/constants/constant_value"
+import { mode } from "lib/constants/constant_value"
 
 // TO-DO 보기 화면
 function ToDoView(props)

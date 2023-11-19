@@ -1,6 +1,6 @@
 /* 메인화면 아래 부분의 작업 공간 (일기, To-do 작성 등) */
 
-import './WorkSpace.css';
+import './index.css';
 import ToDoList from './ToDo';
 import Diary from './Diary';
 import ToMyGoal from './Goal';

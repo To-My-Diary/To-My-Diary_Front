@@ -1,4 +1,4 @@
-import './LoginPage.css';
+import './index.css';
 import { useEffect, useState } from 'react';
 import { RiLoginCircleLine } from 'react-icons/ri';
 import { Link, useNavigate } from 'react-router-dom';
