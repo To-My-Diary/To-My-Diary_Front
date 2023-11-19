@@ -3,7 +3,7 @@ import { CirclePicker, CompactPicker, TwitterPicker} from 'react-color';
 import { BsFillCircleFill } from 'react-icons/bs';
 import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
-import { changeColor } from '../../store/slices/workSpaceSlice';
+import { changeColor } from 'store/slices/workSpaceSlice';
 
 function IconColorPicker() {
     const dispatch = useDispatch();
