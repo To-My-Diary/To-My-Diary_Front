@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { mode } from '../../lib/constants/constant_value'
-import { ListItem } from "../../pages/MainPage/WorkSpace/ToDo";
-import { ListGoal } from "../../pages/MainPage/WorkSpace/Goal";
+import { mode } from 'lib/constants/constant_value'
+import { ListItem } from "pages/MainPage/WorkSpace/ToDo";
+import { ListGoal } from "pages/MainPage/WorkSpace/Goal";
 import moment from "moment";
 
 // 작업 공간 초기화 정보
@@ -24,12 +24,10 @@ const workSpaceSlice = createSlice({
             if(action.payload === mode.TODO)
             {
                 state.currentMode = mode.TODO
-                console.log(state.currentMode);
             }
             else if(action.payload === mode.DIARY)
             {
                 state.currentMode = mode.DIARY;
-                console.log(state.currentMode);
             }
             else
             {

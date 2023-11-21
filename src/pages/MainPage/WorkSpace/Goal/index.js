@@ -13,11 +13,12 @@ import axios from 'axios';
 import { changeEdit } from 'store/slices/workSpaceSlice';
 import { saveGoalData } from "store/slices/dataSlice";
 import { mode } from "lib/constants/constant_value"
+import { request } from 'lib/api/api_type';
 
 // (날짜 선택 시, 해당 날짜에) 설정한 목표 조회
 // 로컬(?)에 저장한 목표 리스트 조회 ( 체크아이콘 클릭시 이 페이지로 전환, 작성했던 목표 적혀있어야 함, 여기서는 수정 불가 _ 수정하려면 수정페이지로 모드 전환)
 // 월별 메인골 보여주는 화면
-function ToDoView(props)
+function GoalView(props)
 {
     let list = [];
     let component = null;
@@ -117,14 +118,32 @@ function ListGoal(props)
 }
 
 // 목표 추가 (메인 및 상세 목표)
-function ToDoEdit(props)
+function GoalEdit(props)
 {
     const dispatch = useDispatch();
     const [nextID, setNextID] = useState(2)
     const [list, setList] = useState([]);
+    // const [dgoal, setDgoal] = useState([]);
     const [goal, setGoal] = useState(props.goal||"");
     const date = useSelector((state)=>(state.workSpace.date));
     const color = useSelector((state)=>(state.workSpace.color));
+    const edit = useSelector((state)=>(state.workSpace.edit));
+    const options = {
+        method: 'POST',
+        body: JSON.stringify({ content: goal, planDate: date}), // TODO 상세목표도 같이 전달하기
+        
+      };
+    async function onSubmitHandler()
+    {
+        try {
+            const data = await request("/save/goal", options); // 원하는 API 엔드포인트 경로를 전달
+            console.log(data); // API 응답 데이터 출력 또는 다른 작업 수행
+
+          dispatch(changeEdit);
+          } catch (error) {
+            console.error(error);
+          }
+    }
     useEffect(()=>{
         if (props.goalData && props.goalData.dgoalList)
         {
@@ -177,6 +196,7 @@ function ToDoEdit(props)
                     detailGoal: [{detailData}]
                 }
                 dispatch(saveGoalData(data));
+                onSubmitHandler(data);
                 dispatch(changeEdit());
             }
         }}>
@@ -228,7 +248,7 @@ function ToMyGoal()
         <Weather/>
         <h3 className="workSpaceTitle">TO MY GOAL</h3>
         <h3>{date}</h3>
-        {edit && currentMode === mode.GOAL ? <ToDoEdit goalData={goalData}/>:<ToDoView goalData={goalData}/>}
+        {edit && currentMode === mode.GOAL ? <GoalEdit goalData={goalData}/>:<GoalView goalData={goalData}/>}
         </div>
     )
 }

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { RiLoginCircleLine } from 'react-icons/ri';
 import { Link, useNavigate } from 'react-router-dom';
 import { request } from 'lib/api/api_type';
+import { useCookies } from 'react-cookie';
 import axios from "axios";
 
 function LoginPage()
@@ -11,6 +12,7 @@ function LoginPage()
     const [Id, setId] = useState('')
     const [Pwd, setPwd] = useState('')
     const navigate = useNavigate();
+    const [cookies, setCookie] = useCookies(['id']); // 쿠키 훅
     const onIdHandler = (event) => {
         setId(event.target.value)
     }

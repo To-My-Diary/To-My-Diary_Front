@@ -6,16 +6,16 @@ import Diary from './Diary';
 import ToMyGoal from './Goal';
 import { useDispatch, useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { changeMode } from '../../../store/slices/workSpaceSlice';
-import { mode } from "../../../lib/constants/constant_value"
+import { changeMode } from 'store/slices/workSpaceSlice';
+import { mode } from "lib/constants/constant_value"
 
 import 'swiper/css';
+import { useEffect } from 'react';
 
 function WorkSpace() {
     const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
     const currentMode = useSelector((state)=>(state.workSpace.currentMode));
-
     return(
         <div id="workWrapper">
             <Swiper

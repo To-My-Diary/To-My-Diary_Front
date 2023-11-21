@@ -7,6 +7,7 @@ import { saveDiaryData } from 'store/slices/dataSlice'
 import './index.css';
 import imageLogo from 'assets/icons/사진4.png'
 import buttonImage from 'assets/icons/완료3 2.png'
+import { request } from 'lib/api/api_type';
 
 //일기 작성 화면
 function DiaryEdit(props)
@@ -17,6 +18,22 @@ function DiaryEdit(props)
     const [content, setContent] = useState("");
     const dispatch = useDispatch();
     let reader = new FileReader();
+    const options = {
+        method: 'POST',
+        body: JSON.stringify({ subject: "제목1", content: content}), // JSON 데이터를 문자열로 변환(GET 요청 시에는 필요 X)
+        
+      };
+      async function onSubmitHandler()
+      {
+          try {
+              const data = await request("/save/diary", options); // 원하는 API 엔드포인트 경로를 전달
+              console.log(data); // API 응답 데이터 출력 또는 다른 작업 수행
+  
+            dispatch(changeEdit);
+            } catch (error) {
+              console.error(error);
+            }
+      }
 
     useEffect(()=>{
         if(Object.keys(props.diaryData).length !== 0)
@@ -29,7 +46,6 @@ function DiaryEdit(props)
     return(
         <form encType="multipart/form-data" onSubmit={(event)=>{
             event.preventDefault();
-
             // Diary create
             if(event.target.body.value.length > 0)
             {
@@ -40,6 +56,7 @@ function DiaryEdit(props)
                     img: diaryImages
                 }
                 dispatch(saveDiaryData(data));
+                onSubmitHandler(data);
             }
 
             // reset diaryImages to empty list
@@ -82,6 +99,9 @@ function DiaryEdit(props)
                 placeholder="Write your diary here..." 
                 defaultValue={content}
                 style={{height:"15em"}}
+                onChange={(event)=>{
+                    setContent(event.target.value)
+                }}
                 ></textarea>
                 <p>
                     <label htmlFor="write">

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changeEdit } from '../../../../store/slices/workSpaceSlice';
-import { saveToDoData } from '../../../../store/slices/dataSlice';
+import { changeEdit } from 'store/slices/workSpaceSlice';
+import { saveToDoData } from 'store/slices/dataSlice';
 import './index.css';
 import diaryLogo from 'assets/icons/일기 작성.png'
 import Weather from "components/common/Weather";
