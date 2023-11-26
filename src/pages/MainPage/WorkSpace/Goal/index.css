@@ -75,6 +75,7 @@
     /* background-color: blue; */
 }
 .mainGoal-input{
+    border: none;
     background-color: transparent;
     font-family: "modu";
     font-weight: bold;
@@ -85,6 +86,7 @@
     /* background-color: white; */
 }
 .detailGoal-input {
+    border: none;
     background-color: transparent;
     /* text-align: center; */
     font-family: "modu";
