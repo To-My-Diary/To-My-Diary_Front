@@ -16,6 +16,12 @@ function WorkSpace() {
     const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
     const currentMode = useSelector((state)=>(state.workSpace.currentMode));
+
+    useEffect(()=>{
+        const swiper = document.querySelector('.swiper').swiper;
+        swiper.init();
+    }, [edit])
+
     return(
         <div id="workWrapper">
             <Swiper

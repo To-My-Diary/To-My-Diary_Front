@@ -23,17 +23,17 @@ function DiaryEdit(props)
         body: JSON.stringify({ subject: "제목1", content: content}), // JSON 데이터를 문자열로 변환(GET 요청 시에는 필요 X)
         
       };
-      async function onSubmitHandler()
-      {
-          try {
-              const data = await request("/save/diary", options); // 원하는 API 엔드포인트 경로를 전달
-              console.log(data); // API 응답 데이터 출력 또는 다른 작업 수행
-  
-            dispatch(changeEdit);
-            } catch (error) {
-              console.error(error);
-            }
-      }
+    async function onSubmitHandler()
+    {
+        try {
+            const data = await request("/save/diary", options); // 원하는 API 엔드포인트 경로를 전달
+            console.log(data); // API 응답 데이터 출력 또는 다른 작업 수행
+
+            dispatch(changeEdit());
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     useEffect(()=>{
         if(Object.keys(props.diaryData).length !== 0)
@@ -96,12 +96,12 @@ function DiaryEdit(props)
                     props.setStyle({minHeight: "100vh"});
                 }}></input>
                 <textarea name="body" 
-                placeholder="Write your diary here..." 
-                defaultValue={content}
-                style={{height:"15em"}}
-                onChange={(event)=>{
-                    setContent(event.target.value)
-                }}
+                    placeholder="Write your diary here..." 
+                    defaultValue={content}
+                    style={{height:"15em"}}
+                    onChange={(event)=>{
+                        setContent(event.target.value)
+                    }}
                 ></textarea>
                 <p>
                     <label htmlFor="write">
