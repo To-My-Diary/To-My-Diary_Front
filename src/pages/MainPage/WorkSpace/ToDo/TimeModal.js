@@ -1,10 +1,9 @@
+import TimePicker from './TimePicker';
 import './index.css';
 import Modal from "react-modal";
 
 function TimeModal(props) 
 {
-
-    
     return <Modal
         isOpen={props.isTimeModalOpen}
         onRequestClose={() => props.setIsTimeModalOpen(false)} // 모달을 닫을 때 모달 상태를 변경합니다.
@@ -22,7 +21,7 @@ function TimeModal(props)
             },
             content: {
                 width: "360px",
-                height: "180px",
+                height: "240px",
                 zIndex: "150",
                 position: "absolute",
                 top: "50%",
@@ -48,8 +47,7 @@ function TimeModal(props)
             props.setIsTimeModalOpen(false);
         }}>
             <h4>시간 설정</h4>
-            <input type="number" name="hour" className="timeNum"/>:
-            <input type="number" name="minute" className="timeNum"/>
+            <TimePicker/>
             <p><input type="submit" value="확인"></input></p>
         </form>
     </Modal>

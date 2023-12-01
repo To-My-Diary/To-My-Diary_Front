@@ -18,8 +18,7 @@ function WorkSpace() {
     const currentMode = useSelector((state)=>(state.workSpace.currentMode));
 
     useEffect(()=>{
-        const swiper = document.querySelector('.swiper').swiper;
-        swiper.init();
+        console.log(edit);
     }, [edit])
 
     return(
