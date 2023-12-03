@@ -32,8 +32,8 @@ function ScheduleSpace() {
     {
         try {
           const { year, month } = props;
-            const data = await request(`/goal/${year}/${month}`, options); // 원하는 API 엔드포인트 경로를 전달
-            console.log(data); // API 응답 데이터 출력 또는 다른 작업 수행
+            const data = await request(`/goal/${year}/${month}`, options);
+            console.log(data);
 
           } catch (error) {
             console.error(error);

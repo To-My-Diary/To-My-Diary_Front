@@ -5,8 +5,9 @@ import Calender from './Calender';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { mode } from "lib/constants/constant_value";
-import { getCookie } from 'lib/api/\bcookie';
+import { getCookie, removeCookie } from 'lib/api/\bcookie';
 import { useNavigate } from 'react-router-dom';
+import logoutImage from 'assets/icons/logout.png';
 
 
 //vh 조절 함수
@@ -47,8 +48,16 @@ function Article() {
 }
 
 function MainPage() {
-  const [response, setResponse] = useState('')
   const navigate = useNavigate()
+  async function onLogout()
+  {
+      try {
+          removeCookie('token')
+          navigate("/"); // 로그인 완료 시, main페이지로 이동
+        } catch (error) {
+          console.error(error);
+        }
+  }
 
 useEffect(() => {
       if (getCookie('token')== null) {
@@ -58,6 +67,7 @@ useEffect(() => {
 
   return (
     <div className="mainPage">
+          <img id="logout" src={logoutImage} alt="로그아웃" onClick={onLogout}></img>
       <Article/>
     </div>
   );

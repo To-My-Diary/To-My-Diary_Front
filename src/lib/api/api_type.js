@@ -6,7 +6,6 @@ export const END_POINT_LOCAL = "http://172.16.101.45:8080"
 export const request = async (url, options = {}) => {
 	try {
 		// const res = await fetch(`${API_END_POINT}${url}`, {
-		// console.log(getCookie('token'))
 		const res = await fetch(`${END_POINT_LOCAL}${url}`, {
 			...options,
 			headers: {"Content-type": "application/json",Authorization : `Bearer ${getCookie('token')}`},

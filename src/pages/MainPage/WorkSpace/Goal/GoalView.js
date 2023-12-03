@@ -5,7 +5,6 @@ import { VscChromeMaximize, VscCircleLarge } from 'react-icons/vsc';
 import { request } from 'lib/api/api_type';
 import { changeEdit } from 'store/slices/workSpaceSlice';
 import plusImage from 'assets/icons/플러스2 1.png';
-// import { request } from "lib/api/api_type";
 
 function GoalView(props)
 {
@@ -14,20 +13,6 @@ function GoalView(props)
     let key = 1;
     const year = useSelector((state)=>(state.workSpace.year));
     const month = useSelector((state)=>(state.workSpace.month))
-    // const options = {
-    //     method: 'GET',
-    //   };
-    // async function onSubmitHandler()
-    // {
-    //     try {
-    //         const data = await request(`/goal/${year}/${month}`, options); // 원하는 API 엔드포인트 경로를 전달
-    //         console.log(data); // API 응답 데이터 출력 또는 다른 작업 수행
-
-    //       dispatch(changeEdit);
-    //       } catch (error) {
-    //         console.error(error);
-    //       }
-    // }
     if(props.goalData != null && props.goalData.length > 0)
     {
         props.goalData.forEach(item=>{

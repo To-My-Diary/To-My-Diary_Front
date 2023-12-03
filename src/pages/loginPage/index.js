@@ -1,14 +1,12 @@
 import './index.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { RiLoginCircleLine } from 'react-icons/ri';
 import { Link, useNavigate } from 'react-router-dom';
 import { request } from 'lib/api/api_type';
-import { useCookies } from 'react-cookie';
-import { setCookie, getCookie, removeCookie } from 'lib/api/\bcookie';
+import { setCookie } from 'lib/api/\bcookie';
 
 function LoginPage()
 {
-    // const jwtToken = await signIn(signInPayload)
     const kakaoURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=148570826c7770f175f7b4c40a87580e&redirect_uri=http://43.201.112.92:8080/auth/kakao/callback"
     const [Id, setId] = useState('')
     const [Pwd, setPwd] = useState('')
@@ -24,17 +22,16 @@ function LoginPage()
     }
     const options = {
         method: 'POST',
-        body: JSON.stringify({ email: Id, pw: Pwd}), // JSON 데이터를 문자열로 변환(GET 요청 시에는 필요 X)
+        body: JSON.stringify({ email: Id, pw: Pwd}),
         
       };
     async function onLogin()
     {
         try {
-            const data = await request("/user/login", options); // 원하는 API 엔드포인트 경로를 전달
-            console.log(data); // API 응답 데이터 출력 또는 다른 작업 수행
-            // console.log(data.result)
+            const data = await request("/user/login", options); 
+            console.log(data);
             setCookie('token', data.result, {path: '/'})
-            navigate("/main"); // 로그인 완료 시, main페이지로 이동
+            navigate("/main");
           } catch (error) {
             console.error(error);
           }

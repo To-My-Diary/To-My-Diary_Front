@@ -27,8 +27,8 @@ function GoalEdit(props)
     async function onSubmitHandler()
     {
         try {
-            const data = await request("/save/goal", options); // 원하는 API 엔드포인트 경로를 전달
-            console.log(data); // API 응답 데이터 출력 또는 다른 작업 수행
+            const data = await request("/save/goal", options);
+            console.log(data);
 
           dispatch(changeEdit);
           } catch (error) {
