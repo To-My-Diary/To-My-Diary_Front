@@ -12,9 +12,8 @@ function GoalView(props)
     let list = [];
     let component = null;
     let key = 1;
-    const date = useSelector((state)=>(state.workSpace.date));
-    const year = date.slice(0, 4); // "2023"
-const month = date.slice(5, 7); // "12"
+    const year = useSelector((state)=>(state.workSpace.year));
+    const month = useSelector((state)=>(state.workSpace.month))
     // const options = {
     //     method: 'GET',
     //   };
