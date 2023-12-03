@@ -4,11 +4,14 @@ import { useState } from 'react';
 import moment from 'moment';
 import Calendar from 'react-calendar';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeDate } from 'store/slices/workSpaceSlice';
+import { changeDate, changeYear, changeMonth } from 'store/slices/workSpaceSlice';
+import { request } from 'lib/api/api_type';
 
 
 function ScheduleSpace() {
     const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
+    const [year, setYear] = useState(moment().format('YYYY'));
+    const [month, setMonth] = useState(moment().format('MM'));
     const [mark, setMark] = useState(['2023-08-29', '2023-09-13', '2023-10-14']);
     // mark : dot 표시할 날짜 배열 ( setMark : mark 날짜 배열 접근 메서드 )
     const dispatch = useDispatch();
@@ -16,6 +19,26 @@ function ScheduleSpace() {
       return `${value.getFullYear()}-${value.getMonth() + 1}-${value.getDate()}`;
       // getMonth() : 0 ~ 11 숫자로 표현
     });
+    const clickYear = ((value) => {
+      return `${value.getFullYear()}`;
+    });
+    const clickMonth = ((value) => {
+      return `${value.getMonth() + 1}`;
+    });
+    const options = {
+      method: 'GET',
+    };
+    async function onClickYearMonth(props)
+    {
+        try {
+          const { year, month } = props;
+            const data = await request(`/goal/${year}/${month}`, options); // 원하는 API 엔드포인트 경로를 전달
+            console.log(data); // API 응답 데이터 출력 또는 다른 작업 수행
+
+          } catch (error) {
+            console.error(error);
+          }
+    }
 return (
     <div className='scheduleWrapper'>
       <br />
@@ -30,11 +53,22 @@ return (
   value={date}
   locale="en-EN"
   calendarType='gregory'
-  onClickDay={(value, event) => {
-    value = clickDate(value)
-    setDate(value)
-    dispatch(changeDate(value));
-    alert(`Clicked day : ${value}`)
+  onClickMonth={(value, event) => {
+    const year_ = clickYear(value)
+    const month_ = clickMonth(value)
+    console.log(year_ + month_)
+    setYear(year_)
+    setMonth(month_)
+    dispatch(changeYear(year_))
+    dispatch(changeMonth(month_))
+    alert(`${year} ${month}`)
+    onClickYearMonth({ year, month });
+  }}
+  onClickDay={(date_, event) => {
+    date_ = clickDate(date_)
+    setDate(date_)
+    dispatch(changeDate(date_))
+    alert(`${date_}`)
   }}
   navigationLabel={null}
   showNeighboringMonth={true} //  이전, 이후 달의 날짜 보이도록 설정

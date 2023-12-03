@@ -1,3 +1,10 @@
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    background-color: transparent !important;
+}
 .ToMyGoal{
     height: calc(var(--vh, 1vh) * 50); /* 스크롤 사라짐 */
     overflow-y: auto;
@@ -76,6 +83,7 @@
 }
 .mainGoal-input{
     border: none;
+    outline: none;
     background-color: transparent;
     font-family: "modu";
     font-weight: bold;
@@ -87,6 +95,7 @@
 }
 .detailGoal-input {
     border: none;
+    outline: none;
     background-color: transparent;
     /* text-align: center; */
     font-family: "modu";

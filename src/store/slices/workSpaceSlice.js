@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { mode } from 'lib/constants/constant_value'
 import { ListItem } from "pages/MainPage/WorkSpace/ToDo";
-import { ListGoal } from "pages/MainPage/WorkSpace/Goal";
+import { ListGoal } from "pages/MainPage/WorkSpace/Goal/GoalEdit"
 import moment from "moment";
 
 // 작업 공간 초기화 정보
@@ -11,6 +11,8 @@ const initialState = {
     edit: false,
     diaryImages: [],
     date: moment().format('YYYY-MM-DD'),
+    year: moment().format('YYYY'),
+    month: moment().format('MM'),
     goals: [{id:"1", content:<ListGoal key="1" id="1"/>}],
     color: '#000'
 }
@@ -41,6 +43,14 @@ const workSpaceSlice = createSlice({
             state.date = action.payload;
             // dispatch 시 전달된 데이터 : action.payload 통해 가져올 수 있음 !
         },
+        changeYear:(state, action)=>{
+            state.year = action.payload;
+            // dispatch 시 전달된 데이터 : action.payload 통해 가져올 수 있음 !
+        },
+        changeMonth:(state, action)=>{
+            state.month = action.payload;
+            // dispatch 시 전달된 데이터 : action.payload 통해 가져올 수 있음 !
+        },
         // 다이어리 이미지 추가
         addDiaryImage:(state, action)=>{
             state.diaryImages.push(action.payload);
@@ -58,4 +68,4 @@ const workSpaceSlice = createSlice({
 })
 
 export default workSpaceSlice;
-export const { changeMode, changeEdit, addDiaryImage, changeDate, resetDiaryImages, changeColor } = workSpaceSlice.actions;
+export const { changeMode, changeEdit, addDiaryImage, changeDate, changeYear, changeMonth, resetDiaryImages, changeColor } = workSpaceSlice.actions;
