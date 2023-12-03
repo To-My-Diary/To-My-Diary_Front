@@ -34,7 +34,7 @@ function IconColorPicker() {
             content: {
               width: '240px', // 350
               height: '260px',
-              top: '100%',
+              top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
               borderRadius: '5%',
