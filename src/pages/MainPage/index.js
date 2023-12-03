@@ -5,7 +5,9 @@ import Calender from './Calender';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { mode } from "lib/constants/constant_value";
-import axios from 'axios';
+import { getCookie } from 'lib/api/\bcookie';
+import { useNavigate } from 'react-router-dom';
+
 
 //vh 조절 함수
 function setScreenSize() {
@@ -46,17 +48,13 @@ function Article() {
 
 function MainPage() {
   const [response, setResponse] = useState('')
+  const navigate = useNavigate()
 
-// useEffect(() => {
-//   axios.get('/calendar/goal/2023/8') //http://172.16.101.2:8080
-//     .then(res => {
-//       console.log(res)
-//       // console.log({response})
-//       setResponse(res)
-//       console.log('-------------')
-//     })
-//   .catch(error => console.log(error))
-// }, []);
+useEffect(() => {
+      if (getCookie('token')== null) {
+        navigate('/')
+      }
+    });
 
   return (
     <div className="mainPage">
