@@ -7,7 +7,7 @@ import IconColorPicker from "components/goal/ColorButton";
 import { request } from 'lib/api/api_type';
 import { saveGoalData } from "store/slices/dataSlice";
 import { changeEdit } from 'store/slices/workSpaceSlice';
-import { getCookie } from "lib/api/\bcookie";
+import { getCookie } from "lib/api/cookie";
 
 // 목표 추가 (메인 및 상세 목표)
 function GoalEdit(props)

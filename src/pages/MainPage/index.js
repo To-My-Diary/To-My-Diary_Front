@@ -5,7 +5,7 @@ import Calender from './Calender';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { mode } from "lib/constants/constant_value";
-import { getCookie, removeCookie } from 'lib/api/\bcookie';
+import { getCookie, removeCookie } from 'lib/api/cookie';
 import { useNavigate } from 'react-router-dom';
 import logoutImage from 'assets/icons/logout.png';
 

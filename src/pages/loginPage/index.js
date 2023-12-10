@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { RiLoginCircleLine } from 'react-icons/ri';
 import { Link, useNavigate } from 'react-router-dom';
 import { request } from 'lib/api/api_type';
-import { setCookie } from 'lib/api/\bcookie';
+import { setCookie } from 'lib/api/cookie';
 
 function LoginPage()
 {
