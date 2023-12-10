@@ -21,7 +21,7 @@ function GoalEdit(props)
     const edit = useSelector((state)=>(state.workSpace.edit));
     const options = {
         method: 'POST',
-        body: JSON.stringify({ content: goal, planDate: date, color: color, userId: "member1"}), // TODO 상세목표도 같이 전달하기
+        body: JSON.stringify({ content: goal, planDate: date, color: color}), // TODO 상세목표도 같이 전달하기
         
       };
     async function onSubmitHandler()

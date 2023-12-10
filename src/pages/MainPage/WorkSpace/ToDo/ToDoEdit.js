@@ -15,7 +15,22 @@ function ToDoEdit(props)
     const [list, setList] = useState([]);
     const date = useSelector((state)=>(state.workSpace.date));
     const dispatch = useDispatch();
+    // const options = {
+    //     method: 'POST',
+    //     body: JSON.stringify({ content: goal, planDate: date, color: color, userId: "member1"}), // TODO 상세목표도 같이 전달하기
+        
+    //   };
+    // async function onSubmitHandler()
+    // {
+    //     try {
+    //         const data = await request("/save/schedule", options);
+    //         console.log(data);
 
+    //       dispatch(changeEdit);
+    //       } catch (error) {
+    //         console.error(error);
+    //       }
+    // }
     useEffect(()=>{
         if(props.toDoData.length !== 0)
         {
