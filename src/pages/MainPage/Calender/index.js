@@ -12,7 +12,7 @@ function ScheduleSpace() {
     const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
     const [year, setYear] = useState(moment().format('YYYY'));
     const [month, setMonth] = useState(moment().format('MM'));
-    const [mark, setMark] = useState(['2023-08-29', '2023-09-13', '2023-10-14']);
+    const [mark, setMark] = useState(['2023-09-13', '2023-10-14', '2023-12-22']);
     // mark : dot 표시할 날짜 배열 ( setMark : mark 날짜 배열 접근 메서드 )
     const dispatch = useDispatch();
     const clickDate = ((value) => {
@@ -28,11 +28,22 @@ function ScheduleSpace() {
     const options = {
       method: 'GET',
     };
-    async function onClickYearMonth(props)
+    async function onMainGoalListView(props)
     {
         try {
           const { year, month } = props;
             const data = await request(`/goal/${year}/${month}`, options);
+            console.log(data);
+
+          } catch (error) {
+            console.error(error);
+          }
+    }
+    async function onGoalMark(props)
+    {
+        try {
+          const { year, month } = props;
+            const data = await request(`/calendar/goal/${year}/${month}`, options);
             console.log(data);
 
           } catch (error) {
@@ -62,7 +73,8 @@ return (
     dispatch(changeYear(year_))
     dispatch(changeMonth(month_))
     alert(`${year} ${month}`)
-    onClickYearMonth({ year, month });
+    onMainGoalListView({year, month});
+    onGoalMark({year, month});
   }}
   onClickDay={(date_, event) => {
     date_ = clickDate(date_)

@@ -10,11 +10,16 @@ export const request = async (url, options = {}) => {
 			...options,
 			headers: {"Content-type": "application/json",Authorization : `Bearer ${getCookie('token')}`},
 		});
-
-	console.log("headers" , res.headers)
+	console.log(res)
+	// console.log("headers" , res.headers)
 	if (res.ok) {
-		const json = await res.json();
-		return json;
+		if (options.method == 'GET') {
+			const json = await res.json();
+			return json;
+		}
+		else{
+			return
+		}
 	}
 	throw new Error("API 호출 오류");
 	} catch (e) {
