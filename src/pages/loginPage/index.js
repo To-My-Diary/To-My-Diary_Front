@@ -25,17 +25,15 @@ function LoginPage()
         body: JSON.stringify({ email: Id, pw: Pwd}),
         
       };
-    async function onLogin()
-    {
-        try {
-            const data = await request("/user/login", options); 
-            console.log(data);
-            setCookie('token', data.result, {path: '/'})
+      function onLogin() {
+        request("/user/login", options)
+          .then((data) => {
+            console.log("data", data);
+            setCookie('token', data.result, { path: '/' });
             navigate("/main");
-          } catch (error) {
-            console.error(error);
-          }
-    }
+          })
+          .catch((error) => alert(error.message));
+      }
     return (
         <div id='loginWrapper' style={{backgroundImage: `url(${process.env.PUBLIC_URL + 'images/paperBackground.png'})`,
         backgroundPosition: 'center',
