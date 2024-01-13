@@ -12,11 +12,17 @@ function ScheduleSpace() {
     const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
     const [year, setYear] = useState(moment().format('YYYY'));
     const [month, setMonth] = useState(moment().format('MM'));
-    const [mark, setMark] = useState(['2023-09-13', '2023-10-14', '2023-12-22']);
-    // mark : dot 표시할 날짜 배열 ( setMark : mark 날짜 배열 접근 메서드 )
+    const [mark, setMark] = useState(['2024-01-10', '2024-01-15', '2024-01-22']);
+    const marks = {
+      '2024-01-10': ['#f87171', '#63b3ed', '#f21021', '#32d42a', '#74ad1e'],
+  '2024-01-15': ['#63b3ed', '#86c995'],
+  '2024-01-22': ['#86c995'],
+    };
     const dispatch = useDispatch();
     const clickDate = ((value) => {
-      return `${value.getFullYear()}-${value.getMonth() + 1}-${value.getDate()}`;
+      const month = (value.getMonth() + 1) < 10 ? `0${value.getMonth()+1}` : `${value.getMonth()+1}`
+      const day = value.getDate() < 10 ? `0${value.getDate()}` : `${value.getDate()}`
+      return `${value.getFullYear()}-${month}-${day}`;
       // getMonth() : 0 ~ 11 숫자로 표현
     });
     const clickYear = ((value) => {
@@ -30,25 +36,24 @@ function ScheduleSpace() {
     };
     async function onMainGoalListView(props)
     {
-        try {
-          const { year, month } = props;
-            const data = await request(`/goal/${year}/${month}`, options);
-            console.log(data);
-
-          } catch (error) {
-            console.error(error);
-          }
+        const { year, month } = props;
+        request(`/goal/${year}/${month}`, options)
+        .then((data) => {
+	        console.log("data", data);
+        })
+        .catch ((error) => alert(error.message));
     }
+          
     async function onGoalMark(props)
     {
-        try {
-          const { year, month } = props;
-            const data = await request(`/calendar/goal/${year}/${month}`, options);
-            console.log(data);
-
-          } catch (error) {
-            console.error(error);
-          }
+      {
+        const { year, month } = props;
+        request(`/calendar/goal/${year}/${month}`, options)
+        .then((data) => {
+	        console.log("data", data);
+        })
+        .catch ((error) => alert(error.message));
+      }
     }
 return (
     <div className='scheduleWrapper'>
@@ -85,18 +90,23 @@ return (
   navigationLabel={null}
   showNeighboringMonth={true} //  이전, 이후 달의 날짜 보이도록 설정
   className="mx-auto w-full text-sm border-b"
-  // tileContent={({ date, view }) => {
-    tileContent={({date})=> {
-    let dot = []
-    if (mark.find(x => x === moment(date).format('YYYY-MM-DD'))) {
-      dot.push(<div key={date.toString()} className="dot"></div>)
+  tileContent={({ date, view }) => {
+    const formattedDate = moment(date).format('YYYY-MM-DD');
+    const colors = marks[formattedDate];
+  
+    if (colors && colors.length > 0) {
+      return (
+        <div className="flex justify-center items-center absoluteDiv">
+          <div className="dot-container">
+            {colors.map((color, index) => (
+              <div key={index} className="dot" style={{ backgroundColor: color }}></div>
+            ))}
+          </div>
+        </div>
+      );
     }
-
-    return (
-      <>
-        <div className="flex justify-center items-center absoluteDiv">{dot}</div>
-      </>
-    )
+  
+    return null;
   }}
 />
       <br /><br />

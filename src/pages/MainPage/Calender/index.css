@@ -99,10 +99,6 @@
     font-size: 0.75em;
     font-weight: bold;
   }
-
-  /* .react-calendar__month-view__days { // 타일 전체가 빨간색이 됨
-    background-color: red;
-  } */
  
 .react-calendar__month-view__days__day--weekend {
     color: #4b4a4a;
@@ -120,10 +116,18 @@
     padding: 10px 6.6667px;
     background: none;
     text-align: center;
-    line-height: 24px; /* 캘린더 날짜들 간 위아래 간격 */
+    line-height: 20px; /*캘린더 날짜들 간 위아래 간격*/
     color: #4b4a4a;
     font-weight: 400;
     font-size: 13px;
+  }
+
+  .react-calendar__tile--active abbr { /* 클릭 날짜 마크 _ 날짜 숫자 텍스트 딱 맞게 구현 완, BUT 숫자 너비?에 따라 타원형이 됨 .. 해결해야함 */
+    width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      padding: 15% 15%;
+    background-color: #32d42a;
   }
 
 .react-calendar__month-view__days__day--neighboringMonth { /* 이전/이후 달 날짜 색 희미하게 */
@@ -136,28 +140,24 @@
   
 .react-calendar__tile:enabled:hover, 
 .react-calendar__tile:enabled:focus { /*  모든 날짜(Month 포함) 커서 갖다 댔을 때 / 클릭했을 때 */
-  /* width 값에 따라 모양이 바뀌지 않음 */
-      /* width: 30%;
-      height: 30%; */
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #e0dfdfcc;
-      
-      /* 숫자텍스트랑 백그라운드(원)이랑 같이 묶여있음 */
   }
   
 .react-calendar__tile--now:defined{ /* 오늘 날짜 표시 */
-      /* width: 30%;
-      height: 30%; */
-      border-radius: 50%;
+      /* border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    background: #000000;
-    /* background-color: red; */
+    background: #000000; */
+  }
+  
+  .react-calendar__tile--now abbr { /* 클릭 날짜 마크 _ 날짜 숫자 텍스트 딱 맞게 구현 완, BUT 숫자 너비?에 따라 타원형이 됨 .. 해결해야함 */
+    color: #ffffff;
+    width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      padding: 15% 15%;
+    background-color: #000000;
   }
   
 .react-calendar__tile--now:enabled:hover, /* 오늘 날짜에 커서 갖다 댔을 때 / 클릭했을 때 */
@@ -186,15 +186,17 @@
     color: #4b4a4a;
   }
 
+.dot-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 5px;
+  }
+
 .dot {
     height: 6px;
     width: 6px;
-    background-color: #818181;
-    /* #f87171; */
     border-radius: 50%;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* margin-left: 1px; */
+    margin: 1px 2px;
+    
   }

@@ -26,14 +26,14 @@ function GoalEdit(props)
       };
     async function onSubmitHandler()
     {
-        try {
-            const data = await request("/save/goal", options);
-            console.log(data);
-
+      {
+        request("/save/goal", options)
+        .then((data) => {
+	        console.log("data", data);
           dispatch(changeEdit);
-          } catch (error) {
-            console.error(error);
-          }
+        })
+        .catch ((error) => alert(error.message));
+      }
     }
     useEffect(() => {
         if (props.goalData && props.goalData.dgoalList) {
