@@ -5,20 +5,56 @@ import moment from 'moment';
 import Calendar from 'react-calendar';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDate, changeYear, changeMonth } from 'store/slices/workSpaceSlice';
+import { saveGoalData } from 'store/slices/dataSlice';
 import { request } from 'lib/api/api_type';
 
 
 function ScheduleSpace() {
+  const marks = [
+    {
+        "color": "#2ECCFA",
+        "date": 10,
+        "mainGoal": false
+    },
+{
+          "color": "#63b3ed",
+          "date": 10,
+          "mainGoal": false
+      },
+      {
+        "color": "#f21021",
+        "date": 10,
+        "mainGoal": false
+    },
+    {
+        "color": "#2ECCFA",
+        "date": 30,
+        "mainGoal": false
+    }
+  ];
+// ]
+// const marks = [
+//   {
+//     "date": 10,
+//     "colors": ['#f87171', '#63b3ed', '#f21021'], //'#32d42a', '#74ad1e'],
+//     "mainGoal": false
+//   },
+//   {
+//     "date": 30,
+//     "colors": ["#2ECCFA"],
+//     "mainGoal": false
+//   }
+// ];
     const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
     const [year, setYear] = useState(moment().format('YYYY'));
     const [month, setMonth] = useState(moment().format('MM'));
-    const [mark, setMark] = useState(['2024-01-10', '2024-01-15', '2024-01-22']);
-    const marks = {
-      '2024-01-10': ['#f87171', '#63b3ed', '#f21021', '#32d42a', '#74ad1e'],
-  '2024-01-15': ['#63b3ed', '#86c995'],
-  '2024-01-22': ['#86c995'],
-    };
+  //   const marks = {
+  //     '2024-01-10': ['#f87171', '#63b3ed', '#f21021'], //'#32d42a', '#74ad1e'],
+  // '2024-01-15': ['#63b3ed', '#86c995'],
+  // '2024-01-22': ['#86c995'],
+  //   };
     const dispatch = useDispatch();
+    const groupedMarks = groupByDate(marks);
     const clickDate = ((value) => {
       const month = (value.getMonth() + 1) < 10 ? `0${value.getMonth()+1}` : `${value.getMonth()+1}`
       const day = value.getDate() < 10 ? `0${value.getDate()}` : `${value.getDate()}`
@@ -39,11 +75,10 @@ function ScheduleSpace() {
         const { year, month } = props;
         request(`/goal/${year}/${month}`, options)
         .then((data) => {
-	        console.log("data", data);
+          dispatch(saveGoalData(data))
         })
         .catch ((error) => alert(error.message));
     }
-          
     async function onGoalMark(props)
     {
       {
@@ -91,28 +126,63 @@ return (
   showNeighboringMonth={true} //  이전, 이후 달의 날짜 보이도록 설정
   className="mx-auto w-full text-sm border-b"
   tileContent={({ date, view }) => {
-    const formattedDate = moment(date).format('YYYY-MM-DD');
-    const colors = marks[formattedDate];
-  
-    if (colors && colors.length > 0) {
-      return (
-        <div className="flex justify-center items-center absoluteDiv">
-          <div className="dot-container">
-            {colors.map((color, index) => (
-              <div key={index} className="dot" style={{ backgroundColor: color }}></div>
-            ))}
-          </div>
+    const formattedDate = moment(date).format('D'); // 날짜만 필요하므로 'D' 형식 사용
+    const dateInfo = groupedMarks[parseInt(formattedDate, 10)];
+    // console.log(groupedMarks)
+  // const dateInfo = marks.find(mark => mark.date === parseInt(formattedDate, 10));
+
+  if (dateInfo) {
+    return (
+      <div className="flex justify-center items-center absoluteDiv">
+        <div className="dot-container">
+          {/* {dateInfo.colors.map((color, index) => (
+            <div key={index} className="dot" style={{ backgroundColor: color }}></div>
+          ))} */}
         </div>
-      );
-    }
+      </div>
+    );
+  }
+
+  return null;
+}}
+  //   const formattedDate = moment(date).format('YYYY-MM-DD');
+  //   const colors = marks[formattedDate];
   
-    return null;
-  }}
+  //   if (colors && colors.length > 0) {
+  //     return (
+  //       <div className="flex justify-center items-center absoluteDiv">
+  //         <div className="dot-container">
+  //           {colors.map((color, index) => (
+  //             <div key={index} className="dot" style={{ backgroundColor: color }}></div>
+  //           ))}
+  //         </div>
+  //       </div>
+  //     );
+  //   }
+  
+  //   return null;
+  // }}
 />
       <br /><br />
       </div>
     </div>
   );
 }
+
+const groupByDate = (marks) => {
+  const groupedMarks = {};
+  marks.forEach((mark) => {
+    const { date, color } = mark;
+    if (!groupedMarks[date]) {
+      groupedMarks[date] = [];
+    }
+    groupedMarks[date].push({ color });
+  });
+
+  // Object를 배열로 변환
+  const result = Object.entries(groupedMarks).map(([date, group]) => group);
+  // console.log(result)
+  return result;
+};
 
 export default ScheduleSpace;

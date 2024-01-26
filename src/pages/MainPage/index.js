@@ -59,11 +59,11 @@ function MainPage() {
         }
   }
 
-// useEffect(() => {
-//       if (getCookie('token')== null) {
-//         navigate('/')
-//       }
-//     });
+useEffect(() => {
+      if (getCookie('token')== null) {
+        navigate('/')
+      }
+    });
 
   return (
     <div className="mainPage">

@@ -64,7 +64,7 @@
 .react-calendar__navigation button {
     margin: 0;
     padding: 0;
-    height: 120%; /* 캘린더 요일(날짜) 영역과의 거리! 숫자 클수록 가까워짐 */
+    height: 100%; /* 캘린더 요일(날짜) 영역과의 거리! 숫자 클수록 가까워짐 */
     min-width: 60px; /* 월/년 버튼과의 거리! 숫자 클수록 가까워짐 */
     background: none;
     color: black;
@@ -139,16 +139,10 @@
   }
   
 .react-calendar__tile:enabled:hover, 
-.react-calendar__tile:enabled:focus { /*  모든 날짜(Month 포함) 커서 갖다 댔을 때 / 클릭했을 때 */
+.react-calendar__tile:enabled:focus { /*  모든 날짜(Month 포함) 커서 갖다 댔을 때, 클릭했을 때 */
   }
   
 .react-calendar__tile--now:defined{ /* 오늘 날짜 표시 */
-      /* border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    background: #000000; */
   }
   
   .react-calendar__tile--now abbr { /* 클릭 날짜 마크 _ 날짜 숫자 텍스트 딱 맞게 구현 완, BUT 숫자 너비?에 따라 타원형이 됨 .. 해결해야함 */

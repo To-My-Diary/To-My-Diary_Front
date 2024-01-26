@@ -80,7 +80,7 @@ function GoalEdit(props)
                     userId: "topjoy22@naver.com",
                     detailGoal: [{detailData}]
                 }
-                dispatch(saveGoalData(data));
+                // dispatch(saveGoalData(data));
                 onSubmitHandler(data);
                 dispatch(changeEdit());
             }
@@ -98,7 +98,7 @@ function GoalEdit(props)
             <h3 id='detailGoal'>detailed goal</h3>
             {list}
         </div>
-        <img id="plusImage" src={plusImage} alt="플러스" onClick={()=>{
+        <img id="edit-plusImage" src={plusImage} alt="플러스" onClick={()=>{
                      let _list = [];
                      list.forEach(item=>{
                          _list.push(item);
@@ -164,7 +164,7 @@ function ListGoal(props) {
           <hr id="detailHorizonLine"></hr>
         </div>
         <img
-          className="trashImage"
+          className="edit-trashImage"
           src={trashImage}
           alt="쓰레기통"
           onClick={handleDelete}
