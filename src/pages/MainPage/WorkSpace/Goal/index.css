@@ -102,7 +102,6 @@ input:-webkit-autofill:active {
     text-align: center;
     width: 80%;
     padding-bottom: 0;
-    background-color: white;
 }
 .detailGoal-input {
     border: none;
