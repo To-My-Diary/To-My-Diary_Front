@@ -1,0 +1,27 @@
+[
+    {
+        "color": "#2ECCFA",
+        "date": 10,
+        "mainGoal": false
+    },
+    {
+          "color": "#63b3ed",
+          "date": 10,
+          "mainGoal": false
+      },
+      {
+        "color": "#f21021",
+        "date": 10,
+        "mainGoal": false
+    },
+    {
+        "color": "#2ECCFA",
+        "date": 30,
+        "mainGoal": false
+    },
+    {
+        "color": "#7CA1E3",
+        "date": 22,
+        "mainGoal": true
+    }
+  ]
