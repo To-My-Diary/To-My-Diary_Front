@@ -22,6 +22,7 @@ function GoalView(props)
             console.log(item)
                     list.push(<ListMainGoal key={key++} content={item.content} color={item.color} id={item.goalId}/>)
                  });
+                 // FIXME: "Too many re-renders" 이슈 해결 필요 
                 //  setShowList(list)
                 //  component = <>
                 //     {showList}

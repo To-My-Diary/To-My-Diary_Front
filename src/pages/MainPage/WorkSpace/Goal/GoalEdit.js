@@ -123,6 +123,7 @@ function ListGoal(props) {
     const [planDate, setPlanDate] = useState("");
     const date = useSelector((state) => state.workSpace.date);
   
+    // FIXME: 삭제 시, 나머지 골 id 수정 필요
     const handleDelete = () => {
       let count = document.querySelectorAll(".dgoalList").length;
       if (count >= 1) {
