@@ -33,37 +33,38 @@ function ScheduleSpace() {
     };
     async function onMainGoalListView(props)
     {
-        // const { year, month } = props;
-        // request(`/goal/${year}/${month}`, options)
-        // .then((data) => {
-        //   dispatch(saveGoalData(data))
-        // })
-        // .catch ((error) => alert(error.message));
+        const { year, month } = props;
+        const data = request(`/goal/${year}/${month}`, options)
+        console.log(data)
+        data.then((result) => {
+          dispatch(saveGoalData(result))
+        })
+        .catch ((error) => alert(error.message));
 
         // TODO: 로컬 dummy data인 JSON 파일을 API endpoint로 사용하여 데이터 조회 (테스트할때만 사용)
-        axios.get('/dummy/goalTestData.json')
-        .then((res) => {
-          dispatch(saveGoalData(res))
-            console.log(res);
-        })
+        // axios.get('/dummy/goalTestData.json')
+        // .then((res) => {
+        //   dispatch(saveGoalData(res))
+        //     console.log(res);
+        // })
     }
     async function onGoalMark(props)
     {
       {
-      //   const { year, month } = props;
-      //   request(`/calendar/goal/${year}/${month}`, options)
-      //   .then((data) => {
-	    //     console.log("data", data);
-      //   })
-      //   .catch ((error) => alert(error.message));
-      // }
+        const { year, month } = props;
+        request(`/calendar/goal/${year}/${month}`, options)
+        .then((data) => {
+          setColorsByDate(transformMarks(data.result))
+        })
+        .catch ((error) => alert(error.message));
+
 
       // TODO: 로컬 dummy data인 JSON 파일을 API endpoint로 사용하여 데이터 조회 (테스트할때만 사용)
-      axios.get('/dummy/markTestData.json')
-      .then((res) => {
-        setColorsByDate(transformMarks(res.data))
-          console.log(res);
-      })
+      // axios.get('/dummy/markTestData.json')
+      // .then((res) => {
+      //   setColorsByDate(transformMarks(res.data))
+      //     console.log(res);
+      // })
     }
     }
 return (
