@@ -1,6 +1,6 @@
 import { getCookie } from "./cookie";
 
-export const API_END_POINT = "http://43.201.112.92"
+export const API_END_POINT = "http://43.201.112.92"\
 export const END_POINT_LOCAL = "http://172.16.101.95:8080"
 
 export const request = async (url, options = {}) => {

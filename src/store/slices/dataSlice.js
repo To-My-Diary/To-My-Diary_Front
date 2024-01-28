@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     diaryData: {},
     toDoData: [],
-    goalData: []
+    goalData: [],
 }
 
 const dataSlice = createSlice({
@@ -18,11 +18,12 @@ const dataSlice = createSlice({
             state.toDoData = action.payload;
         },
         saveGoalData: (state, action) => {
-            // 현재 goalData를 복제하여 새로운 객체 생성
-    const newGoalData = {content: action.payload.content, planDate: action.payload.planDate, color: action.payload.color, userId:action.payload.userId, detailGoal: action.payload.detailGoal};
-    console.log('beforeGoalData: ', newGoalData);
-    state.goalData = state.goalData.concat(newGoalData)
-    console.log('afterGoalData: ',state.goalData);
+            console.log(action.payload.data)
+            action.payload.data.forEach(item=>{
+                console.log("호출");
+                state.goalData = state.goalData.concat(item);
+                console.log(`afterGoalData${state.goalData}`)
+                     })
         }
     }
 })

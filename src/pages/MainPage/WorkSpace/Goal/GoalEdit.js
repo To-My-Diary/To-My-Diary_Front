@@ -26,14 +26,14 @@ function GoalEdit(props)
       };
     async function onSubmitHandler()
     {
-        try {
-            const data = await request("/save/goal", options);
-            console.log(data);
-
+      {
+        request("/save/goal", options)
+        .then((data) => {
+	        console.log("data", data);
           dispatch(changeEdit);
-          } catch (error) {
-            console.error(error);
-          }
+        })
+        .catch ((error) => alert(error.message));
+      }
     }
     useEffect(() => {
         if (props.goalData && props.goalData.dgoalList) {
@@ -80,7 +80,7 @@ function GoalEdit(props)
                     userId: "topjoy22@naver.com",
                     detailGoal: [{detailData}]
                 }
-                dispatch(saveGoalData(data));
+                // dispatch(saveGoalData(data));
                 onSubmitHandler(data);
                 dispatch(changeEdit());
             }
@@ -98,7 +98,7 @@ function GoalEdit(props)
             <h3 id='detailGoal'>detailed goal</h3>
             {list}
         </div>
-        <img id="plusImage" src={plusImage} alt="플러스" onClick={()=>{
+        <img id="edit-plusImage" src={plusImage} alt="플러스" onClick={()=>{
                      let _list = [];
                      list.forEach(item=>{
                          _list.push(item);
@@ -123,6 +123,7 @@ function ListGoal(props) {
     const [planDate, setPlanDate] = useState("");
     const date = useSelector((state) => state.workSpace.date);
   
+    // FIXME: 삭제 시, 나머지 골 id 수정 필요
     const handleDelete = () => {
       let count = document.querySelectorAll(".dgoalList").length;
       if (count >= 1) {
@@ -164,7 +165,7 @@ function ListGoal(props) {
           <hr id="detailHorizonLine"></hr>
         </div>
         <img
-          className="trashImage"
+          className="edit-trashImage"
           src={trashImage}
           alt="쓰레기통"
           onClick={handleDelete}
