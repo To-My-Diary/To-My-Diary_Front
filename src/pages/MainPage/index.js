@@ -59,6 +59,7 @@ function MainPage() {
         }
   }
 
+// TODO: 백엔드랑 통신테스트할때만 활성화
 useEffect(() => {
       if (getCookie('token')== null) {
         navigate('/')
