@@ -7,44 +7,25 @@ import { saveDiaryData } from 'store/slices/dataSlice'
 import './index.css';
 import imageLogo from 'assets/icons/사진4.png'
 import buttonImage from 'assets/icons/완료3 2.png'
-import { imgRequest, request } from 'lib/api/api_type';
+import { request } from 'lib/api/api_type';
+import { postDiary } from "lib/api/PostApi";
 import { base64ToBlob } from 'components/diary/base64ToBlob';
+import axios from 'axios';
 
 //일기 작성 화면
 function DiaryEdit(props)
 {
     const diaryImages = useSelector(state=>state.workSpace.diaryImages);
-    const [imageList, setImageList] = useState()
+    const [imageList, setImageList] = useState([])
     const [croppingImage, setCroppingImage] = useState(null);
     const [imageId, setImageId] = useState(1);
     const [content, setContent] = useState("");
     const dispatch = useDispatch();
     let reader = new FileReader();
     let formData = new FormData();
-    const textOptions = {
-        method: 'POST',
-        body: JSON.stringify({ subject: "제목1", content: content, }), // JSON 데이터를 문자열로 변환(GET 요청 시에는 필요 X)
-        
-      };
     async function onSubmitHandler()
     {
-        try {
-            const testData = await request("/save/diary", textOptions); // 원하는 API 엔드포인트 경로를 전달
-            console.log(testData); // API 응답 데이터 출력 또는 다른 작업 수행
-
-            formData.append('file', imageList);
-            const imgOptions = {
-                method: 'POST',
-                body: formData, // JSON 데이터를 문자열로 변환(GET 요청 시에는 필요 X)
-                
-            };
-            const imgData = await imgRequest("/upload", imgOptions);
-            console.log(imgData);
-
-            dispatch(changeEdit());
-        } catch (error) {
-            console.error(error);
-        }
+        postDiary(content, imageList)
     }
 
     useEffect(()=>{
@@ -86,7 +67,7 @@ function DiaryEdit(props)
                 setCroppingImage(null);
                 let blob = base64ToBlob(image.split(',')[1], 'image/png');
                 let imgFile = new File([blob], 'image.png', { type: 'image/png' });
-                setImageList(imgFile);
+                setImageList(imageList.push(imgFile));
                 }}/> :
                 <>
                 <div className="images">
