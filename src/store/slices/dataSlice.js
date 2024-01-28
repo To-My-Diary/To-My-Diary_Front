@@ -18,12 +18,7 @@ const dataSlice = createSlice({
             state.toDoData = action.payload;
         },
         saveGoalData: (state, action) => {
-            console.log(action.payload.data)
-            action.payload.data.forEach(item=>{
-                console.log("호출");
-                state.goalData = state.goalData.concat(item);
-                console.log(`afterGoalData${state.goalData}`)
-                     })
+            state.goalData = action.payload
         }
     }
 })
