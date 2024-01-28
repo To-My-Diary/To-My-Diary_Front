@@ -16,36 +16,36 @@ function GoalView(props)
     let component = null;
     let key = 1;
     const goalList = useSelector((state) => state.tempData.goalData);
-    if(goalList != null && goalList.length > 0)
-    {
-        goalList.forEach(item=>{
-            console.log(item)
-                    list.push(<ListMainGoal key={key++} content={item.content} color={item.color} id={item.goalId}/>)
-                 });
-                 // FIXME: "Too many re-renders" 이슈 해결 필요 
-                //  setShowList(list)
-                //  component = <>
-                //     {showList}
-                //     <img id="view-plusImage" src={plusImage} alt="플러스" onClick={() => {
-                //     // 보기 모드일 때만 div 터치 시 편집 전환
-                //     if (!edit) {
-                //         dispatch(changeEdit());
-                //     }
-                // }}/>
-                //  </>
-    }
-    else
-    {
-         component = <GoalNull />
-    }
 
-    return(
+    useEffect(() => {
+        if (goalList != null && goalList.length > 0) {
+          const newList = goalList.map(item => (
+            <ListMainGoal key={item.goalId} content={item.content} color={item.color} id={item.goalId} />
+          ));
+      
+          setShowList(newList);
+        } else {
+          setShowList([]);
+        }
+      }, [goalList, edit]);
+      
+      return (
+        goalList != null && goalList.length > 0 ?
         <>
-            {component}
-      </>
-        
-    );
-}
+          {showList}
+          <img
+            id="view-plusImage"
+            src={plusImage}
+            alt="플러스"
+            onClick={() => {
+              if (!edit) {
+                dispatch(changeEdit());
+              }
+            }}
+          />
+        </>
+        : <GoalNull/>
+      );
 
 // 로고 클릭하면 첫 목표 추가 화면 _ 피그마 2번째 페이지
 function GoalNull()
@@ -96,5 +96,6 @@ function ListMainGoal(props)
                 <hr id="mainGoalListHorizonLine"></hr>
             </div>
         );
+}
 }
 export default GoalView;
