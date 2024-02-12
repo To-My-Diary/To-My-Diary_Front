@@ -7,13 +7,11 @@ import { saveDiaryData } from 'store/slices/dataSlice'
 import './index.css';
 import imageLogo from 'assets/icons/사진4.png'
 import buttonImage from 'assets/icons/완료3 2.png'
-import { request } from 'lib/api/api_type';
 import { postDiary } from "lib/api/PostApi";
 import { base64ToBlob } from 'components/diary/base64ToBlob';
-import axios from 'axios';
 
 //일기 작성 화면
-function DiaryEdit(props)
+function DiaryEdit({diaryData, setStyle})
 {
     const diaryImages = useSelector(state=>state.workSpace.diaryImages);
     const [imageList, setImageList] = useState([])
@@ -22,39 +20,25 @@ function DiaryEdit(props)
     const [content, setContent] = useState("");
     const dispatch = useDispatch();
     let reader = new FileReader();
-    let formData = new FormData();
-    async function onSubmitHandler()
-    {
+    
+    const onSubmitHandler = () => {
         postDiary(content, imageList)
     }
 
     useEffect(()=>{
-        if(Object.keys(props.diaryData).length !== 0)
+        if(Object.keys(diaryData).length !== 0)
         {
-            dispatch(resetDiaryImages(props.diaryData.img))
-            setContent(props.diaryData.content);
+            dispatch(resetDiaryImages(diaryData.img))
+            setContent(diaryData.content);
         }
-    },[content, props.diaryData, dispatch]);
+    },[content, diaryData, dispatch]);
 
     return(
         <form encType="multipart/form-data" onSubmit={(event)=>{
             event.preventDefault();
-            // Diary create
-            if(event.target.body.value.length > 0)
-            {
-                const data = {
-                    userId: "",
-                    content: event.target.body.value,
-                    emotion: "",
-                    img: diaryImages
-                }
-                dispatch(saveDiaryData(data));
-            }
-
             onSubmitHandler();
             // reset diaryImages to empty list
             dispatch(resetDiaryImages([]));
-
             // change to view mode
             dispatch(changeEdit());
         }}>
@@ -67,7 +51,9 @@ function DiaryEdit(props)
                 setCroppingImage(null);
                 let blob = base64ToBlob(image.split(',')[1], 'image/png');
                 let imgFile = new File([blob], 'image.png', { type: 'image/png' });
-                setImageList(imageList.push(imgFile));
+                let list = [...imageList];
+                list.push(imgFile);
+                setImageList(list);
                 }}/> :
                 <>
                 <div className="images">
@@ -89,7 +75,7 @@ function DiaryEdit(props)
                         }
                     };
                     //이미지 추가 시 배경화면 크기 조절
-                    props.setStyle({minHeight: "100vh"});
+                    setStyle({minHeight: "100vh"});
                 }}></input>
                 <textarea name="body" 
                     placeholder="Write your diary here..." 

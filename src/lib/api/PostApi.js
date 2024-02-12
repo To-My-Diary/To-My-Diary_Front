@@ -10,9 +10,14 @@ export async function postDiary(content, files) {
             diaryId: 1,
             subject: 'title',
             content: content
-        });
+        },{
+            headers: {
+                "Content-Type": "application/json",
+		        Authorization: `Bearer ${getCookie('token')}`
+        }});
         
         const formData = new FormData();
+
         files.forEach((file) => {
             formData.append('file', file);
         });

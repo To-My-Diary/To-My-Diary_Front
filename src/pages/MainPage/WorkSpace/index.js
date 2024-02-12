@@ -2,7 +2,7 @@
 
 import './index.css';
 import ToDoList from './ToDo';
-import Diary from './Diary';
+import Diary from './Diary/Diary.js';
 import ToMyGoal from './Goal';
 import { useDispatch, useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from 'swiper/react';
