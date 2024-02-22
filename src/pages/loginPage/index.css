@@ -19,12 +19,12 @@
 #id {
     font-family: "ArchitectD";
     font-weight: 500;
-    font-size: 25px;
+    font-size: 28px;
 }
 #pwd {
     font-family: "ArchitectD";
     font-weight: 500;
-    font-size: 20px;
+    font-size: 24px;
 }
 .id-input {
     text-align: center;
@@ -35,7 +35,8 @@
     border-radius: 0;
     font-family: "ArchitectD";
     font-weight: 500;
-    font-size: medium;
+    font-size: 24px;
+    font-size: large;
     margin-bottom: 3px;
     width: 170px;
 }
@@ -64,7 +65,7 @@
     display: flex;
     position: relative;
     left: 95px;
-    margin-top: 0;
+    margin-top: 5px;
 }
 .kakaoLogin {
     border: none;
@@ -80,8 +81,16 @@
 }
 .horizonLine {
     border-color: black;
-    border-width: 0.8px;
+    border-width: 1px;
     margin-top: 0;
     width: 180px;
     margin-bottom: 0;
+}
+.signupButton {
+    background-color: transparent; 
+    font-family: "ArchitectD";
+    font-weight: 500;
+    font-size: small;
+    color: dimgray;
+    border-bottom: 1px;
 }
