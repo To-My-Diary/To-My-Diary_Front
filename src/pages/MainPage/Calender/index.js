@@ -35,7 +35,6 @@ function ScheduleSpace() {
     {
         const { year, month } = props;
         const data = request(`/goal/${year}/${month}`, options)
-        console.log(data)
         data.then((result) => {
           dispatch(saveGoalData(result))
         })
@@ -54,7 +53,7 @@ function ScheduleSpace() {
         const { year, month } = props;
         request(`/calendar/goal/${year}/${month}`, options)
         .then((data) => {
-          setColorsByDate(transformMarks(data.result))
+          setColorsByDate(transformMarks(data.result, props))
         })
         .catch ((error) => alert(error.message));
 
@@ -101,8 +100,11 @@ return (
   showNeighboringMonth={true} //  이전, 이후 달의 날짜 보이도록 설정
   className="mx-auto w-full text-sm border-b"
   tileContent={({ date, view }) => {
-    const formattedDate = moment(date).format('D'); // 날짜만 필요하므로 'D' 형식 사용
-  const dateInfo = colorsByDate.find(mark => mark.date === parseInt(formattedDate, 10));
+  //   const formattedDate = moment(date).format('D'); // 날짜만 필요하므로 'D' 형식 사용
+  // const dateInfo = colorsByDate.find(mark => mark.date === parseInt(formattedDate, 10));
+  const formattedDate = moment(date).format('YYYY-M-D'); // 년/월/일 형식으로 변환
+
+  const dateInfo = colorsByDate.find(mark => mark.date === formattedDate);
 
   if (dateInfo) {
     return (
@@ -125,24 +127,43 @@ return (
   );
 }
 
+function increaseTransparency(color, transparency) {
+  // 색상 코드를 RGB 값으로 변환
+  const r = parseInt(color.substring(1, 3), 16);
+  const g = parseInt(color.substring(3, 5), 16);
+  const b = parseInt(color.substring(5, 7), 16);
+
+  // 투명도 값을 0 ~ 1 사이의 범위로 정규화
+  transparency = Math.max(0, Math.min(1, transparency));
+
+  const hexColor = '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+
+  return hexColor;
+}
+
 // TODO: "mainGoal" 속성에 따라 투명한 정도도 고려해서 날짜-색깔 맵핑하기
-function transformMarks(marks) {
+function transformMarks(marks, props) {
   const transformedMarks = {};
 
   marks.forEach(mark => {
-    const dateKey = mark.date;
+    const dateKey = `${props.year}-${props.month}-${mark.date}`;
 
     if (!transformedMarks[dateKey]) {
       transformedMarks[dateKey] = [];
     }
-
-    transformedMarks[dateKey].push(mark.color);
+    if (mark.mainGoal) {
+      transformedMarks[dateKey].push(mark.color);
+    }
+     else {
+      transformedMarks[dateKey].push(increaseTransparency(mark.color));
+    }
   });
 
   const result = Object.entries(transformedMarks).map(([date, colors]) => ({
-    date: parseInt(date),
+    date,
     colors
   }));
+
 
   return result;
 }
