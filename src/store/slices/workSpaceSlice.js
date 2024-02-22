@@ -4,6 +4,7 @@ import { ListItem } from "pages/MainPage/WorkSpace/ToDo";
 import { ListGoal } from "pages/MainPage/WorkSpace/Goal/GoalEdit"
 import moment from "moment";
 
+const storedUserId = localStorage.getItem('userId');
 // 작업 공간 초기화 정보
 const initialState = {
     // TODO 0  Diary 1  Goal 2
@@ -13,8 +14,9 @@ const initialState = {
     date: moment().format('YYYY-MM-DD'),
     year: moment().format('YYYY'),
     month: moment().format('MM'),
-    goals: [{id:"1", content:<ListGoal key="1" id="1"/>}],
-    color: '#000'
+    color: '#000',
+    id: storedUserId ? storedUserId : '',
+    detailGoals: []
 }
 
 const workSpaceSlice = createSlice({
@@ -63,9 +65,13 @@ const workSpaceSlice = createSlice({
         },
         changeColor: (state, action)=>{
             state.color = action.payload;
+        },
+        saveDetailGoal:(state, action)=>{
+            state.detailGoals = action.payload;
+            console.log(state.detailGoals, action.payload);
         }
     }
 })
 
 export default workSpaceSlice;
-export const { changeMode, changeEdit, addDiaryImage, changeDate, changeYear, changeMonth, resetDiaryImages, changeColor } = workSpaceSlice.actions;
+export const { changeMode, changeEdit, addDiaryImage, changeDate, changeYear, changeMonth, resetDiaryImages, changeColor, saveDetailGoal } = workSpaceSlice.actions;
