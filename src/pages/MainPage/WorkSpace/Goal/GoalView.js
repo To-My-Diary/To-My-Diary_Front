@@ -12,9 +12,6 @@ function GoalView(props)
     const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
     const [showList, setShowList] = useState([]);
-    let list = [];
-    let component = null;
-    let key = 1;
     const goalList = useSelector((state) => state.tempData.goalData);
 
     useEffect(() => {
