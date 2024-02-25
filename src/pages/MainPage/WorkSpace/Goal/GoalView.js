@@ -2,10 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import diaryLogo from 'assets/icons/일기 작성.png';
 import { VscChromeMaximize, VscCircleLarge } from 'react-icons/vsc';
+import { GrCheckbox, GrCheckboxSelected } from "react-icons/gr";
 import { request } from 'lib/api/api_type';
 import { changeEdit } from 'store/slices/workSpaceSlice';
 import plusImage from 'assets/icons/플러스2 1.png';
 import trashImage from 'assets/icons/쓰레기통 1.png';
+import { saveGoalData } from "store/slices/dataSlice";
 
 function GoalView(props)
 {
@@ -62,25 +64,46 @@ function ListMainGoal(props)
 {
     const [content, setContent] = useState(props.content||"");
     const [color, setColor] = useState(props.color||"");
-    const options = {
+    const [isSelected, setIsSelected] = useState(false);
+    const date = useSelector((state)=>(state.workSpace.date));
+    const options_p = {
         method: 'POST',
+      };
+      const options_g = {
+        method: 'GET',
       };
     async function onDeleteHandler(id)
     {
       {
-        request(`/goal/delete/${id}`, options)
+        request(`/goal/delete/${id}`, options_p)
         .then((data) => {
-	        console.log("data", data);
+          onMainGoalListView();
         })
         .catch ((error) => alert(error.message));
       }
     }
+    async function onMainGoalListView()
+    {
+      const year = date.substring(0, 4)
+      const month = date.substring(5, 7)
+        const data = request(`/goal/${year}/${month}`, options_g)
+        console.log(`data`, data)
+        data.then((result) => {
+          dispatch(saveGoalData(result))
+        })
+        .catch ((error) => alert(error.message));
+    }
+    function onCheckboxClickHandler() 
+    {
+      setIsSelected(!isSelected);
+    }
         return (
             <div data-content={content} data->
                 <div id="mainGoalRead">
-                    <VscChromeMaximize id="checkbox"/>
-                    <div>{props.id}</div>
-                    <div id="goalText">{content}</div>
+                  <button className="checkboxButton" onClick={onCheckboxClickHandler}>
+                  {isSelected ? <GrCheckboxSelected id="checkbox" style={{backgroundColor: "#FFEA61D2"}}/> : <GrCheckbox id="checkbox" />}
+                    </button>
+                    <div id="goalText" style={isSelected? {color: "dimgray", textDecorationLine: 'line-through', textDecorationThickness: "1px"}:{}}>{content}</div>
                     <div id="colorbox-trash-container">
                     <VscCircleLarge id="colorbox" style={{backgroundColor: color}}/>
                     <img
