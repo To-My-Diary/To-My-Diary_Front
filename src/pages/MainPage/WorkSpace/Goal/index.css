@@ -96,19 +96,20 @@ input:-webkit-autofill:active {
     border: none;
     outline: none;
     background-color: transparent;
-    font-family: "modu";
+    font-family: "modu", "ArchitectD";
     font-weight: bold;
     font-size: 22px;
     text-align: center;
     width: 80%;
     padding-bottom: 0;
+    margin-bottom: 0;
 }
 .detailGoal-input {
     border: none;
     outline: none;
     background-color: transparent;
     /* text-align: center; */
-    font-family: "modu";
+    font-family: "modu", "ArchitectD";
     font-weight: bold;
     font-size: 22px;
     padding-bottom: 0;
@@ -136,7 +137,11 @@ input:-webkit-autofill:active {
     margin: 0 13%;
 }
 #checkbox {
-    font-size: 35px;
+    font-size: 25px;
+}
+.checkboxButton {
+    background-color: transparent;
+    border: none;
 }
 #colorbox {
     width: 25px;
@@ -157,7 +162,6 @@ input:-webkit-autofill:active {
 #goalText {
     text-align: left;
     width: 70%;
-    /* background-color: aqua; */
 }
 #colorbox-trash-container {
     width: 60px;

@@ -127,7 +127,7 @@
       height: 100%;
       border-radius: 50%;
       padding: 15% 15%;
-    background-color: #32d42a;
+    background-color: #ffea61d2;
   }
 
 .react-calendar__month-view__days__day--neighboringMonth { /* 이전/이후 달 날짜 색 희미하게 */

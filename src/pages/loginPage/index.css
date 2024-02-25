@@ -33,9 +33,8 @@
     /* transparent : 투명 의미 */
     background-color:transparent; 
     border-radius: 0;
-    font-family: "ArchitectD";
+    font-family: "ydSea";
     font-weight: 500;
-    font-size: 24px;
     font-size: large;
     margin-bottom: 3px;
     width: 170px;
@@ -52,9 +51,9 @@
     outline: none;
     background-color: transparent; 
     border-radius: 0;
-    font-family: "ArchitectD";
+    font-family: "ydSea";
     font-weight: 500;
-    font-size: large;
+    font-size: medium;
     margin-bottom: 0;
     width: 170px;
 }
@@ -87,10 +86,13 @@
     margin-bottom: 0;
 }
 .signupButton {
-    background-color: transparent; 
+    border: none;
+    background-color: transparent;
     font-family: "ArchitectD";
     font-weight: 500;
-    font-size: small;
+    font-size: 15px;
     color: dimgray;
-    border-bottom: 1px;
+    text-decoration: underline;
+    margin-top: 3%;
+    margin-left: 2%;
 }
