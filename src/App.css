@@ -22,6 +22,10 @@
   font-family: "modu";
   src: url(assets/fonts/cachildren\ modu.ttf);
 }
+@font-face {
+  font-family: "ydSea";
+  src: url(assets/fonts/Yeongdeok\ Sea.ttf);
+}
 .App {
     text-align: center;
 }
