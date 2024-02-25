@@ -1,0 +1,130 @@
+#signupWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    text-align: center;
+    font-size: larger;
+    justify-content: center;
+    /* 세로 가운데 정렬 (column과 동일 방향) */
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+input::placeholder {
+    color: rgba(128, 128, 128, 0.383);
+  }
+.title {
+    font-family: "NotoSC";
+    font-weight: bold;
+    font-size: 40;
+    margin-bottom: 20%;
+}
+#email, #confirmPw, #name, #tel, #gender {
+    font-family: "ArchitectD";
+    font-weight: 500;
+    font-size: 26px;
+}
+#pw {
+    font-family: "ArchitectD";
+    font-weight: 500;
+    font-size: 26px;
+    padding-left: 2%;
+}
+.email-input, .pw-input, .confirmPw-input, .name-input, .tel-input {
+    
+    text-align: center;
+    border: none;
+    outline: none;
+    /* transparent : 투명 의미 */
+    background-color:transparent; 
+    color: black;
+    border-radius: 0;
+    font-family: "ydSea", "ArchitectD";
+    font-weight: 500;
+    font-size: medium;
+    width: 185px;
+}
+.genderRadio-input {
+    margin-top: 5%;
+}
+#email-input, #pw-input, #confirmPw-input, #name-input, #tel-input, #gender-input {
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+#emailWrapper, #pwWrapper {
+    display: flex;
+    flex-direction: column;
+}
+.email-next, .pw-pre, .pw-next {
+    border: none;
+    background-color: transparent;
+    font-family: "ArchitectD";
+    font-weight: 500;
+    font-size: 18px;
+    color: dimgray;
+    text-decoration: underline;
+    margin-top: 3%;
+    padding: 6%;
+}
+.submit {
+    border: none;
+    background-color: transparent;
+    font-family: "ArchitectD";
+    font-weight: 600;
+    font-size: 20px;
+    color: dimgray;
+    text-decoration: underline;
+    margin-top: 3%;
+    /* padding: 6%; */
+    /* margin-left: 4%; */
+}
+.email-next {
+    margin-left: 70%;
+}
+.pre-next-button {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 6%;
+
+}
+.horizonLine {
+    border-color: black;
+    border-width: 1px;
+    margin-top: 0;
+    width: 180px;
+    margin-bottom: 0;
+}
+
+.radioWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 2%;
+}
+.genders {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+  }
+
+.gender {
+    height: 30px;
+    line-height: 30px;
+    border-radius: 5px;
+    font-family: "ydSea";
+    font-weight: 500;
+    font-size: 15px;
+    margin: 4px;
+    text-align: center;
+    padding: 5px 15px;
+  }

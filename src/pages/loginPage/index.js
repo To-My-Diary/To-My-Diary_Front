@@ -4,6 +4,9 @@ import { RiLoginCircleLine } from 'react-icons/ri';
 import { Link, useNavigate } from 'react-router-dom';
 import { request } from 'lib/api/api_type';
 import { setCookie } from 'lib/api/cookie';
+import { useDispatch } from 'react-redux';
+import { saveId } from 'store/slices/workSpaceSlice';
+import { Button } from 'bootstrap';
 
 function LoginPage()
 {
@@ -11,14 +14,20 @@ function LoginPage()
     const [Id, setId] = useState('')
     const [Pwd, setPwd] = useState('')
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const onIdHandler = (event) => {
         setId(event.target.value)
+        localStorage.setItem('userId', event.target.value);
     }
     const onPwdHandler = (event) => {
         setPwd(event.target.value)
     }
     const onSubmitHandler = (event) => {
         event.preventDefault();
+    }
+    const onSignupHandler = (event) => {
+        event.preventDefault();
+        navigate("/signup");
     }
     const options = {
         method: 'POST',
@@ -50,14 +59,14 @@ function LoginPage()
             </h1>
             <form className='login-input' onSubmit={onSubmitHandler}>
                 <div id='id-input'>
-                    <h4 id='id'>id</h4>
+                    <h1 id='id'>id</h1>
                     <div>
-                    <input className='id-input' type='text' name='id-input' onChange={onIdHandler} value={Id} />
+                    <input className='id-input' type='email' name='id-input' onChange={onIdHandler} value={Id} />
                     <hr className="horizonLine"></hr>
                     </div>
                 </div>
                 <div id = 'pwd-input'>
-                    <h4 id='pwd'>pw</h4>
+                    <h1 id='pwd'>pw</h1>
                     <div>
                     <input className='pwd-input' type='password' name='pwd-input' onChange={onPwdHandler} value={Pwd} />
                     <hr className="horizonLine"></hr>
@@ -67,9 +76,10 @@ function LoginPage()
             <button className='loginButton' type='submit' onClick={onLogin}>
             <RiLoginCircleLine size={30} />
             </button>
-            {/* <p /> */}
-            <br />
-            <div className='loginType'>
+            <button className='signupButton' onClick={onSignupHandler}>
+                <h3>Sign Up</h3>
+            </button>
+            {/* <div className='loginType'>
             <button className='kakaoLogin' type='button' onClick={onKakaoLogin}>
             <img src= {process.env.PUBLIC_URL + 'images/kakaoLogin.png'} alt='kakao' width={45}/>
             </button>
@@ -81,7 +91,7 @@ function LoginPage()
             <button className='naverLogin' type='button' onClick={onNaverLogin}>
             <img src= {process.env.PUBLIC_URL + 'images/naverLogin.png'} alt='naver' width={40}/>
             </button>
-            </div>
+            </div> */}
         </div>
     );
 }

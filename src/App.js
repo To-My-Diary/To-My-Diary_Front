@@ -4,6 +4,7 @@ import MainPage from 'pages/MainPage';
 import LoginPage from 'pages/LoginPage';
 import { Route, Routes } from 'react-router-dom';
 import 'swiper/css';
+import SignUpPage from 'pages/SignupPage';
 
 //vh 조절 함수
 function setScreenSize() {
@@ -23,6 +24,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route exact path='/' element={<LoginPage />}></Route>
+        <Route path='/signup' element={<SignUpPage/>}></Route>
         <Route path='/main/*' element={<MainPage />}></Route>
       </Routes>
     </div>
