@@ -22,53 +22,32 @@ function GoalEdit(props)
     const color = useSelector((state)=>(state.workSpace.color));
     const edit = useSelector((state)=>(state.workSpace.edit));
     const userId = useSelector((state) => state.workSpace.id);
-    // const options_p = {
-    //     method: 'POST',
-    //     body: JSON.stringify({ content: goal, planDate: date, color: color, userId: userId, detailGoals: detailGoals}), // TODO 상세목표도 같이 전달하기
-    //   };
+    const options_p = {
+        method: 'POST',
+        body: JSON.stringify({ content: goal, planDate: date, color: color, userId: userId, detailGoals: detailGoals}), // TODO 상세목표도 같이 전달하기
+      };
       const options_g = {
         method: 'GET',
       };
     async function onSubmitHandler()
     {
-      const options_p = {
-        method: 'POST',
-        body: JSON.stringify({ content: goal, planDate: date, color: color, userId: userId, detailGoals: detailGoals}), // TODO 상세목표도 같이 전달하기
-      };
-      {
         request("/save/goal", options_p)
         .then((data) => {
-	        console.log("data", data)
           onMainGoalListView()
-          // onGoalMark(year, month)
           dispatch(changeEdit)
         })
         .catch ((error) => alert(error.message));
-      }
     }
     async function onMainGoalListView()
     {
       const year = date.substring(0, 4)
       const month = date.substring(5, 7)
         const data = request(`/goal/${year}/${month}`, options_g)
-        console.log(`data`, data)
         data.then((result) => {
           dispatch(saveGoalData(result))
         })
         .catch ((error) => alert(error.message));
     }
-    // async function onGoalMark(props)
-    // {
-    //   {
-    //     const { year, month } = props;
-    //     request(`/calendar/goal/${year}/${month}`, options_g)
-    //     .then((data) => {
-    //       setColorsByDate(transformMarks(data.result))
-    //     })
-    //     .catch ((error) => alert(error.message));
-
-    // }
-    // }
     useEffect(() => {
         if (props.goalData && props.goalData.dgoalList) {
           setGoal(props.goalData.goal);
@@ -114,7 +93,6 @@ function GoalEdit(props)
                 // dispatch(saveGoalData(data));
                 setDetailGoal(detailData)
                 dispatch(saveDetailGoal(detailData));
-                console.log(detailData, detailGoal);
                 onSubmitHandler();
                 dispatch(changeEdit());
             }
