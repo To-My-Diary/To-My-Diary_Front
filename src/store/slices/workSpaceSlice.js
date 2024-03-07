@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { mode } from 'lib/constants/constant_value'
-import { ListItem } from "pages/MainPage/WorkSpace/ToDo";
-import { ListGoal } from "pages/MainPage/WorkSpace/Goal/GoalEdit"
 import moment from "moment";
 
 const storedUserId = localStorage.getItem('userId');
@@ -12,8 +10,6 @@ const initialState = {
     edit: false,
     diaryImages: [],
     date: moment().format('YYYY-MM-DD'),
-    year: moment().format('YYYY'),
-    month: moment().format('MM'),
     color: '#000',
     id: storedUserId ? storedUserId : '',
     detailGoals: []
@@ -45,23 +41,12 @@ const workSpaceSlice = createSlice({
             state.date = action.payload;
             // dispatch 시 전달된 데이터 : action.payload 통해 가져올 수 있음 !
         },
-        changeYear:(state, action)=>{
-            state.year = action.payload;
-            // dispatch 시 전달된 데이터 : action.payload 통해 가져올 수 있음 !
-        },
-        changeMonth:(state, action)=>{
-            state.month = action.payload;
-            // dispatch 시 전달된 데이터 : action.payload 통해 가져올 수 있음 !
-        },
         // 다이어리 이미지 추가
         addDiaryImage:(state, action)=>{
             state.diaryImages.push(action.payload);
         },
         resetDiaryImages: (state, action)=>{
             state.diaryImages = action.payload;
-        },
-        addDiaryImage:(state, action)=>{
-            state.diaryImages.push(action.payload);
         },
         changeColor: (state, action)=>{
             state.color = action.payload;
@@ -74,4 +59,4 @@ const workSpaceSlice = createSlice({
 })
 
 export default workSpaceSlice;
-export const { changeMode, changeEdit, addDiaryImage, changeDate, changeYear, changeMonth, resetDiaryImages, changeColor, saveDetailGoal } = workSpaceSlice.actions;
+export const { changeMode, changeEdit, addDiaryImage, changeDate, resetDiaryImages, changeColor, saveDetailGoal } = workSpaceSlice.actions;
