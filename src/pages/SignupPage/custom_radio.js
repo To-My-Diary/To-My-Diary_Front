@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 // import './'
 
-function CustomRadio() {
+function CustomRadio({ selectedGender, onGenderChange }) {
   const genders = [
     {text: '남자', value: 0},
     {text: '여자', value: 1},
   ]
-  const [selectedGender, setSelectedGender] = useState(null);
   const onChangeRadio = (e) => {
-    setSelectedGender(Number(e.target.value));
-  }
+    const selectedValue = Number(e.target.value);
+    onGenderChange(selectedValue);
+  };
   
   return (
     <div className='radioWrapper' style={{ marginRight: '14px'}}>
@@ -40,3 +40,25 @@ function CustomRadio() {
 }
 
 export default CustomRadio;
+
+// import React from 'react';
+
+// function CustomRadio({ value, label, onSelect, selectedValue }) {
+//   const handleRadioChange = () => {
+//     onSelect(value);
+//   };
+
+//   return (
+//     <div>
+//       <input
+//         type="radio"
+//         value={value}
+//         checked={value === selectedValue}
+//         onChange={handleRadioChange}
+//       />
+//       <label>{label}</label>
+//     </div>
+//   );
+// }
+
+// export default CustomRadio;

@@ -132,6 +132,9 @@ const EmailForm = ({ onNext }) => {
     const handleNext = () => {
       onNext({ name, tel, gender });
     }
+    const handleGenderChange = (selectedValue) => {
+      setGender(selectedValue);
+    };
 
     return (
          <div id='privacyInfoWrapper'>
@@ -152,7 +155,7 @@ const EmailForm = ({ onNext }) => {
       <div id='gender-input'>
         <h1 id='gender'>Gender</h1>
         <div>
-          <CustomRadio className='genderRadio-input'/>
+          <CustomRadio className='genderRadio-input' selectedGender={gender} onGenderChange={handleGenderChange}/>
         {/* <input className="gender-input" type="gender" value={gender} onChange={(e) => setGender(e.target.value)} placeholder='남자/여자'/>
         <hr className="horizonLine"></hr> */}
         </div>
