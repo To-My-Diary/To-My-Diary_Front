@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import diaryLogo from 'assets/icons/일기 작성.png';
 import { VscChromeMaximize, VscCircleLarge } from 'react-icons/vsc';
 import { GrCheckbox, GrCheckboxSelected } from "react-icons/gr";
@@ -9,24 +9,40 @@ import plusImage from 'assets/icons/플러스2 1.png';
 import trashImage from 'assets/icons/쓰레기통 1.png';
 import { saveGoalData } from "store/slices/dataSlice";
 
+
 function GoalView(props)
 {
     const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
     const [showList, setShowList] = useState([]);
     const goalList = useSelector((state) => state.tempData.goalData);
-
+    const currentMode = useSelector((state)=>(state.workSpace.currentMode));
+    const date = useSelector((state)=>(state.workSpace.date));
+    const options_g = useMemo(() => ({
+      method: 'GET',
+    }), []);
+    const onMainGoalListView = useCallback(async () => {
+      const year = date.substring(0, 4);
+      const month = date.substring(5, 7);
+      const data = request(`/goal/${year}/${month}`, options_g);
+      data.then((result) => {
+        dispatch(saveGoalData(result));
+      }).catch ((error) => alert(error.message));
+    }, [date, dispatch, options_g]);
+    
+    useEffect(() => {
+      onMainGoalListView();
+    }, [onMainGoalListView]);
     useEffect(() => {
         if (goalList != null && goalList.length > 0) {
           const newList = goalList.map(item => (
-            <ListMainGoal key={item.goalId} content={item.content} color={item.color} id={item.goalId} />
+            <ListMainGoal  key={item.goalId} content={item.content} color={item.color} id={item.goalId} />
           ));
-      
           setShowList(newList);
         } else {
           setShowList([]);
         }
-      }, [goalList, edit]);
+      }, [currentMode, goalList, edit]);
       
       return (
         goalList != null && goalList.length > 0 ?
@@ -69,27 +85,11 @@ function ListMainGoal(props)
     const options_p = {
         method: 'POST',
       };
-      const options_g = {
-        method: 'GET',
-      };
     async function onDeleteHandler(id)
     {
-      {
         request(`/goal/delete/${id}`, options_p)
         .then((data) => {
           onMainGoalListView();
-        })
-        .catch ((error) => alert(error.message));
-      }
-    }
-    async function onMainGoalListView()
-    {
-      const year = date.substring(0, 4)
-      const month = date.substring(5, 7)
-        const data = request(`/goal/${year}/${month}`, options_g)
-        console.log(`data`, data)
-        data.then((result) => {
-          dispatch(saveGoalData(result))
         })
         .catch ((error) => alert(error.message));
     }
