@@ -7,7 +7,7 @@ import { saveDiaryData } from 'store/slices/dataSlice'
 import './index.css';
 import imageLogo from 'assets/icons/사진4.png'
 import buttonImage from 'assets/icons/완료3 2.png'
-import { postDiary } from "lib/api/PostApi";
+import { postDiary, modifyDiary } from "lib/api/PostApi";
 import { base64ToBlob } from 'components/diary/base64ToBlob';
 
 //일기 작성 화면
@@ -18,20 +18,32 @@ function DiaryEdit({diaryData, setStyle})
     const [croppingImage, setCroppingImage] = useState(null);
     const [imageId, setImageId] = useState(1);
     const [content, setContent] = useState("");
+    const [modify, setModify] = useState(false);
     const dispatch = useDispatch();
+    const date = useSelector(state=>state.workSpace.date);
     let reader = new FileReader();
     
     const onSubmitHandler = () => {
-        postDiary(content, imageList)
+        if(modify){
+            modifyDiary(diaryData.diaryId, content, imageList);
+        } else {
+            postDiary(content, imageList, date);
+        }
     }
 
     useEffect(()=>{
-        if(Object.keys(diaryData).length !== 0)
+        if(diaryData.content != null)
         {
-            dispatch(resetDiaryImages(diaryData.img))
+            if(diaryData.img) {
+                dispatch(resetDiaryImages([<img className="diaryImages" 
+                    src={diaryData.img}  key={imageId} height="100" alt=""></img>]));
+                setImageId(imageId+1);
+            }
+
             setContent(diaryData.content);
+            setModify(true);
         }
-    },[content, diaryData, dispatch]);
+    },[diaryData, dispatch]);
 
     return(
         <form encType="multipart/form-data" onSubmit={(event)=>{
@@ -45,13 +57,13 @@ function DiaryEdit({diaryData, setStyle})
             <Weather/>
             <h3 className="workSpaceTitle">TO MY DIARY</h3>
             {croppingImage ? <ImageCropper src={croppingImage} addCroppedImage={(image)=>{
-                dispatch(addDiaryImage(<img className="diaryImages" 
-                    src={image}  key={imageId} height="100" alt=""></img>));
+                dispatch(resetDiaryImages([<img className="diaryImages" 
+                    src={image}  key={imageId} height="100" alt=""></img>]));
                 setImageId(imageId+1);
                 setCroppingImage(null);
                 let blob = base64ToBlob(image.split(',')[1], 'image/png');
                 let imgFile = new File([blob], 'image.png', { type: 'image/png' });
-                let list = [...imageList];
+                let list = [];
                 list.push(imgFile);
                 setImageList(list);
                 }}/> :
@@ -82,7 +94,7 @@ function DiaryEdit({diaryData, setStyle})
                     defaultValue={content}
                     style={{height:"15em"}}
                     onChange={(event)=>{
-                        setContent(event.target.value)
+                        setContent(event.target.value);
                     }}
                 ></textarea>
                 <p>

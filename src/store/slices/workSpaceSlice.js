@@ -13,6 +13,7 @@ const initialState = {
     date: moment().format('YYYY-MM-DD'),
     year: moment().format('YYYY'),
     month: moment().format('MM'),
+    day: moment().format('DD'),
     goals: [{id:"1", content:<ListGoal key="1" id="1"/>}],
     color: '#000'
 }

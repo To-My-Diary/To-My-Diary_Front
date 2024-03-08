@@ -1,28 +1,34 @@
 import axios from "axios";
 import { getCookie } from "./cookie";
 
-export const END_POINT_LOCAL = "http://172.16.101.95:8080";
+//export const END_POINT_LOCAL = "http://192.168.1.119:8080";
+export const END_POINT_LOCAL = "http://localhost:8080";
 
-export async function getDiary(id) {
-    try{
-        const diary = await axios.get(END_POINT_LOCAL+'/show/diary/'+id, {
-            headers: {
-                "Content-Type": "application/json",
-		        Authorization: `Bearer ${getCookie('token')}`
-        }})
-        const images = await axios.get(END_POINT_LOCAL+'/image/'+id, {
+export async function getDiary(date) {
+    try {
+        const dateArr = date.split('-');
+        const diary = await axios.get(END_POINT_LOCAL+`/diary/${dateArr[0]}/${dateArr[1]}/${dateArr[2]}`, {
             headers: {
                 "Content-Type": "application/json",
 		        Authorization: `Bearer ${getCookie('token')}`
         }})
 
-        const imgList = [...images.data].map(image=>image.blob());
-        //console.log(URL.createObjectURL(imgList[0]))
+        const response = await axios.get(END_POINT_LOCAL + `/image/${diary.data.result[0].diaryId}`,{
+            headers: {
+                "Content-Type": "application/json",
+		        Authorization: `Bearer ${getCookie('token')}`
+            },
+            responseType: 'blob' 
+        });
+        console.log(diary.data.result[0]);
+
+        const image = URL.createObjectURL(response.data);
 
         const diaryData = {
-            ...diary.data,
-            img: imgList
+            ...diary.data.result[0],
+            img: image
         }
+
         
         return diaryData;
     }catch(error){

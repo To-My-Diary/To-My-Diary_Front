@@ -11,13 +11,14 @@ function Diary()
 {
     const edit = useSelector((state)=>(state.workSpace.edit));
     const currentMode = useSelector((state)=>(state.workSpace.currentMode));
+    const date = useSelector(state=>state.workSpace.date);
     const [diaryData, setDiaryData] = useState({})
     const dispatch = useDispatch();
     const [diaryStyle, setDiaryStyle] = useState(null);
 
     useEffect(()=>{
-        getDiary(1).then(data=>setDiaryData(data));
-    },[])
+        getDiary(date).then(data=>setDiaryData(data?data:{}));
+    },[date])
 
     return (
         <div className={`${edit?"diaryEdit":"diaryView"}` }

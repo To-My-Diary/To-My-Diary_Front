@@ -12,7 +12,7 @@ function DiaryView({diaryData})
     const edit = useSelector((state)=>(state.workSpace.edit));
 
     
-    if(Object.keys(diaryData).length === 0) // when there is no data
+    if(diaryData.content == null) // when there is no data
     {
         content = <img src={diaryLogo} id="diaryDiaryImg" alt="일기 작성" onClick={()=>{
             //보기 모드일 때만 이미지 터치 시 편집 전환
@@ -23,20 +23,17 @@ function DiaryView({diaryData})
     }
     else // when there is saved data
     {
-        
-        if(diaryData.img.length === 0) // when there is no image
+        if(diaryData.img === null) // when there is no image
         {
             content = <div>
                 <textarea value={diaryData.content} readOnly/>
             </div>
-        } 
-        else 
+        }
+        else
         {
             content = <div>
                 <div className="images">
-                    {diaryData.img.map((data, index)=>{
-                        <img src={data} key={index}></img>
-                    })}
+                    {<img src={diaryData.img} width={'200px'}></img>}
                 </div>
                 <textarea value={diaryData.content} readOnly/>
             </div>
