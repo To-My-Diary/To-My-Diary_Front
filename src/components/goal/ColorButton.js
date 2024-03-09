@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CirclePicker, CompactPicker, TwitterPicker} from 'react-color';
+import { CirclePicker } from 'react-color';
 import { BsFillCircleFill } from 'react-icons/bs';
 import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
@@ -33,8 +33,8 @@ function IconColorPicker() {
         style={{
             content: {
               width: '240px', // 350
-              height: '260px',
-              top: '50%',
+              height: '120px',
+              top: '40%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
               borderRadius: '5%',

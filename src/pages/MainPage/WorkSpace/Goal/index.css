@@ -8,7 +8,6 @@ input:-webkit-autofill:active {
 .ToMyGoal{
     height: calc(var(--vh, 1vh) * 50); /* 스크롤 사라짐 */
     overflow-y: auto;
-    /* height: calc(var(--vh, 1vh) * 50); */
     position: relative;
     width: 100vw;
     justify-content: center;
@@ -25,20 +24,30 @@ input:-webkit-autofill:active {
 #buttonGoalImg{
     width: 40px;
     position: relative;
-    /* bottom: 10%; */
     left: 35%;
+    
 }
-#plusImage {
+#edit-plusImage {
     margin-top: 5%;
     margin-bottom: 10%;
     margin-left: 10%;
     width: 40px;
 }
-.trashImage {
+#view-plusImage {
+    margin-top: 8%;
+    margin-bottom: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40px;
+}
+.edit-trashImage {
     margin: 5px;
     width: 22px;
     padding-inline-start: 15%;
-    /* background-color: blue; */
+}
+.view-trashImage {
+    width: 25px;
+    
 }
 .goalList {
     font-family: "ArchitectD";
@@ -48,7 +57,6 @@ input:-webkit-autofill:active {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* background-color: red; */
 }
 .mainGoal,
 .dgoalList {
@@ -58,13 +66,9 @@ input:-webkit-autofill:active {
     flex-direction: row;
     max-width: 80%;
     margin: 0 auto;
-    
-    /* background-color: blue; */
 }
 #goalId {
     padding-inline-end: 5%;
-    /* margin-top: 0; */
-    /* background-color: red; */
 }
 #mainGoal {
     font-weight: normal;
@@ -79,37 +83,33 @@ input:-webkit-autofill:active {
     margin-left: 10%;
     font-weight: normal;
     font-size: x-large;
-    /* background-color: blue; */
 }
 .mainGoal-input{
     border: none;
     outline: none;
     background-color: transparent;
-    font-family: "modu";
+    font-family: "modu", "ArchitectD";
     font-weight: bold;
     font-size: 22px;
     text-align: center;
     width: 80%;
     padding-bottom: 0;
-    /* background-color: white; */
+    margin-bottom: 0;
 }
 .detailGoal-input {
     border: none;
     outline: none;
     background-color: transparent;
-    /* text-align: center; */
-    font-family: "modu";
+    font-family: "modu", "ArchitectD";
     font-weight: bold;
     font-size: 22px;
     padding-bottom: 0;
     width: 120%;
-    /* background-color: white; */
 }
 #mainHorizonLine {
     border-color: black;
     border-width: 0.8px;
     margin-top: 0;
-    /* margin-right: 0; */
     width: 90%;
 }
 #detailHorizonLine {
@@ -121,20 +121,24 @@ input:-webkit-autofill:active {
 #mainGoalListHorizonLine {
     border-color: black;
     border-width: 0.8px;
-    margin-top: 0;
-    width: 70%;
+    margin-top: auto;
+    width: 68%;
+    margin: 0 13%;
 }
 #checkbox {
-    font-size: 38px;
+    font-size: 25px;
+}
+.checkboxButton {
+    background-color: transparent;
+    border: none;
 }
 #colorbox {
-    font-size: 30px;
-    margin-right: 2%;
-    /* background-color: aqua; */
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
 }
 #mainGoalRead {
-    margin-top: 10%;
+    margin-top: 5%;
     font-family: "modu";
     font-weight: bold;
     font-size: 24px;
@@ -146,6 +150,11 @@ input:-webkit-autofill:active {
 }
 #goalText {
     text-align: left;
-    width: 68%;
-    /* background-color: aqua; */
+    width: 70%;
+}
+#colorbox-trash-container {
+    width: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

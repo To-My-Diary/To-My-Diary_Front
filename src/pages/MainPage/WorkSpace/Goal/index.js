@@ -1,16 +1,12 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import './index.css';
 import GoalEdit from "./GoalEdit";
 import GoalView from "./GoalView";
-import { BsSquare, BsFillCircleFill } from 'react-icons/bs';
 import Weather from "components/common/Weather";
 import { mode } from "lib/constants/constant_value";
-import { useNavigate } from "react-router-dom";
 
 function ToMyGoal()
 {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
     const edit = useSelector((state)=>(state.workSpace.edit));
     const currentMode = useSelector((state)=>(state.workSpace.currentMode));
     const date = useSelector((state)=>(state.workSpace.date));

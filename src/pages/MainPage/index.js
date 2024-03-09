@@ -3,7 +3,7 @@ import './index.css';
 import WorkSpace from './WorkSpace'
 import Calender from './Calender';
 import { useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { mode } from "lib/constants/constant_value";
 import { getCookie, removeCookie } from 'lib/api/cookie';
 import { useNavigate } from 'react-router-dom';
@@ -59,6 +59,7 @@ function MainPage() {
         }
   }
 
+// TODO: 백엔드랑 통신테스트할때만 활성화
 useEffect(() => {
       if (getCookie('token')== null) {
         navigate('/')

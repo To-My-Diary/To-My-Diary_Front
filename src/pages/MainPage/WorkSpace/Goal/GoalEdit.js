@@ -6,8 +6,8 @@ import buttonImage from 'assets/icons/체크1 2.png';
 import IconColorPicker from "components/goal/ColorButton";
 import { request } from 'lib/api/api_type';
 import { saveGoalData } from "store/slices/dataSlice";
-import { changeEdit } from 'store/slices/workSpaceSlice';
-import { getCookie } from "lib/api/cookie";
+import { changeEdit, saveDetailGoal } from 'store/slices/workSpaceSlice';
+import moment from "moment";
 
 // 목표 추가 (메인 및 상세 목표)
 function GoalEdit(props)
@@ -16,51 +16,62 @@ function GoalEdit(props)
     const [nextID, setNextID] = useState(2)
     const [list, setList] = useState([]);
     const [goal, setGoal] = useState(props.goal||"");
+    const [detailGoal, setDetailGoal] = useState([]);
+    const detailGoals = useSelector((state)=>(state.workSpace.detailGoals));
     const date = useSelector((state)=>(state.workSpace.date));
     const color = useSelector((state)=>(state.workSpace.color));
-    const edit = useSelector((state)=>(state.workSpace.edit));
-    const options = {
+    // const edit = useSelector((state)=>(state.workSpace.edit));
+    const userId = useSelector((state) => state.workSpace.id);
+    const options_p = {
         method: 'POST',
-        body: JSON.stringify({ content: goal, planDate: date, color: color}), // TODO 상세목표도 같이 전달하기
-        
+        body: JSON.stringify({ content: goal, planDate: date, color: color, userId: userId, detailGoals: detailGoals}), // TODO 상세목표도 같이 전달하기
+      };
+      const options_g = {
+        method: 'GET',
+
       };
     async function onSubmitHandler()
     {
-        try {
-            const data = await request("/save/goal", options);
-            console.log(data);
-
-          dispatch(changeEdit);
-          } catch (error) {
-            console.error(error);
-          }
+        request("/save/goal", options_p)
+        .then(() => {
+          onMainGoalListView()
+          console.log('dg',detailGoals)
+          dispatch(changeEdit)
+        })
+        .catch ((error) => alert(error.message));
+    }
+    async function onMainGoalListView()
+    {
+      const year = date.substring(0, 4)
+      const month = date.substring(5, 7)
+        const data = request(`/goal/${year}/${month}`, options_g)
+        data.then((result) => {
+          dispatch(saveGoalData(result))
+        })
+        .catch ((error) => alert(error.message));
     }
     useEffect(() => {
         if (props.goalData && props.goalData.dgoalList) {
           setGoal(props.goalData.goal);
-      
           // goalData.dgoalList 배열을 기반으로 리스트 생성
           const newList = props.goalData.dgoalList.map((element, index) => (
             <ListGoal key={index + 1} id={index + 1} msg={element.msg} />
           ));
-      
           // 새로운 리스트로 업데이트
           setList(newList);
         } else {
           setList([<ListGoal key="1" id="1" />]);
         }
-      }, [props.goalData]);
-
+      }, [props.goalData, detailGoals]);
     return(
         <div className="goalList">
         <form onSubmit={(event)=>{
             event.preventDefault();
             const detailData = [];
             const listGoals = document.querySelectorAll(".dgoalList");
-            let id = 1;
             const mainGoalInput = event.target.elements['mainGoal-input'];
             if (mainGoalInput && mainGoalInput.value.length > 0) {
-                listGoals.forEach(item => {
+              listGoals.forEach(item => {
                     const _msg = item.getAttribute("data-msg");
                     const _planDate = item.getAttribute("data-time");
     
@@ -80,8 +91,10 @@ function GoalEdit(props)
                     userId: "topjoy22@naver.com",
                     detailGoal: [{detailData}]
                 }
-                dispatch(saveGoalData(data));
-                onSubmitHandler(data);
+                // dispatch(saveGoalData(data));
+                setDetailGoal(detailData)
+                dispatch(saveDetailGoal(detailData));
+                onSubmitHandler();
                 dispatch(changeEdit());
             }
         }}>
@@ -98,14 +111,13 @@ function GoalEdit(props)
             <h3 id='detailGoal'>detailed goal</h3>
             {list}
         </div>
-        <img id="plusImage" src={plusImage} alt="플러스" onClick={()=>{
+        <img id="edit-plusImage" src={plusImage} alt="플러스" onClick={()=>{
                      let _list = [];
                      list.forEach(item=>{
                          _list.push(item);
                      })
                      _list.push(<ListGoal key={nextID} id={nextID}/>)
                      setList(_list);
-     
                      setNextID(nextID+1);
                  }}/>
             <label htmlFor="write">
@@ -118,11 +130,10 @@ function GoalEdit(props)
 }
 
 function ListGoal(props) {
-    const dispatch = useDispatch();
     const [msg, setMsg] = useState(props.msg || "");
-    const [planDate, setPlanDate] = useState("");
     const date = useSelector((state) => state.workSpace.date);
   
+    // FIXME: 삭제 시, 나머지 골 id 수정 필요
     const handleDelete = () => {
       let count = document.querySelectorAll(".dgoalList").length;
       if (count >= 1) {
@@ -148,7 +159,7 @@ function ListGoal(props) {
         className="dgoalList"
         style={{ marginBottom: "-20px" }}
         data-msg={msg}
-        data-time={date}
+        data-time={randomDate(date)}
       >
         <h5 id="goalId">{`${props.id}.`}</h5>
         <div>
@@ -164,13 +175,23 @@ function ListGoal(props) {
           <hr id="detailHorizonLine"></hr>
         </div>
         <img
-          className="trashImage"
+          className="edit-trashImage"
           src={trashImage}
           alt="쓰레기통"
           onClick={handleDelete}
         />
       </div>
     );
+  }
+
+  // 메인목표 날짜 이전의 날짜 중에서 랜덤한 날짜 생성하여 상세 목표 계획 날짜로 지정
+  function randomDate (date) {
+    const currentDate = moment(date, 'YYYY-MM-DD');
+
+    const randomDays = Math.floor(Math.random() * 10); // 0부터 9 사이의 랜덤한 정수
+    const randomDate = moment(currentDate).subtract(randomDays, 'days');
+
+    return randomDate.format('YYYY-MM-DD');
   }
 
 export default GoalEdit;
