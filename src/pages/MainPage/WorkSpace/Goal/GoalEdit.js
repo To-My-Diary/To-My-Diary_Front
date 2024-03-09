@@ -28,6 +28,7 @@ function GoalEdit(props)
       };
       const options_g = {
         method: 'GET',
+
       };
     async function onSubmitHandler()
     {
