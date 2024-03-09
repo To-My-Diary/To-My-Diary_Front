@@ -1,5 +1,6 @@
 #loginWrapper {
-    height: 100vh;
+    /* height: 100vh; */
+    height: calc(var(--vh, 1vh) * 100);
     padding: 2%;
     border-radius: 10px;
     text-align: center;
@@ -9,6 +10,7 @@
     align-items: center;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 .title {
     font-family: "NotoSC";
@@ -52,8 +54,8 @@
     background-color: transparent; 
     border-radius: 0;
     font-family: "ydSea";
-    font-weight: 800;
-    font-size: large;
+    font-weight: 500;
+    font-size: medium;
     margin-bottom: 0;
     width: 170px;
 }
