@@ -1,7 +1,6 @@
 /* 메인화면 아래 부분의 작업 공간 (일기, To-do 작성 등) */
 
 import './index.css';
-import ToDoList from './ToDo';
 import Diary from './Diary';
 import ToMyGoal from './Goal';
 import { useDispatch, useSelector } from "react-redux";
@@ -31,13 +30,13 @@ function WorkSpace() {
                     switch(swiper.realIndex)
                     {
                         case 0:
-                            dispatch(changeMode(mode.TODO));
-                            break;
-                        case 1:
                             dispatch(changeMode(mode.DIARY));
                             break;
-                        case 2:
+                        case 1:
                             dispatch(changeMode(mode.GOAL));
+                            break;
+                        default:
+                            dispatch(changeMode(mode.DIARY));
                             break;
                     }
                 }}
@@ -45,7 +44,6 @@ function WorkSpace() {
                 touchRatio={edit?0:1}
                 loop={true}
             >
-                <SwiperSlide><ToDoList/></SwiperSlide>
                 <SwiperSlide><Diary/></SwiperSlide>
                 <SwiperSlide><ToMyGoal/></SwiperSlide>
             </Swiper>

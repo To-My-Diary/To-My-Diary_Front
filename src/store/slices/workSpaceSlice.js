@@ -21,11 +21,7 @@ const workSpaceSlice = createSlice({
     reducers:{
         // 상태 전환
         changeMode:(state, action)=>{
-            if(action.payload === mode.TODO)
-            {
-                state.currentMode = mode.TODO
-            }
-            else if(action.payload === mode.DIARY)
+            if(action.payload === mode.DIARY)
             {
                 state.currentMode = mode.DIARY;
             }

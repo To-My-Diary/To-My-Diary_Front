@@ -26,7 +26,7 @@ function Article() {
   // 현재 페이지 라우트 경로 정보 (ToMyGoal 경우, 편집모드일때도 ScheduleSpace가 사라지면 안되기 때문에 조건문에 사용!)
 
   // 편집모드일 경우 ScheduleSpace 제거 (목표페이지일 경우 제외)
-  if(edit && currentMode !== mode.GOAL)
+  if(edit && currentMode === mode.DIARY)
   {
     contents = <article>
       <WorkSpace/>
