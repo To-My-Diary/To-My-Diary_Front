@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import diaryLogo from 'assets/icons/일기 작성.png';
-import { VscChromeMaximize, VscCircleLarge } from 'react-icons/vsc';
+import { VscCircleLarge } from 'react-icons/vsc';
 import { GrCheckbox, GrCheckboxSelected } from "react-icons/gr";
 import { request } from 'lib/api/api_type';
 import { changeEdit } from 'store/slices/workSpaceSlice';
@@ -10,7 +10,7 @@ import trashImage from 'assets/icons/쓰레기통 1.png';
 import { saveGoalData } from "store/slices/dataSlice";
 
 
-function GoalView(props)
+function GoalView()
 {
     const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
@@ -58,6 +58,7 @@ function GoalView(props)
               }
             }}
           />
+          <br/>
         </>
         : <GoalNull/>
       );
@@ -81,7 +82,6 @@ function ListMainGoal(props)
     const [content, setContent] = useState(props.content||"");
     const [color, setColor] = useState(props.color||"");
     const [isSelected, setIsSelected] = useState(false);
-    const date = useSelector((state)=>(state.workSpace.date));
     const options_p = {
         method: 'POST',
       };

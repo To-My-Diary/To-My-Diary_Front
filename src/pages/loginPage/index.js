@@ -1,20 +1,15 @@
 import './index.css';
 import { useState } from 'react';
 import { RiLoginCircleLine } from 'react-icons/ri';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { request } from 'lib/api/api_type';
 import { setCookie } from 'lib/api/cookie';
-import { useDispatch } from 'react-redux';
-import { saveId } from 'store/slices/workSpaceSlice';
-import { Button } from 'bootstrap';
 
 function LoginPage()
 {
-    const kakaoURL = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=148570826c7770f175f7b4c40a87580e&redirect_uri=http://43.201.112.92:8080/auth/kakao/callback"
     const [Id, setId] = useState('')
     const [Pwd, setPwd] = useState('')
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const onIdHandler = (event) => {
         setId(event.target.value)
         localStorage.setItem('userId', event.target.value);
@@ -79,33 +74,7 @@ function LoginPage()
             <button className='signupButton' onClick={onSignupHandler}>
                 <h3>Sign Up</h3>
             </button>
-            {/* <div className='loginType'>
-            <button className='kakaoLogin' type='button' onClick={onKakaoLogin}>
-            <img src= {process.env.PUBLIC_URL + 'images/kakaoLogin.png'} alt='kakao' width={45}/>
-            </button>
-            &nbsp;
-            <button className='googleLogin' type='button' onClick={onGoogleLogin}>
-            <img src= {process.env.PUBLIC_URL + 'images/googleLogin.png'} alt='google' width={40}/>
-            </button>
-            &nbsp;
-            <button className='naverLogin' type='button' onClick={onNaverLogin}>
-            <img src= {process.env.PUBLIC_URL + 'images/naverLogin.png'} alt='naver' width={40}/>
-            </button>
-            </div> */}
         </div>
     );
 }
 export default LoginPage;
-
-function onKakaoLogin()
-{
-    window.open("https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=148570826c7770f175f7b4c40a87580e&redirect_uri=http://localhost:3000/auth/kakao/callback")
-}
-function onGoogleLogin()
-{
-    alert("구글로그인 이동")
-}
-function onNaverLogin()
-{
-    alert("네이버로그인 이동")
-}

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-// import './'
+import React from 'react';
 
 function CustomRadio({ selectedGender, onGenderChange }) {
   const genders = [
@@ -40,25 +39,3 @@ function CustomRadio({ selectedGender, onGenderChange }) {
 }
 
 export default CustomRadio;
-
-// import React from 'react';
-
-// function CustomRadio({ value, label, onSelect, selectedValue }) {
-//   const handleRadioChange = () => {
-//     onSelect(value);
-//   };
-
-//   return (
-//     <div>
-//       <input
-//         type="radio"
-//         value={value}
-//         checked={value === selectedValue}
-//         onChange={handleRadioChange}
-//       />
-//       <label>{label}</label>
-//     </div>
-//   );
-// }
-
-// export default CustomRadio;

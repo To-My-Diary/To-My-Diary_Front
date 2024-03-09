@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect, useId } from "react";
+import { useState, useEffect } from "react";
 import trashImage from 'assets/icons/쓰레기통 1.png';
 import plusImage from 'assets/icons/플러스2 1.png';
 import buttonImage from 'assets/icons/체크1 2.png';
@@ -16,11 +16,11 @@ function GoalEdit(props)
     const [nextID, setNextID] = useState(2)
     const [list, setList] = useState([]);
     const [goal, setGoal] = useState(props.goal||"");
-    const [detailGoal, setDetailGoal] = useState([])
+    const [detailGoal, setDetailGoal] = useState([]);
     const detailGoals = useSelector((state)=>(state.workSpace.detailGoals));
     const date = useSelector((state)=>(state.workSpace.date));
     const color = useSelector((state)=>(state.workSpace.color));
-    const edit = useSelector((state)=>(state.workSpace.edit));
+    // const edit = useSelector((state)=>(state.workSpace.edit));
     const userId = useSelector((state) => state.workSpace.id);
     const options_p = {
         method: 'POST',
@@ -32,8 +32,9 @@ function GoalEdit(props)
     async function onSubmitHandler()
     {
         request("/save/goal", options_p)
-        .then((data) => {
+        .then(() => {
           onMainGoalListView()
+          console.log('dg',detailGoals)
           dispatch(changeEdit)
         })
         .catch ((error) => alert(error.message));
@@ -67,7 +68,6 @@ function GoalEdit(props)
             event.preventDefault();
             const detailData = [];
             const listGoals = document.querySelectorAll(".dgoalList");
-            let id = 1;
             const mainGoalInput = event.target.elements['mainGoal-input'];
             if (mainGoalInput && mainGoalInput.value.length > 0) {
               listGoals.forEach(item => {
@@ -129,9 +129,7 @@ function GoalEdit(props)
 }
 
 function ListGoal(props) {
-    const dispatch = useDispatch();
     const [msg, setMsg] = useState(props.msg || "");
-    const [planDate, setPlanDate] = useState("");
     const date = useSelector((state) => state.workSpace.date);
   
     // FIXME: 삭제 시, 나머지 골 id 수정 필요
