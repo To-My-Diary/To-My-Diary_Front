@@ -7,71 +7,65 @@ import { saveDiaryData } from 'store/slices/dataSlice'
 import './index.css';
 import imageLogo from 'assets/icons/사진4.png'
 import buttonImage from 'assets/icons/완료3 2.png'
-import { request } from 'lib/api/api_type';
+import { postDiary, modifyDiary } from "lib/api/PostApi";
+import { base64ToBlob } from 'components/diary/base64ToBlob';
 
 //일기 작성 화면
-function DiaryEdit(props)
+function DiaryEdit({diaryData, setStyle})
 {
     const diaryImages = useSelector(state=>state.workSpace.diaryImages);
+    const [imageList, setImageList] = useState([])
     const [croppingImage, setCroppingImage] = useState(null);
     const [imageId, setImageId] = useState(1);
     const [content, setContent] = useState("");
+    const [modify, setModify] = useState(false);
     const dispatch = useDispatch();
+    const date = useSelector(state=>state.workSpace.date);
     let reader = new FileReader();
-    const options = {
-        method: 'POST',
-        body: JSON.stringify({ subject: "제목1", content: content}), // JSON 데이터를 문자열로 변환(GET 요청 시에는 필요 X)
-        
-      };
-    async function onSubmitHandler()
-    {
-        try {
-            const data = await request("/save/diary", options); // 원하는 API 엔드포인트 경로를 전달
-            console.log(data); // API 응답 데이터 출력 또는 다른 작업 수행
-
-            dispatch(changeEdit());
-        } catch (error) {
-            console.error(error);
+    
+    const onSubmitHandler = () => {
+        if(modify){
+            modifyDiary(diaryData.diaryId, content, imageList);
+        } else {
+            postDiary(content, imageList, date);
         }
     }
 
     useEffect(()=>{
-        if(Object.keys(props.diaryData).length !== 0)
+        if(diaryData.content != null)
         {
-            dispatch(resetDiaryImages(props.diaryData.img))
-            setContent(props.diaryData.content);
+            if(diaryData.img) {
+                dispatch(resetDiaryImages([<img className="diaryImages" 
+                    src={diaryData.img}  key={imageId} height="100" alt=""></img>]));
+                setImageId(imageId+1);
+            }
+
+            setContent(diaryData.content);
+            setModify(true);
         }
-    },[content, props.diaryData, dispatch]);
+    },[diaryData, dispatch]);
 
     return(
         <form encType="multipart/form-data" onSubmit={(event)=>{
             event.preventDefault();
-            // Diary create
-            if(event.target.body.value.length > 0)
-            {
-                const data = {
-                    userId: "",
-                    content: event.target.body.value,
-                    emotion: "",
-                    img: diaryImages
-                }
-                dispatch(saveDiaryData(data));
-                onSubmitHandler(data);
-            }
-
+            onSubmitHandler();
             // reset diaryImages to empty list
             dispatch(resetDiaryImages([]));
-
             // change to view mode
             dispatch(changeEdit());
         }}>
             <Weather/>
             <h3 className="workSpaceTitle">TO MY DIARY</h3>
             {croppingImage ? <ImageCropper src={croppingImage} addCroppedImage={(image)=>{
-                dispatch(addDiaryImage(<img className="diaryImages" 
-                    src={image}  key={imageId} height="100" alt=""></img>));
+                dispatch(resetDiaryImages([<img className="diaryImages" 
+                    src={image}  key={imageId} height="100" alt=""></img>]));
                 setImageId(imageId+1);
                 setCroppingImage(null);
+                let blob = base64ToBlob(image.split(',')[1], 'image/png');
+                let imgFile = new File([blob], 'image.png', { type: 'image/png' });
+                let list = [];
+                list.push(imgFile);
+                setImageList(list);
                 }}/> :
                 <>
                 <div className="images">
@@ -93,14 +87,14 @@ function DiaryEdit(props)
                         }
                     };
                     //이미지 추가 시 배경화면 크기 조절
-                    props.setStyle({minHeight: "100vh"});
+                    setStyle({minHeight: "100vh"});
                 }}></input>
                 <textarea name="body" 
                     placeholder="Write your diary here..." 
                     defaultValue={content}
                     style={{height:"15em"}}
                     onChange={(event)=>{
-                        setContent(event.target.value)
+                        setContent(event.target.value);
                     }}
                 ></textarea>
                 <p>

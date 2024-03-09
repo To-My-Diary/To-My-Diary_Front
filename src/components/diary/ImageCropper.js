@@ -17,7 +17,6 @@ function ImageCropper(props) {
 
     props.addCroppedImage(croppedImage);
     // 이제 'croppedImage'를 업로드하거나 사용할 수 있습니다.
-    
   };
 
   return (

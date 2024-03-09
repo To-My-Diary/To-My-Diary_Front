@@ -64,7 +64,7 @@ useEffect(() => {
       if (getCookie('token')== null) {
         navigate('/')
       }
-    });
+  });
 
   return (
     <div className="mainPage">
