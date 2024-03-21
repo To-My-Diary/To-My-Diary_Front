@@ -10,6 +10,7 @@ function DiaryView({diaryData})
     let content = null;
     const dispatch = useDispatch();
     const edit = useSelector((state)=>(state.workSpace.edit));
+    const date = useSelector((state)=>(state.workSpace.date));
 
     
     if(diaryData.content == null) // when there is no data
@@ -32,9 +33,9 @@ function DiaryView({diaryData})
         else
         {
             content = <div>
-                <div className="images">
+                {/* <div className="images">
                     {<img src={diaryData.img} width={'200px'}></img>}
-                </div>
+                </div> */}
                 <textarea value={diaryData.content} readOnly/>
             </div>
         }
@@ -44,6 +45,7 @@ function DiaryView({diaryData})
         <>
         <Weather/>
         <h3 className="workSpaceTitle">TO MY DIARY</h3>
+        <h3>{date}</h3>
         {content}
         </>
     )

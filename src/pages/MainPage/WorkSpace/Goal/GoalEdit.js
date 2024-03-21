@@ -34,7 +34,6 @@ function GoalEdit(props)
         request("/save/goal", options_p)
         .then(() => {
           onMainGoalListView()
-          console.log('dg',detailGoals)
           dispatch(changeEdit)
         })
         .catch ((error) => alert(error.message));
@@ -83,14 +82,6 @@ function GoalEdit(props)
                         detailData.push(detailGoals);
                     }
                 })
-                const data = {
-                    content: goal,
-                    planDate: date,
-                    color: color,
-                    userId: "topjoy22@naver.com",
-                    detailGoal: [{detailData}]
-                }
-                // dispatch(saveGoalData(data));
                 setDetailGoal(detailData)
                 dispatch(saveDetailGoal(detailData));
                 onSubmitHandler();

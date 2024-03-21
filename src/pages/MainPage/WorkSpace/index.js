@@ -1,7 +1,7 @@
 /* 메인화면 아래 부분의 작업 공간 (일기, To-do 작성 등) */
 
 import './index.css';
-import Diary from './Diary';
+import Diary from 'pages/MainPage/WorkSpace/Diary/Diary.js';
 import ToMyGoal from './Goal';
 import { useDispatch, useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -9,7 +9,6 @@ import { changeMode } from 'store/slices/workSpaceSlice';
 import { mode } from "lib/constants/constant_value"
 
 import 'swiper/css';
-import { useEffect } from 'react';
 
 function WorkSpace() {
     const dispatch = useDispatch();

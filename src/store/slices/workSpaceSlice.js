@@ -6,14 +6,13 @@ const storedUserId = localStorage.getItem('userId');
 // 작업 공간 초기화 정보
 const initialState = {
     // TODO 0  Diary 1  Goal 2
-    currentMode: mode.TODO,
+    currentMode: mode.DIARY,
     edit: false,
     diaryImages: [],
     date: moment().format('YYYY-MM-DD'),
     year: moment().format('YYYY'),
     month: moment().format('MM'),
     day: moment().format('DD'),
-    goals: [{id:"1", content:<ListGoal key="1" id="1"/>}],
     color: '#000',
     id: storedUserId ? storedUserId : '',
     detailGoals: []
@@ -36,6 +35,7 @@ const workSpaceSlice = createSlice({
         },
         changeEdit:(state, action)=>{
             state.edit = !state.edit;
+            console.log(`edit mode ${state.edit}`)
         },
         changeDate:(state, action)=>{
             state.date = action.payload;
