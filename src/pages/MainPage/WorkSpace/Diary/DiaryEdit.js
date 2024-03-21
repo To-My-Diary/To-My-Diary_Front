@@ -19,9 +19,11 @@ function DiaryEdit({diaryData, setStyle})
     const [imageId, setImageId] = useState(1);
     const [content, setContent] = useState("");
     const [modify, setModify] = useState(false);
+    const [imageExist, setImageExist] = useState(false);
     const dispatch = useDispatch();
     const date = useSelector(state=>state.workSpace.date);
     let reader = new FileReader();
+    
     
     const onSubmitHandler = () => {
         if(modify){
@@ -56,6 +58,7 @@ function DiaryEdit({diaryData, setStyle})
         }}>
             <Weather/>
             <h3 className="workSpaceTitle">TO MY DIARY</h3>
+            <h3>{date}</h3>
             {croppingImage ? <ImageCropper src={croppingImage} addCroppedImage={(image)=>{
                 dispatch(resetDiaryImages([<img className="diaryImages" 
                     src={image}  key={imageId} height="100" alt=""></img>]));
@@ -65,14 +68,16 @@ function DiaryEdit({diaryData, setStyle})
                 let imgFile = new File([blob], 'image.png', { type: 'image/png' });
                 let list = [];
                 list.push(imgFile);
+                setImageExist(true);
                 setImageList(list);
                 }}/> :
                 <>
                 <div className="images">
-                    { diaryImages }
-                    <label htmlFor="chooseFile" style={{display:"inline-block", padding:"50px"}}>
-                        <img className="imageLogo" src={imageLogo} alt="사진4" width="45px"/>
-                    </label>
+                    { imageExist ? diaryImages
+                    : <label htmlFor="chooseFile" style={{display:"inline-block", padding:"50px", paddingLeft:"45px"}}>
+                    <img className="imageLogo" src={imageLogo} alt="사진4" width="45px"/>
+                </label>
+                }
                 </div>
                 <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onChange={(event)=>{
                     event.preventDefault();
@@ -87,7 +92,7 @@ function DiaryEdit({diaryData, setStyle})
                         }
                     };
                     //이미지 추가 시 배경화면 크기 조절
-                    setStyle({minHeight: "100vh"});
+                    // setStyle({minHeight: "100vh"});
                 }}></input>
                 <textarea name="body" 
                     placeholder="Write your diary here..." 
@@ -99,7 +104,7 @@ function DiaryEdit({diaryData, setStyle})
                 ></textarea>
                 <p>
                     <label htmlFor="write">
-                        <img src={buttonImage} alt="" width="40px"/>
+                        <img src={buttonImage} alt="" width="40px" style={{marginBottom:"10%"}}/>
                     </label>
                     <input id="write" type="submit" hidden/>
                 </p>
