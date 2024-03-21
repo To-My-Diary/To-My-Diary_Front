@@ -2,7 +2,7 @@ import axios from "axios";
 import { getCookie } from "./cookie";
 
 //export const END_POINT_LOCAL = "http://192.168.1.119:8080";
-export const END_POINT_LOCAL = "http://localhost:8080"
+export const END_POINT_LOCAL = "http://172.16.101.17:8080";
 
 export async function postDiary(content, files, date) {
     try{
